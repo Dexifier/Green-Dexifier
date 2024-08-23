@@ -1,23 +1,48 @@
 // import type { WalletInfo } from "@/embedded/ui";
+<<<<<<< Updated upstream
 import type { InstallObjects, Namespace, WalletType } from "@rango-dev/wallets-shared";
 import { isCosmosBlockchain, TransactionType, type BlockchainMeta } from "rango-types";
 
 import { WalletState, WalletState as WalletStatus } from "./ui";
 import { useWallets } from "@rango-dev/wallets-react";
+=======
+import type { InstallObjects, Namespace, NamespaceData, Network, WalletType } from "@rango-dev/wallets-shared";
+import { isCosmosBlockchain, isEvmBlockchain, TransactionType, type BlockchainMeta } from "rango-types";
+
+import { WalletState, WalletState as WalletStatus } from "./ui";
+import { EventHandler, Events, readAccountAddress, useWallets } from "@rango-dev/wallets-react";
+>>>>>>> Stashed changes
 import {
   detectInstallLink,
   detectMobileScreens,
   getCosmosExperimentalChainInfo,
+<<<<<<< Updated upstream
   KEPLR_COMPATIBLE_WALLETS,
   WalletTypes,
 } from "@rango-dev/wallets-shared";
 import { useCallback, useEffect, useState } from "react";
+=======
+  isEvmAddress,
+  KEPLR_COMPATIBLE_WALLETS,
+  Networks,
+  WalletTypes,
+} from "@rango-dev/wallets-shared";
+import { MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
+>>>>>>> Stashed changes
 
 // import { useAppStore } from "./store/AppStore";
 // import { useWalletsStore } from "./store/wallets";
 import { configWalletsToWalletName } from "./utils/providers";
+<<<<<<< Updated upstream
 import { WalletInfoWithNamespaces } from "./types";
 import { useAppSelector } from "@/redux_slice/provider";
+=======
+import { Wallet, WalletInfoWithNamespaces } from "./types";
+import { useAppSelector } from "@/redux_slice/provider";
+import { disconnectedWallet, updateConnectedWallet } from "@/redux_slice/slice/walletSlice";
+
+export type OnWalletConnectionChange = (key: string) => void;
+>>>>>>> Stashed changes
 
 const ALL_SUPPORTED_WALLETS = Object.values(WalletTypes);
 type WalletState = {
@@ -173,11 +198,16 @@ export function useWalletList(params: Params) {
   const { chain, onBeforeConnect, onConnect } = params;
   const { config } = useAppSelector((state) => state.wallet);
   const { state, disconnect, getWalletInfo, connect } = useWallets();
+<<<<<<< Updated upstream
   console.log("getWalletInfo", getWalletInfo);
 
 
   const blockchains: BlockchainMeta[] = [];
 
+=======
+
+  const blockchains: BlockchainMeta[] = useAppSelector((state) => state.blockchains.blockchains);
+>>>>>>> Stashed changes
   const { connectedWallets } = useAppSelector((state) => state.wallet);
 
   /** It can be what has been set by widget config or as a fallback we use all the supported wallets by our library */
@@ -193,7 +223,11 @@ export function useWalletList(params: Params) {
     listAvailableWalletTypes,
     chain,
   );
+<<<<<<< Updated upstream
   console.log("wallets", wallets, listAvailableWalletTypes, chain);
+=======
+  console.log("wallets, listAvailableWallet, Chain", wallets, listAvailableWalletTypes, chain);
+>>>>>>> Stashed changes
 
   wallets = detectMobileScreens()
     ? wallets.filter(
@@ -211,7 +245,11 @@ export function useWalletList(params: Params) {
         connectedWallet.chain === chain,
     );
 
+<<<<<<< Updated upstream
   const handleClick = async (type: WalletType, namespaces?: Namespace[]) => {
+=======
+  const handleClick = async (type: WalletType, namespaces?: NamespaceData[]) => {
+>>>>>>> Stashed changes
     const wallet = state(type);
     try {
       if (error) {
@@ -312,3 +350,179 @@ export function useWalletList(params: Params) {
     disconnectWallet,
   };
 }
+<<<<<<< Updated upstream
+=======
+
+export function walletAndSupportedChainsNames(
+  supportedBlockchains: BlockchainMeta[],
+): Network[] | null {
+  if (!supportedBlockchains) {
+    return null;
+  }
+  let walletAndSupportedChainsNames: Network[] = [];
+  walletAndSupportedChainsNames = supportedBlockchains.map(
+    (blockchainMeta) => blockchainMeta.name,
+  );
+
+  return walletAndSupportedChainsNames;
+}
+
+export function prepareAccountsForWalletStore(
+  wallet: WalletType,
+  accounts: string[],
+  evmBasedChains: string[],
+  supportedChainNames: Network[] | null,
+  isContractWallet: boolean,
+): Wallet[] {
+  const result: Wallet[] = [];
+
+  function addAccount(network: Network, address: string) {
+    const accountForChainAlreadyExists = !!result.find(
+      (account) => account.chain === network,
+    );
+    if (!accountForChainAlreadyExists) {
+      const newAccount: Wallet = {
+        address,
+        chain: network,
+        walletType: wallet,
+      };
+
+      result.push(newAccount);
+    }
+  }
+
+  const supportedBlockchains = supportedChainNames || [];
+
+  accounts.forEach((account) => {
+    const { address, network } = readAccountAddress(account);
+
+    const hasLimitation = supportedBlockchains.length > 0;
+    const isSupported = supportedBlockchains.includes(network);
+    const isUnknown = network === Networks.Unknown;
+    const notSupportedNetworkByWallet =
+      hasLimitation && !isSupported && !isUnknown;
+
+    /*
+     * Here we check given `network` is not supported by wallet
+     * And also the network is known.
+     */
+    if (notSupportedNetworkByWallet) {
+      return;
+    }
+
+    /*
+     * In some cases we can handle unknown network by checking its address
+     * pattern and act on it.
+     * Example: showing our evm compatible network when the unknown network is evm.
+     * Otherwise, we stop executing this function.
+     */
+    const isUnknownAndEvmBased =
+      network === Networks.Unknown && isEvmAddress(address);
+    if (isUnknown && !isUnknownAndEvmBased) {
+      return;
+    }
+
+    const isEvmBasedChain = evmBasedChains.includes(network);
+
+    // If it's an evm network, we will add the address to all the evm chains.
+    if (isEvmBasedChain || isUnknownAndEvmBased) {
+      if (isContractWallet) {
+        /*
+         * for contract wallets like Safe wallet, we should add only account for the
+         * current connected blockchain not all of the supported blockchains
+         */
+        addAccount(network, address.toLowerCase());
+      } else {
+        /*
+         * all evm chains are not supported in wallets, so we are adding
+         * only to those that are supported by wallet.
+         */
+        const evmChainsSupportedByWallet = supportedBlockchains.filter(
+          (chain) => evmBasedChains.includes(chain),
+        );
+
+        evmChainsSupportedByWallet.forEach((network) => {
+          /*
+           * EVM addresses are not case sensitive.
+           * Some wallets like Binance-chain return some letters in uppercase which produces bugs in our wallet state.
+           */
+          addAccount(network, address.toLowerCase());
+        });
+      }
+    } else {
+      addAccount(network, address);
+    }
+  });
+
+  return result;
+}
+
+export const getOnUpdateState = (
+  blockchains: BlockchainMeta[],
+  onConnectWalletHandler: MutableRefObject<OnWalletConnectionChange | undefined>,
+  onDisconnectWalletHandler: MutableRefObject<OnWalletConnectionChange | undefined>,
+  dispatch: any) => {
+
+  const onUpdateState: EventHandler = (type, event, value, state, meta) => {
+    const evmBasedChainNames = blockchains
+      .filter(isEvmBlockchain)
+      .map((chain) => chain.name);
+
+    if (event === Events.ACCOUNTS) {
+      if (value) {
+        const supportedChainNames: Network[] | null =
+          walletAndSupportedChainsNames(meta.supportedBlockchains);
+        const data = prepareAccountsForWalletStore(
+          type,
+          value,
+          evmBasedChainNames,
+          supportedChainNames,
+          meta.isContractWallet,
+        );
+
+        if (data.length) {
+          dispatch(updateConnectedWallet({ accounts: data }));
+        }
+      } else {
+        dispatch(disconnectedWallet({ walletType: type }));
+        if (onDisconnectWalletHandler?.current) {
+          onDisconnectWalletHandler?.current(type);
+        } else {
+          console.warn(
+            `onDisconnectWallet handler hasn't been set. Are you sure?`,
+          );
+        }
+      }
+    }
+    if (event === Events.ACCOUNTS && state.connected) {
+      const key = `${type}-${state.network}-${value}`;
+
+      if (state.connected) {
+        if (onConnectWalletHandler?.current) {
+          onConnectWalletHandler?.current(key);
+        } else {
+          console.warn(
+            `onConnectWallet handler hasn't been set. Are you sure?`,
+          );
+        }
+      }
+    }
+
+    if (event === Events.NETWORK && state.network) {
+      const key = `${type}-${state.network}`;
+      if (onConnectWalletHandler?.current) {
+        onConnectWalletHandler?.current(key);
+      } else {
+        console.warn(`onConnectWallet handler hasn't been set. Are you sure?`);
+      }
+    }
+
+    // propagate updates for Dapps using external wallets
+
+    // if (props.onUpdateState) {
+    //   props.onUpdateState(type, event, value, state, meta);
+    // }
+  };
+  return onUpdateState
+}
+>>>>>>> Stashed changes

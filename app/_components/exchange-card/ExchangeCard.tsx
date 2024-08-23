@@ -39,7 +39,11 @@ import { resetToken, updateToken, updateTokenValue } from "@/redux_slice/slice/t
 import { setQuotedata } from "@/redux_slice/slice/quoteDataSlice";
 import { sortQuotesBy } from "@/app/utils/catch-data";
 import WalletSourcePopup from "./wallet-popup";
+<<<<<<< Updated upstream
 import { useWalletList } from "@/app/wallet/useWalletList";
+=======
+import { setButtonRef } from "@/redux_slice/slice/walletSlice";
+>>>>>>> Stashed changes
 
 enum WALLET {
   NONE,
@@ -52,11 +56,21 @@ interface ExchangeCardProps {
 
 const ExchangeCard: React.FC<ExchangeCardProps> = ({ isWalletConnected }) => {
   const walletSourcePopupRef = useRef<HTMLButtonElement>(null);
+<<<<<<< Updated upstream
   const events = useWeb3ModalEvents();
   const account = useAccount();
   const { open } = useWeb3Modal();
   const { address } = useAccount();
   console.log("accounts", account);
+=======
+
+  // const events = useWeb3ModalEvents();
+  // const account = useAccount();
+  const account = { isConnected: true }
+  // const { open } = useWeb3Modal();
+  // const { address } = useAccount();
+  const address = "0x123243456787"
+>>>>>>> Stashed changes
 
   // redux hook
   const dispatch = useAppDispatch();
@@ -66,9 +80,9 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({ isWalletConnected }) => {
   const { toToken, fromToken } = useAppSelector((state) => state?.tokens);
   const { isInProcess, isSwapMade } = useAppSelector((state) => state.swap);
   // use Memo
-  const eventMemo = useMemo(() => {
-    events;
-  }, [events]);
+  // const eventMemo = useMemo(() => {
+  //   events;
+  // }, [events]);
 
   // react state
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -104,21 +118,33 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({ isWalletConnected }) => {
     else setIsSelectionsComplete(false);
   }, [toToken, fromToken]);
 
-  useEffect(() => {
-    if (events.data.event == "CONNECT_SUCCESS") {
-      toastSuccess("Wallet connected! ");
-    }
-  }, [eventMemo]);
+  // useEffect(() => {
+  //   if (events.data.event == "CONNECT_SUCCESS") {
+  //     toastSuccess("Wallet connected! ");
+  //   }
+  // }, [eventMemo]);
 
   useEffect(() => {
     initializeBlockchains();
   }, []);
 
+<<<<<<< Updated upstream
   const handleConnectButtonClick = () => {
     if (walletSourcePopupRef.current) {
       walletSourcePopupRef.current.click();
       console.log("clicked");
 
+=======
+  useEffect(() => {
+    if (walletSourcePopupRef.current) {
+      dispatch(setButtonRef({ refButton: walletSourcePopupRef.current }))
+    }
+  }, [walletSourcePopupRef.current])
+
+  const handleConnectButtonClick = () => {
+    if (walletSourcePopupRef.current) {
+      walletSourcePopupRef.current.click();
+>>>>>>> Stashed changes
     }
   };
 
@@ -333,7 +359,6 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({ isWalletConnected }) => {
 
                     createTransaction(swapData)
                       .then((data) => {
-                        console.log(data);
 
                         dispatch(
                           updateSwapResponse({

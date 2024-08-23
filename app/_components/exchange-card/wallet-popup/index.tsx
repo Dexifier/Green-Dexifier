@@ -7,6 +7,11 @@ import { WalletInfoWithNamespaces, WalletState } from "@/app/wallet/types";
 import Search from "../../common/search";
 import { useSearchParams } from "next/navigation";
 import { forwardRef, useEffect, useMemo, useState } from "react";
+<<<<<<< Updated upstream
+=======
+import { useWallets } from "@rango-dev/wallets-react";
+import { toastError } from "@/lib/utils";
+>>>>>>> Stashed changes
 
 enum BgColorSet {
   'not_installed' = "#97979763",
@@ -25,6 +30,10 @@ const WalletSourcePopup = forwardRef<HTMLButtonElement>((props, ref) => {
   const [search, setSearch] = useState<string>("")
   const [filteredData, setFilteredData] = useState<WalletInfoWithNamespaces[]>();
   const { list, handleClick, error, disconnectConnectingWallets } = useWalletList({})
+<<<<<<< Updated upstream
+=======
+  const { state } = useWallets();
+>>>>>>> Stashed changes
 
   // Memoize the filtered list
   const filteredWalletList = useMemo(() => {
@@ -49,7 +58,14 @@ const WalletSourcePopup = forwardRef<HTMLButtonElement>((props, ref) => {
       window.open(walletData.link as string, "_blank");
       return
     }
+<<<<<<< Updated upstream
     handleClick(walletData.type)
+=======
+    handleClick(walletData.type);
+    // error && toastError(error)
+    console.log("error from wailet", error);
+
+>>>>>>> Stashed changes
   }
 
   const isWalletConnected = connectedWallets.length === 0 ? false : true;
@@ -88,7 +104,11 @@ const WalletSourcePopup = forwardRef<HTMLButtonElement>((props, ref) => {
 
   const singleWalletButton = (walletData: WalletInfoWithNamespaces, index: number) => {
     return (
+<<<<<<< Updated upstream
       <button key={`wallet-${index}`} className="flex flex-col min-w-[125px] items-center justify-center p-2 rounded-lg"
+=======
+      <button key={`wallet-${index}`} className="flex flex-col min-w-[125px] items-center justify-center p-2 rounded-lg hover:opacity-80"
+>>>>>>> Stashed changes
         style={{ backgroundColor: BgColorSet[walletData.state] }}
         onClick={() => walletClick(walletData)}>
         <Image src={walletData.image} alt={`@{index}'s wallet`} width={45}

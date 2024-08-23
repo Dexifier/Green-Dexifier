@@ -4,7 +4,12 @@ import RoutesCard from "./routes-card";
 import { FlexRoutesCardProps } from "@/app/types/interface";
 
 const FlexRoutesCard: React.FC<FlexRoutesCardProps> = ({ isWalletConnected }) => {
+<<<<<<< Updated upstream
   const account = useAccount();
+=======
+  // const account = useAccount();
+  const account = { isConnected: true }
+>>>>>>> Stashed changes
   const { isSwapMade, isInProcess } = useAppSelector((state) => state.swap);
   const { isRoutesFetched } = useAppSelector((state) => state.routes);
   const { isRouteProcess } = useAppSelector((state) => state.routes);

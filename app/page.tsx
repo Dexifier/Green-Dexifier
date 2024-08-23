@@ -1,8 +1,8 @@
 "use client";
-import { useEffect } from "react";
 import FlexExchangeCard from "./_components/exchange-card/FlexExchangeCard";
 import FlexRoutesCard from "./_components/routes-card/FlexRoutesCard";
 import FlexSwapCard from "./_components/swap-details-card/FlexSwapCard";
+<<<<<<< Updated upstream
 import Web3ModalProvider from "./providers/Web3ModalProvider";
 import { useAppDispatch } from "@/redux_slice/provider";
 import { getCompactBlockchainTokens } from "./api/rango-api";
@@ -50,3 +50,26 @@ const FlexPage = () => {
   )
 }
 
+=======
+import { useWalletList } from "./wallet/useWalletList";
+
+
+export default function Home() {
+  const { list, handleClick, error, disconnectConnectingWallets } = useWalletList({})
+  const connectedWallets = list.filter(
+    (wallet) => wallet.state === "connected",
+  );
+  const isWalletConnected = connectedWallets.length === 0 ? false : true;
+  return (
+    <main className="h-screen p-4 pt-32 w-full flex flex-wrap gap-y-5 justify-center items-center gap-x-5 bg-[url('/assets/background.png')] bg-cover">
+
+      <FlexSwapCard isWalletConnected={isWalletConnected} />
+
+      <FlexExchangeCard isWalletConnected={isWalletConnected} />
+
+      <FlexRoutesCard isWalletConnected={isWalletConnected} />
+    </main>
+  );
+}
+
+>>>>>>> Stashed changes
