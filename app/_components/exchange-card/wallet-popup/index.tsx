@@ -88,7 +88,7 @@ const WalletSourcePopup = forwardRef<HTMLButtonElement>((props, ref) => {
       // disabled={!isWalletConnected}
       ref={ref}
     >
-      <TooltipTemplate content={content} className="rounded-xl !mb-1">
+      <TooltipTemplate content={content} className="rounded-xl !mb-1 text-black">
         <div className="relative">
           <Image
             src={"/assets/icons/wallet.png"}
@@ -96,7 +96,7 @@ const WalletSourcePopup = forwardRef<HTMLButtonElement>((props, ref) => {
             width={18}
             height={18}
           />
-          {isWalletConnected && <div className="absolute top-0 -right-[2px] rounded-full bg-[#58ff66d6] w-[8px] h-[8px]" />}
+          {isWalletConnected && <div className="absolute top-0 -right-[2px] rounded-full bg-[#58ff66d6] w-[8px] h-[8px] text-black" />}
         </div>
       </TooltipTemplate>
     </Button >

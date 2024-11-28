@@ -94,7 +94,7 @@ const MainNavbar = () => {
 
   useEffect(() => {
 
-    if (pathname === "/" && wallet === WALLET.BROWSE) {
+    if (pathname === "/") {
       setActiveLink(true);
     } else {
       setActiveLink(false);
@@ -480,18 +480,23 @@ const MainNavbar = () => {
                   {link.text}
                 </Link>
               ))}
+              
               {activeLink && (!connectedWallets.length ?
-                <button className="flex text-[1.075rem] bg-primary rounded-full p-2 pr-3 items-center justify-center hover:opacity-80"
+                <button
+                className={`flex text-[1.075rem] bg-primary rounded-full p-2 pr-3 items-center justify-center hover:opacity-80 transition-all duration-500 ease-in-out ${
+                  wallet === WALLET.BROWSE
+                    ? 'opacity-100 translate-x-0 pointer-events-auto'
+                    : 'opacity-0 translate-x-full pointer-events-none'
+                  }`}
                   onClick={onClickWalletButton}>
                   <div className="mx-2">
-                    <Image
-                      src={"/assets/icons/wallet.png"}
-                      alt="button-icon"
-                      width={22}
-                      height={22}
-                    />
+                      <img
+                        src="/assets/icons/wallet.png"
+                        alt="button-icon"
+                        className="w-6 h-6"
+                      />
                   </div>
-                  <span>Connect Wallet</span>
+                  <span className = "font-Inter text-[14px] font-bold leading-[16.94px] text-left text-[#040F0B]">CONNECT WALLET</span>
                 </button>
                 : <div className="flex">
                   <button className="flex relative text-[1.075rem] min-h-[35px] border border-primary rounded-l-full rounded p-2 items-center justify-center hover:opacity-80"
