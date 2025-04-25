@@ -401,12 +401,12 @@ const RouteCard = () => {
       )}
     >
       <CardHeader className="md:p-4 py-4 px-0">
-        <div className="h-auto bg-transparent flex w-full justify-between">
+        <div className="h-auto bg-transparent flex w-full justify-between gap-4">
           <CardTitle>Routes</CardTitle>
           <RadioGroup
             defaultValue={FILTERS[0]}
             onValueChange={(value) => setFilter(value)}
-            className="flex items-center justify-end w-2/3 overflow-x-scroll"            
+            className="flex items-center overflow-x-scroll"            
           >
             {FILTERS.map((filter) => (
               <RadioGroupPrimitive.Item

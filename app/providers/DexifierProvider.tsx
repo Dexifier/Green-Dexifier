@@ -28,7 +28,7 @@ interface DexifierContextType {
   withdrawalAddress: string,                                                                  // The token being swapped from
   setWithdrawalAddress: Dispatch<SetStateAction<string>>,                          // Setter for tokenFrom
   refundAddress: string,                                                                    // The token being swapped to
-  setRefundAddress: Dispatch<SetStateAction<string>>,       
+  setRefundAddress: Dispatch<SetStateAction<string>>,
   tokenFrom?: Token,                                                                  // The token being swapped from
   setTokenFrom: Dispatch<SetStateAction<Token | undefined>>,                          // Setter for tokenFrom
   tokenTo?: Token,                                                                    // The token being swapped to
@@ -155,7 +155,17 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
       blockchain: networks.find(n => n.id === currency.networkId)?.network,
       image: currency.icon,
     }))
-    return [...tk, ...cu];
+    const seen = new Set<string>();
+    const uniqueItems = [...tk, ...cu].filter(item => {
+      const key = `${item.address}-${item.symbol}-${item.blockchain}`;
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    });
+
+    return uniqueItems;
   }, [networks, tokens, currencies])
 
   const amountTo = useMemo(() => {
@@ -393,8 +403,8 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
     if (swapStatus) {
       setState(DEXIFIER_STATE.PROCESSING);
       if ("state" in swapStatus) {
-        if(swapStatus.state === 'SENT') setState(DEXIFIER_STATE.SUCCESS)
-        if(swapStatus.state === 'FAILED') setState(DEXIFIER_STATE.FAILED)
+        if (swapStatus.state === 'SENT') setState(DEXIFIER_STATE.SUCCESS)
+        if (swapStatus.state === 'FAILED') setState(DEXIFIER_STATE.FAILED)
       }
       if ("status" in swapStatus) {
         if (swapStatus.status === 'success') setState(DEXIFIER_STATE.SUCCESS)
