@@ -3,8 +3,8 @@
 // It provides functionality to cancel or delete a swap, and shows detailed information about each step of the swap process.
 import Image from "next/image";
 import Link from "next/link";
-import { cancelSwap } from "@rango-dev/queue-manager-rango-preset";
-import { FC, useEffect, useState } from "react";
+import { cancelSwap, PendingSwapWithQueueID } from "@rango-dev/queue-manager-rango-preset";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { PendingSwap } from "rango-types";
 import { useManager } from "@rango-dev/queue-manager-react";
 import ButtonCopyIcon from "../common/coyp-button-icon";
@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useDexifier } from "@/app/providers/DexifierProvider";
 import { useNotification } from "@/app/providers/NotificationProvider";
+import confetti from "canvas-confetti";
 
 interface SwapTokenProps {
   swapData: SwapResult, // Data related to the token being swapped
@@ -34,6 +35,22 @@ type RangoData = {
   selectedRoute: MultiRouteSimulationResult;
 };
 
+function useWindowFocus() {
+  const [focused, setFocus] = useState(document.hasFocus());
+  const handleFocus = () => setFocus(true);
+  const handleBlur = () => setFocus(false);
+
+  useEffect(() => {
+    window.addEventListener("focus", handleFocus);
+    window.addEventListener("blur", handleBlur);
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+      window.removeEventListener("blur", handleBlur);
+    };
+  }, []);
+
+  return focused;
+}
 
 const DexifierDetailRango = () => {
   const { manager } = useManager(); // Manager from the Rango queue
@@ -41,26 +58,88 @@ const DexifierDetailRango = () => {
   const { selectedRoute, swapData } = useDexifier() as RangoData;
   const { initialize } = useDexifier();
   const swaps = selectedRoute.swaps; // List of swaps involved in the current route
-  const pendingSwaps = getPendingSwaps(manager); // Fetch pending swaps from the manager
   const { notify } = useNotification();
-
-  const selectedSwap = swapData.result?.requestId
-    ? pendingSwaps.find(({ swap }) => swap.requestId === swapData.result?.requestId)
-    : undefined;
-  const pendingSwap = selectedSwap?.swap; // Get the selected swap from the pending swaps
+  const [selectedSwap, setSelectedSwap] = useState<PendingSwapWithQueueID | undefined>(undefined);
+  const [confettiShown, setConfettiShown] = useState(false); // Track if confetti has been shown
+  const focused = useWindowFocus();
 
   useEffect(() => {
-    if (pendingSwap?.status === "failed") {
-      const tokenFrom = pendingSwap.simulationResult.swaps[0].from;
-      const tokenTo = pendingSwap.simulationResult.swaps[-1].to;
-      const amountFrom = Number(pendingSwap.inputAmount).toFixed(2);
-      const amountTo = Number(pendingSwap.simulationResult.outputAmount).toFixed(2);
-      notify('Swap success!', {
-        body: `${tokenFrom.blockchain} ${amountFrom} ${tokenFrom.symbol} -> ${tokenTo.blockchain} ${amountTo} ${tokenTo.symbol}`,
-        icon: '/assets/logo.png',
-      })
+    const updateSelectedSwap = () => {
+      const pendingSwaps = getPendingSwaps(manager);
+      const updatedSwap = swapData.result?.requestId
+        ? pendingSwaps.find(({ swap }) => swap.requestId === swapData.result?.requestId)
+        : undefined;
+
+      setSelectedSwap(updatedSwap);
+    };
+
+    const intervalId = setInterval(updateSelectedSwap, 1000);
+    return () => clearInterval(intervalId);
+  }, [manager, swapData]);
+
+  const status = useMemo(() => selectedSwap?.swap.status, [selectedSwap]);
+
+  const showConfetti = useCallback(() => {
+    if (!focused) return;
+    const duration = 5 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 600, zIndex: 0 };
+
+    const randomInRange = (min: number, max: number) =>
+      Math.random() * (max - min) + min;
+
+    const interval = window.setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 100 * (timeLeft / duration);
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+      });
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+      });
+    }, 250);
+
+    setConfettiShown(true); // Mark confetti as shown
+  }, [focused]);
+
+  useEffect(() => {
+    if (status === "success" && !confettiShown && focused) {
+      showConfetti();
     }
-  }, [pendingSwap])
+  }, [status, confettiShown, focused]);
+
+  useEffect(() => {
+    const { swap } = selectedSwap || {};
+    if (swap && status !== "running") {
+      try {
+        const { swaps } = swap.simulationResult;
+        const tokenFrom = swaps[0].from;
+        const tokenTo = swaps[swaps.length - 1].to;
+        const amountFrom = Number(swap.inputAmount).toFixed(2);
+        const amountTo = Number(swap.simulationResult.outputAmount).toFixed(2);
+
+        notify(`Swap ${status === "success" ? "completed" : "failed"}!`, {
+          body: `${tokenFrom.blockchain} ${amountFrom} ${tokenFrom.symbol} -> ${tokenTo.blockchain} ${amountTo} ${tokenTo.symbol}`,
+          icon: `/assets/icon-${status === "success" ? "green" : "red"}.png`,
+        });
+
+        if (status === "success") {
+          showConfetti();
+        }
+      } catch (error) {
+        console.error("Error showing notification:", error);
+      }
+    }
+  }, [status, notify]);
 
   // Handle canceling the swap
   const onCancel = () => {
@@ -83,9 +162,9 @@ const DexifierDetailRango = () => {
 
   // Fetch the message for a particular step of the swap process
   const getMessage = (index: number) => {
-    if (!pendingSwap) return;
-    const currentStep = pendingSwap.steps[index];
-    const stepMessage = getSwapMessages(pendingSwap, currentStep); // Get message for the current step
+    if (!selectedSwap?.swap) return;
+    const currentStep = selectedSwap.swap.steps[index];
+    const stepMessage = getSwapMessages(selectedSwap.swap, currentStep); // Get message for the current step
     const stepDetailMessage = stepMessage.detailedMessage.content || stepMessage.shortMessage;
     return stepDetailMessage;
   };
@@ -128,12 +207,12 @@ const DexifierDetailRango = () => {
       </CardHeader>
       <CardContent className="overflow-auto h-[380px] px-6">
         <div className="mb-8">
-          {pendingSwap && <div className="flex justify-between">
+          {selectedSwap?.swap && <div className="flex justify-between">
             <span className="text-lg font-semibold">
-              {`${pendingSwap.finishTime ? "Finished at" : "Created at"}:`}
+              {`${selectedSwap?.swap.finishTime ? "Finished at" : "Created at"}:`}
             </span>
             <span className="text-sm text-white/50">
-              {getSwapDate(pendingSwap)}
+              {getSwapDate(selectedSwap?.swap)}
             </span>
           </div>}
           <div className="flex items-center justify-between">
@@ -198,10 +277,10 @@ const DexifierDetailRango = () => {
                     </div>
                     <SwapSteps swapData={swap} isFrom={false} />
                     <div className="text-white/50 ml-2 col-span-2">
-                      {swap && <StepState swap={pendingSwap} currentStep={index} />}
+                      {swap && <StepState swap={selectedSwap?.swap} currentStep={index} />}
                     </div>
                   </div>
-                  {swap && <StepMessage swap={pendingSwap} currentStep={index} />}
+                  {swap && <StepMessage swap={selectedSwap?.swap} currentStep={index} />}
                 </div>
               )
             })}
@@ -213,9 +292,9 @@ const DexifierDetailRango = () => {
           className={cn('h-12 mx-auto')}
           variant="outline"
           onClick={onCancel}
-          disabled={pendingSwap?.status === "running"}
+          disabled={selectedSwap?.swap.status === "running"}
         >
-          {pendingSwap?.status === "success" ? "Swap again" : "Cancel"}
+          {selectedSwap?.swap.status === "success" ? "Swap again" : "Cancel"}
         </Button>
       </CardFooter>
     </Card>
