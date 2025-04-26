@@ -27,7 +27,11 @@ const NotificationProvider = ({ children }: { children: ReactNode }) => {
 
   const notify = (title: string, option: NotificationOptions) => {
     if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification(title, option);
+      const notification = new Notification(title, option);
+
+      notification.onclick = () => {
+        window.focus();
+      };
     } else {
       console.log('Notification permission not granted.');
     }
