@@ -37,7 +37,7 @@ const SwapperModal: React.FC<PropsWithChildren<SwapperModalProps>> = ({ children
 
   useEffect(() => {
     setFilteredSwappers(swappers.filter(swapper => swapper.title.toLowerCase().includes(search.toLowerCase())))
-  }, [search])
+  }, [search, swappers])
 
   return (
     <Dialog>

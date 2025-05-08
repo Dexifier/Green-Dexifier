@@ -137,7 +137,7 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
     }
     */
     }
-  }, [selectedRoute, tokenFrom, tokenTo]);
+  }, [selectedRoute]);
 
   useEffect(() => {
     if (swapInfo && connectedWallets) {
@@ -152,7 +152,7 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
         )[0]
       );
     }
-  }, [swapInfo, connectedWallets]);
+  }, [swapInfo, connectedWallets, setWalletFrom, setWalletTo]);
 
   async function pasteWithdrawalAddressFromClipboard() {
     try {

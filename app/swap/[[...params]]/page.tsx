@@ -1,16 +1,24 @@
-"use client";
+'use client';
 
-import { DEXIFIER_STATE, useDexifier } from "./providers/DexifierProvider";
-import DexifierCard from "./_components/dexifier/DexifierCard";
-import RouteCard from "./_components/dexifier/RouteCard";
-import DexifierDetailRango from "./_components/dexifier/DexifierDetail(Rango)";
-import { AnimatePresence, motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import AddressesCard from "./_components/dexifier/AddressCard";
-import { Loader2 } from "lucide-react";
+import { DEXIFIER_STATE, useDexifier } from '../../providers/DexifierProvider';
+import DexifierCard from '../../_components/dexifier/DexifierCard';
+import RouteCard from '../../_components/dexifier/RouteCard';
+import DexifierDetailRango from '../../_components/dexifier/DexifierDetail(Rango)';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import AddressesCard from '../../_components/dexifier/AddressCard';
+import { Loader2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-export default function SwapPage() {
+interface SwapPageParams {
+  params: {
+    params: [string, string];
+  };
+}
+
+export default function SwapPage({ params }: SwapPageParams) {
+  const [fromToken, toToken] = params.params || [];
   const {
     state,
     swapData,
@@ -22,13 +30,24 @@ export default function SwapPage() {
     setState,
     createSwap,
     initialize,
+    initToken,
+    chains,
+    coins,
   } = useDexifier();
+  const [init, setInit] = useState(false);
+
+  useEffect(() => {
+    if (chains.length && coins.length && !init) {
+      setInit(true);
+      initToken(fromToken, toToken);
+    }
+  }, [fromToken, toToken, initToken, chains, coins, init]);
 
   return (
     <main
       className={cn(
         "relative min-h-screen pt-32 md:bg-[url('/assets/background.jpg')] bg-cover",
-        isMobile ? "px-8" : "px-4"
+        isMobile ? 'px-8' : 'px-4'
       )}
     >
       <div className="fixed inset-0 w-screen h-screen md:hidden -z-50">
@@ -36,10 +55,10 @@ export default function SwapPage() {
       </div>
       <section
         className={cn(
-          "flex justify-center",
+          'flex justify-center',
           isMobile
-            ? "h-full flex-col gap-8"
-            : "flex-row flex-wrap gap-5 h-[560px] items-stretch m-4 mt-32"
+            ? 'h-full flex-col gap-8'
+            : 'flex-row flex-wrap gap-5 h-[560px] items-stretch m-4 mt-32'
         )}
       >
         <DexifierCard />
@@ -57,7 +76,7 @@ export default function SwapPage() {
                 }
                 animate={
                   isMobile
-                    ? { height: "100%", opacity: 1 }
+                    ? { height: '100%', opacity: 1 }
                     : { width: 650, opacity: 1 }
                 }
                 exit={
@@ -66,7 +85,7 @@ export default function SwapPage() {
                     : { width: 0, opacity: 0 }
                 }
                 transition={{
-                  type: "spring",
+                  type: 'spring',
                   damping: 100,
                   stiffness: 800,
                   mass: 1,
@@ -102,14 +121,17 @@ export default function SwapPage() {
             }}
           >
             {state === DEXIFIER_STATE.WITHDRAWAL_ADDRESS ? (
-              "Start"
+              'Start'
             ) : state === DEXIFIER_STATE.PENDING ? (
               <Loader2 className="animate-spin text-primary" />
             ) : state === DEXIFIER_STATE.PROCESSING ? (
-              "Cancel"
-            ) : state === DEXIFIER_STATE.FAILED || state === DEXIFIER_STATE.SUCCESS ? (
-              "Swap Again"
-            ) : "Swap Now"}
+              'Cancel'
+            ) : state === DEXIFIER_STATE.FAILED ||
+              state === DEXIFIER_STATE.SUCCESS ? (
+              'Swap Again'
+            ) : (
+              'Swap Now'
+            )}
           </Button>
         </div>
       )}
