@@ -1,0 +1,6561 @@
+[
+  {
+      "b": "BTC",
+      "s": "BTC",
+      "i": "https://rango.vip/tokens/ALL/BTC.png",
+      "p": 101259,
+      "d": 8,
+      "n": "BTC",
+      "ip": true,
+      "ss": [
+          "ThorChain",
+          "RelayProtocol",
+          "ChainflipDca",
+          "Chainflip",
+          "Bridgers",
+          "MayaProtocolStreamingSwap",
+          "ThorChainStreamingSwap",
+          "MayaProtocol"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "BTC",
+      "i": "https://rango.vip/i/b0h5qL",
+      "a": "0xbd6323a83b613f668687014e8a5852079494fb68",
+      "p": 0.148492,
+      "d": 18,
+      "n": "BlackrockTradingCurrency",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "BTC",
+      "i": "https://rango.vip/i/rC7dxL",
+      "a": "EtBc6gkCvsB9c6f5wSbwG8wPjRqXMB5euptK6bqG1R4X",
+      "p": 0.00003704,
+      "d": 6,
+      "n": "batcat",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "BTC",
+      "i": "https://rango.vip/i/JVHFLf",
+      "a": "9n4nbM75f5Ui33ZbPYXn59EwSgE8CGsHtAeTH5YFeJ9E",
+      "p": 3816.84,
+      "d": 6,
+      "n": "Wrapped BTC",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "TRON",
+      "s": "BTC",
+      "i": "https://rango.vip/i/VTDf13",
+      "a": "TN3W4H6rK2ce4vX9YnFQHwKENnHjoxb3m9",
+      "p": 99853,
+      "d": 8,
+      "n": "Bitcoin",
+      "c": "Tron Alliance List",
+      "cu": "https://rango.vip/i/iyBX2t",
+      "ss": [
+          "SunSwapRouter",
+          "SunSwap"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "Ethereum",
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "Arbitrum Bridge",
+          "ThorChain",
+          "KyberSwap ETH Aggregator",
+          "ChainflipDca",
+          "Chainflip",
+          "Satellite",
+          "ThorChainStreamingSwap",
+          "stargate",
+          "Optimism Bridge",
+          "Across",
+          "DeBridgeDLN",
+          "OneInchEth",
+          "XY Finance",
+          "stargateV2",
+          "RelayProtocol",
+          "OrbiterV2",
+          "Rainbow Bridge",
+          "EthereumUniswapV3",
+          "Bridgers",
+          "Mayan",
+          "EthUniSwapV2"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "Ethereum",
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "Arbitrum Bridge",
+          "ChainflipDca",
+          "Chainflip",
+          "ArbitrumUniSwapV3",
+          "stargate",
+          "Across",
+          "DeBridgeDLN",
+          "XY Finance",
+          "KyberSwap Arbitrum Aggregator",
+          "ParaSwap Arbitrum",
+          "stargateV2",
+          "RelayProtocol",
+          "OrbiterV2",
+          "Bridgers",
+          "Mayan",
+          "SushiArbitrum",
+          "ArbitrumCurveFinance"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "ETH",
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "stargate",
+          "Optimism Bridge",
+          "Across",
+          "DeBridgeDLN",
+          "XY Finance",
+          "stargateV2",
+          "RelayProtocol",
+          "OrbiterV2",
+          "OpenOceanOptimism",
+          "Bridgers",
+          "Mayan",
+          "OptimismUniSwapV3",
+          "ParaSwap Optimism",
+          "KyberSwap Optimism Aggregator"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "ETH",
+      "i": "https://rango.vip/i/2WgpA5",
+      "a": "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
+      "p": 2085.87,
+      "d": 18,
+      "n": "Ethereum Token",
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "XO Swap",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "KyberSwap BSC Aggregator",
+          "PancakeSwapBsc",
+          "DeBridgeDLN",
+          "XY Finance",
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "RelayProtocol",
+          "SWFT",
+          "OrbiterV2",
+          "Bridgers"
+      ]
+  },
+  {
+      "b": "ZKSYNC",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "ETH",
+      "ip": true,
+      "ss": [
+          "XY Finance",
+          "Symbiosis",
+          "SpaceFi",
+          "RelayProtocol",
+          "KyberSwap Zksync Aggregator",
+          "OrbiterV2",
+          "Bridgers",
+          "Across",
+          "zkSwap",
+          "OneInchZksync"
+      ]
+  },
+  {
+      "b": "POLYGONZK",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "ETH",
+      "ip": true,
+      "ss": [
+          "XY Finance",
+          "Symbiosis",
+          "RelayProtocol",
+          "OpenOceanPolygonZk",
+          "OrbiterV2",
+          "Bridgers"
+      ]
+  },
+  {
+      "b": "LINEA",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "ETH",
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "stargate",
+          "Across",
+          "DeBridgeDLN",
+          "XY Finance",
+          "KyberSwap Linea Aggregator",
+          "OpenOceanLinea",
+          "stargateV2",
+          "RelayProtocol",
+          "OrbiterV2",
+          "LineaPancakeV3",
+          "Bridgers",
+          "EchoDex",
+          "LineaKyberV3"
+      ]
+  },
+  {
+      "b": "BLAST",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "ETH",
+      "ip": true,
+      "ss": [
+          "XY Finance",
+          "Symbiosis",
+          "Ring Protocol",
+          "RelayProtocol",
+          "KyberSwap Blast Aggregator",
+          "OrbiterV2",
+          "ThrusterV3",
+          "ThrusterV2.03",
+          "ThrusterV2.1",
+          "Across"
+      ]
+  },
+  {
+      "b": "TAIKO",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "ETH",
+      "ip": true,
+      "ss": [
+          "XY Finance",
+          "Symbiosis",
+          "RelayProtocol",
+          "PankoUniSwapV3Taiko"
+      ]
+  },
+  {
+      "b": "SCROLL",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "ETH",
+      "ip": true,
+      "ss": [
+          "XY Finance",
+          "Symbiosis",
+          "stargateV2",
+          "RelayProtocol",
+          "KyberSwap Scroll Aggregator",
+          "OrbiterV2",
+          "ZebraScrollV3",
+          "Bridgers",
+          "Across"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "ThorChain",
+          "SushiBase",
+          "OpenOceanBase",
+          "ThorChainStreamingSwap",
+          "stargate",
+          "Across",
+          "AlienBase",
+          "OneInchBase",
+          "DeBridgeDLN",
+          "KyberSwap Base Aggregator",
+          "stargateV2",
+          "RelayProtocol",
+          "BaseCurveFinance",
+          "OrbiterV2",
+          "Bridgers",
+          "Mayan",
+          "BaseUniSwapV2",
+          "BaseUniSwapV3"
+      ]
+  },
+  {
+      "b": "ZORA",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "Ether",
+      "ip": true,
+      "ss": [
+          "RelayProtocol",
+          "OrbiterV2",
+          "Across"
+      ]
+  },
+  {
+      "b": "MODE",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "Ether",
+      "ss": [
+          "Symbiosis",
+          "RelayProtocol",
+          "SupSwapModeV3",
+          "OrbiterV2",
+          "SwapMode",
+          "Across"
+      ]
+  },
+  {
+      "b": "STARKNET",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "a": "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
+      "p": 2081.78,
+      "d": 18,
+      "n": "Ether",
+      "ip": true,
+      "ss": [
+          "Avnu",
+          "OrbiterV2",
+          "10KSwap"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "ETH",
+      "i": "https://rango.vip/i/ys9uQQ",
+      "a": "0x0000000000000000000000000000000000000000",
+      "d": 18,
+      "ss": [
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "ETH",
+      "i": "https://rango.vip/i/bcygQr",
+      "a": "0x5e21d1ee5cf0077b314c381720273ae82378d613",
+      "p": 0.00255828,
+      "d": 18,
+      "n": "The Infinite Garden",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "SHIMMER",
+      "s": "ETH",
+      "i": "https://rango.vip/i/Z9mZ5L",
+      "a": "0x4638c9fb4effe36c49d8931bb713126063bf38f9",
+      "d": 18,
+      "n": "Ethereum ETH",
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "ShimmerMagicSeaSwap"
+      ]
+  },
+  {
+      "b": "AURORA",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "p": 2081.78,
+      "d": 18,
+      "n": "Ethereum",
+      "ip": true,
+      "ss": [
+          "TrisolarisSwap",
+          "OneInchAurora",
+          "Rainbow Bridge",
+          "OpenOceanAurora",
+          "AuroraSwap"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "ETH",
+      "i": "https://rango.vip/tokens/ALL/ETH.png",
+      "a": "ibc/ea1d43981d5c9a1c4aaea9c23bb1d4fa126ba9bc7020a25e0ae4aa841ea25dc5",
+      "p": 2068.71,
+      "d": 18,
+      "n": "Wrapped Ether",
+      "ss": [
+          "Satellite",
+          "Osmosis"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "ETH",
+      "i": "https://rango.vip/i/Q6NTCN",
+      "a": "2FPyTwcZLUg1MDrwsyoP4D6s1tM7hAkHYRjkNb5w6Pxk",
+      "p": 915.632488,
+      "d": 6,
+      "n": "Wrapped ETH",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SUI",
+      "s": "ETH",
+      "i": "https://rango.vip/i/qFM78D",
+      "a": "0xd0e89b2af5e4910726fbcd8b8dd37bb79b29e5f83f7491bca830e94f7f226d29::eth::ETH",
+      "p": 2089.49,
+      "d": 8,
+      "n": "ETH by Sui Bridge",
+      "ss": [
+          "CetusSui"
+      ]
+  },
+  {
+      "b": "BOBA",
+      "s": "ETH",
+      "i": "https://rango.vip/i/MTyH5i",
+      "p": 2081.78,
+      "d": 18,
+      "n": "ETH",
+      "ip": true,
+      "ss": [
+          "RelayProtocol",
+          "OolongSwap"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "ETH",
+      "i": "https://rango.vip/i/IzOlns",
+      "a": "2kaRSuDcz1V1kqq1sDmP23Wy98jutHQQgr5fGDWRpump",
+      "p": 0.00013668,
+      "d": 6,
+      "n": "ETH",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "FANTOM",
+      "s": "ETH",
+      "i": "https://rango.vip/i/ZrtLW9",
+      "a": "0x74b23882a30290451a17c44f4f05243b6b58c76d",
+      "p": 59.77,
+      "d": 18,
+      "n": "Ethereum",
+      "ip": true,
+      "ss": [
+          "XY Finance",
+          "OpenOceanFantom",
+          "OneInchFantom",
+          "KyberSwap Fantom Aggregator",
+          "ParaSwap Fantom"
+      ]
+  },
+  {
+      "b": "MOONRIVER",
+      "s": "ETH",
+      "i": "https://rango.vip/i/pZI3Eh",
+      "a": "0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c",
+      "p": 27.89,
+      "d": 18,
+      "n": "Ethereum",
+      "ss": [
+          "SolarbeamSwap",
+          "OpenOceanMoonRiver"
+      ]
+  },
+  {
+      "b": "TRON",
+      "s": "ETH",
+      "i": "https://rango.vip/i/9QHuSO",
+      "a": "THb4CqiFdwNHsWsQCs4JhzwjMWys4aqCbF",
+      "p": 2082.17,
+      "d": 18,
+      "n": "Ethereum",
+      "c": "Tron Alliance List",
+      "cu": "https://rango.vip/i/iyBX2t",
+      "ss": [
+          "SunSwapRouter",
+          "SunSwap"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "ETH",
+      "i": "https://rango.vip/i/zRYXZb",
+      "d": 18,
+      "ip": true,
+      "ss": [
+          "IBC"
+      ]
+  },
+  {
+      "b": "MOONBEAM",
+      "s": "ETH",
+      "i": "https://rango.vip/i/fR57mY",
+      "a": "0xfa9343c3897324496a05fc75abed6bac29f8a40f",
+      "d": 18,
+      "n": "Ethereum",
+      "c": "Beamswap Tokenlist",
+      "cu": "https://rango.vip/i/5zO3Q7",
+      "ss": [
+          "BeamSwap",
+          "StellaSwap"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "ETH",
+      "i": "https://rango.vip/i/ng97PN",
+      "a": "0xf20d962a6c8f70c731bd838a3a388d7d48fa6e15",
+      "d": 18,
+      "n": "Ether",
+      "ss": [
+          "ParaSwap Avalanche"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDT",
+      "i": "https://rango.vip/i/r3Oex6",
+      "a": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+      "p": 1.00014417377181,
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "Chainflip",
+          "ChainflipDca",
+          "ThorChainStreamingSwap",
+          "Across",
+          "XY Finance",
+          "stargateV2",
+          "SWFT",
+          "EthereumUniswapV3",
+          "Rainbow Bridge",
+          "Bridgers",
+          "Mayan",
+          "EthUniSwapV2",
+          "ThorChain",
+          "XO Swap",
+          "KyberSwap ETH Aggregator",
+          "MayaProtocolStreamingSwap",
+          "stargate",
+          "Optimism Bridge",
+          "MayaProtocol",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth",
+          "RelayProtocol",
+          "OrbiterV2",
+          "AllBridge"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "USDT",
+      "i": "https://rango.vip/i/K9XI45",
+      "a": "0x94b008aa00579c1307b0ef2c499ad98a8ce58e58",
+      "p": 0.999173,
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "XO Swap",
+          "Optimism Bridge",
+          "Across",
+          "DeBridgeDLN",
+          "XY Finance",
+          "stargateV2",
+          "RelayProtocol",
+          "SWFT",
+          "OpenOceanOptimism",
+          "OrbiterV2",
+          "Bridgers",
+          "Mayan",
+          "OptimismUniSwapV3",
+          "ParaSwap Optimism",
+          "AllBridge",
+          "KyberSwap Optimism Aggregator"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "USDT",
+      "i": "https://rango.vip/tokens/ALL/USDT.E.png",
+      "a": "0x66e428c3f67a68878562e79a0234c1f83c208770",
+      "p": 1.006,
+      "d": 6,
+      "n": "USDT",
+      "ip": true,
+      "ss": [
+          "XY Finance",
+          "VVSFinance",
+          "CronaSwap",
+          "MMFinance",
+          "Bridgers",
+          "OpenOceanCronos"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDT",
+      "i": "https://rango.vip/i/6837hX",
+      "a": "0x55d398326f99059ff775485246999027b3197955",
+      "p": 1,
+      "d": 18,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "ThorChain",
+          "XO Swap",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "KyberSwap BSC Aggregator",
+          "PancakeSwapBsc",
+          "ThorChainStreamingSwap",
+          "stargate",
+          "DeBridgeDLN",
+          "XY Finance",
+          "stargateV2",
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "RelayProtocol",
+          "SWFT",
+          "OrbiterV2",
+          "Bridgers",
+          "Mayan",
+          "AllBridge"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDT",
+      "i": "https://rango.vip/i/88Ln2L",
+      "a": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+      "p": 1,
+      "d": 6,
+      "n": "(PoS) Tether USD",
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "XO Swap",
+          "PolygonUniSwapV3",
+          "stargate",
+          "Across",
+          "DeBridgeDLN",
+          "XY Finance",
+          "stargateV2",
+          "RelayProtocol",
+          "PolygonCurveFinance",
+          "SWFT",
+          "OrbiterV2",
+          "ParaSwap Polygon",
+          "Bridgers",
+          "Mayan",
+          "KyberSwap Polygon Aggregator",
+          "OneInchPolygon",
+          "AllBridge"
+      ]
+  },
+  {
+      "b": "XLAYER",
+      "s": "USDT",
+      "i": "https://rango.vip/tokens/ALL/USDT.E.png",
+      "a": "0x1e4a5963abfd975d8c9021ce480b42188849d41d",
+      "p": 1,
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "XY Finance",
+          "PotatoSwap"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "USDT",
+      "i": "https://rango.vip/i/3K95Tl",
+      "a": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+      "p": 0.998961,
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "XO Swap",
+          "ArbitrumUniSwapV3",
+          "Arbitrum SushiAggregator",
+          "MayaProtocolStreamingSwap",
+          "stargate",
+          "MayaProtocol",
+          "DeBridgeDLN",
+          "XY Finance",
+          "KyberSwap Arbitrum Aggregator",
+          "ParaSwap Arbitrum",
+          "stargateV2",
+          "RelayProtocol",
+          "SWFT",
+          "OrbiterV2",
+          "Bridgers",
+          "Mayan",
+          "SushiArbitrum",
+          "AllBridge",
+          "ArbitrumCurveFinance"
+      ]
+  },
+  {
+      "b": "IOTA",
+      "s": "USDT",
+      "i": "https://rango.vip/tokens/ALL/USDT.E.png",
+      "a": "0xc1b8045a6ef2934cf0f78b0dbd489969fa9be7e4",
+      "p": 1.0058626201598113,
+      "d": 6,
+      "ip": true,
+      "ss": [
+          "IOTAMagicSeaSwapV3"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDT",
+      "i": "https://rango.vip/i/GJxbOP",
+      "a": "0x9702230a8ea53601f5cd2dc00fdbc13d4df4a8c7",
+      "p": 1,
+      "d": 6,
+      "n": "TetherToken",
+      "ip": true,
+      "c": "Pangolin Tokenlist",
+      "cu": "https://rango.vip/i/pKfL2Y",
+      "ss": [
+          "Shimmer Bridge",
+          "ThorChain",
+          "XO Swap",
+          "ParaSwap Avalanche",
+          "KyberSwap Avax Aggregator",
+          "ThorChainStreamingSwap",
+          "stargate",
+          "DeBridgeDLN",
+          "AvalancheCurveFinance",
+          "stargateV2",
+          "RelayProtocol",
+          "SWFT",
+          "PangolinSwap",
+          "Bridgers",
+          "Mayan",
+          "AvaxChainV3",
+          "AllBridge"
+      ]
+  },
+  {
+      "b": "STARKNET",
+      "s": "USDT",
+      "i": "https://rango.vip/tokens/ALL/USDT.E.png",
+      "a": "0x68f5c6a61780768455de69077e07e89787839bf8166decfbf92b645209c0fb8",
+      "p": 0.999885,
+      "d": 6,
+      "n": "USDT Token",
+      "ip": true,
+      "ss": [
+          "Avnu",
+          "OrbiterV2",
+          "10KSwap"
+      ]
+  },
+  {
+      "b": "LINEA",
+      "s": "USDT",
+      "i": "https://rango.vip/tokens/ALL/USDT.E.png",
+      "a": "0xa219439258ca9da29e9cc4ce5596924745e12b93",
+      "p": 1,
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "KyberSwap Linea Aggregator",
+          "OpenOceanLinea",
+          "OrbiterV2",
+          "LineaPancakeV3",
+          "Across",
+          "LineaKyberV3",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SCROLL",
+      "s": "USDT",
+      "i": "https://rango.vip/tokens/ALL/USDT.E.png",
+      "a": "0xf55bec9cafdbe8730f096aa55dad6d22d44099df",
+      "p": 1.006,
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "KyberSwap Scroll Aggregator",
+          "OrbiterV2",
+          "SWFT",
+          "ZebraScrollV3",
+          "Bridgers",
+          "Across"
+      ]
+  },
+  {
+      "b": "ZKSYNC",
+      "s": "USDT",
+      "i": "https://rango.vip/tokens/ALL/USDT.E.png",
+      "a": "0x493257fd37edb34451f62edf8d2a0c418852ba4c",
+      "p": 0.999173,
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "KyberSwap Zksync Aggregator",
+          "OrbiterV2",
+          "Across",
+          "zkSwap",
+          "OneInchZksync"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "USDT",
+      "i": "https://rango.vip/i/gCIyid",
+      "a": "0xfde4c96c8593536e31f229ea8f37b2ada2699bb2",
+      "p": 0.99888,
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "RelayProtocol",
+          "OrbiterV2",
+          "Mayan",
+          "OpenOceanBase",
+          "Base SushiAggregator",
+          "OneInchBase",
+          "DeBridgeDLN",
+          "BaseUniSwapV3"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDT",
+      "i": "https://rango.vip/i/sFWAuL",
+      "a": "0x1cdd2eab61112697626f7b4bb0e23da4febf7b7c",
+      "p": 1.075,
+      "d": 6,
+      "n": "USDT",
+      "ss": [
+          "Mayan",
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "TRON",
+      "s": "USDT",
+      "i": "https://rango.vip/i/pPaPM7",
+      "a": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+      "p": 1,
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "SunSwapRouter",
+          "Bridgers",
+          "AllBridge",
+          "SunSwap"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDT",
+      "i": "https://rango.vip/i/UkuhlZ",
+      "a": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+      "p": 1.000087,
+      "d": 6,
+      "n": "USDT",
+      "ip": true,
+      "ss": [
+          "Jupiter",
+          "Bridgers",
+          "Mayan",
+          "AllBridge",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SHIMMER",
+      "s": "USDT",
+      "i": "https://rango.vip/i/QVJDkN",
+      "a": "0xa4f8c7c1018b9dd3be5835bf00f335d9910af6bd",
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "ShimmerMagicSeaSwap"
+      ]
+  },
+  {
+      "b": "MODE",
+      "s": "USDT",
+      "i": "https://rango.vip/i/mYS7Lq",
+      "a": "0xf0f161fda2712db8b566946122a5af183995e2ed",
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "c": "SupSwap Tokens",
+      "cu": "https://rango.vip/i/OcQd5b",
+      "ss": [
+          "SupSwapModeV3",
+          "SwapMode",
+          "Across"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "USDT",
+      "i": "https://rango.vip/tokens/ALL/USDT.E.png",
+      "a": "ibc/4abbef4c8926dddb320ae5188cfd63267abbcefc0583e4ae05d6e5aa2401ddab",
+      "p": 0.999173,
+      "d": 6,
+      "ss": [
+          "Osmosis"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDT",
+      "i": "https://rango.vip/i/Bk7CF7",
+      "a": "8qJSyQprMC57TWKaYEmetUR3UUiTP2M3hXdcvFhkZdmv",
+      "p": 0.99857232,
+      "d": 8,
+      "n": "Tether USD (Portal from BSC)",
+      "ss": [
+          "Jupiter",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDT",
+      "i": "https://rango.vip/i/xRBGeO",
+      "a": "5goWRao6a3yNC4d6UjMdQxonkCMvKBwdpubU3qhfcdf1",
+      "p": 1.00148,
+      "d": 6,
+      "n": "Tether USD (PoS) (Portal from Polygon)",
+      "ss": [
+          "Jupiter",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDT",
+      "i": "https://rango.vip/i/s5jd83",
+      "a": "Dn4noZ5jgGfkntzcQSUZ8czkreiZ1ForXYoV2H8Dm7S1",
+      "p": 1,
+      "d": 6,
+      "n": "Tether USD (Portal from Ethereum)",
+      "ss": [
+          "Jupiter",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDT",
+      "i": "https://rango.vip/i/mZTSbe",
+      "a": "0x9417669fbf23357d2774e9d421307bd5ea1006d2",
+      "p": 1,
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "ParaSwap Polygon",
+          "Mayan",
+          "PolygonUniSwapV3",
+          "KyberSwap Polygon Aggregator",
+          "OneInchPolygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDT",
+      "i": "https://rango.vip/i/ICZdda",
+      "a": "0x3553f861dec0257bada9f8ed268bf0d74e45e89c",
+      "p": 1.075,
+      "d": 6,
+      "n": "USDT",
+      "ss": [
+          "ParaSwap Polygon",
+          "Mayan",
+          "KyberSwap Polygon Aggregator",
+          "OneInchPolygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "OKC",
+      "s": "USDT",
+      "i": "https://rango.vip/i/2tR5IC",
+      "a": "0x382bb369d343125bfb2117af9c149795c6c65c50",
+      "p": 0.999173,
+      "d": 18,
+      "n": "USDT",
+      "ip": true,
+      "c": "SushiSwap Menu",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "CherrySwap",
+          "OkcSwap"
+      ]
+  },
+  {
+      "b": "FANTOM",
+      "s": "USDT",
+      "i": "https://rango.vip/i/J0Md7X",
+      "a": "0xcc1b99ddac1a33c201a742a1851662e87bc7f22c",
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "OpenOceanFantom",
+          "KyberSwap Fantom Aggregator"
+      ]
+  },
+  {
+      "b": "MOONRIVER",
+      "s": "USDT",
+      "i": "https://rango.vip/i/wAe2lj",
+      "a": "0xb44a9b6905af7c801311e8f4e76932ee959c663c",
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "OpenOceanMoonRiver"
+      ]
+  },
+  {
+      "b": "POLYGONZK",
+      "s": "USDT",
+      "i": "https://rango.vip/i/r7Oqqs",
+      "a": "0x1e4a5963abfd975d8c9021ce480b42188849d41d",
+      "p": 1,
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "ss": [
+          "OpenOceanPolygonZk",
+          "OrbiterV2"
+      ]
+  },
+  {
+      "b": "TAIKO",
+      "s": "USDT",
+      "i": "https://rango.vip/i/CBwgLB",
+      "a": "0x9c2dc7377717603eb92b2655c5f2e7997a4945bd",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "stargateV2"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDT",
+      "i": "https://rango.vip/i/F0R1mi",
+      "a": "H9o3LaDfoMSVLm9aBWaY56eMmPGDbRFnUHpqcTb9exXB",
+      "d": 6,
+      "n": "Tether USD (Wormhole)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDT",
+      "i": "https://rango.vip/i/jHz2TY",
+      "a": "CLV6gB88nQtnuo3akGLSVRFaiFPTXaBXV4EDaFxV7iRq",
+      "d": 6,
+      "n": "Tether USD (Wormhole)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDT",
+      "i": "https://rango.vip/i/F0R1mi",
+      "a": "0xfba2b8d6d4554ed67ddde4814847b02c5114285d",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDT",
+      "i": "https://rango.vip/i/F0R1mi",
+      "a": "0x9024b09c1c6d33221f6aea9571821a2062b88eef",
+      "d": 6,
+      "n": "(PoS) Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDT",
+      "i": "https://rango.vip/i/Pq2RDB",
+      "a": "0xde60adfddaabaaac3dafa57b26acc91cb63728c4",
+      "d": 18,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDT",
+      "i": "https://rango.vip/i/jHz2TY",
+      "a": "0x6253993e8f980f94d0e9bb7cb2095953c062cc83",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDT",
+      "i": "https://rango.vip/i/F0R1mi",
+      "a": "0xa6e2b045a0bbcfb5b3eb8253480cf20325e85784",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDT",
+      "i": "https://rango.vip/i/F0R1mi",
+      "a": "0xd343968e46690d6c89a88a36a5b8ce5fb5d65ac4",
+      "d": 6,
+      "n": "(PoS) Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDT",
+      "i": "https://rango.vip/i/jHz2TY",
+      "a": "0xe38feb1b0fa77979c39df0ebd61bf8baee25b675",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDT",
+      "i": "https://rango.vip/i/F0R1mi",
+      "a": "0x6df9e1d2502e0a370ef5f7b1f541505d100e59b5",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDT",
+      "i": "https://rango.vip/i/ozJgoE",
+      "a": "0x07365017e2436b5c3553028db2a98d7672fb75eb",
+      "d": 18,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDT",
+      "i": "https://rango.vip/i/jHz2TY",
+      "a": "0xfef8183b580d50cb9e636ed75b104c3423e70dcc",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDT",
+      "i": "https://rango.vip/i/F0R1mi",
+      "a": "0x3e2ee3c3c93408ab00f30be6462e532aafcc574d",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDT",
+      "i": "https://rango.vip/i/F0R1mi",
+      "a": "0x038627d23dacdc967087a57309f8139aeb99d8e4",
+      "d": 6,
+      "n": "(PoS) Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDT",
+      "i": "https://rango.vip/i/qc5lpn",
+      "a": "0xa67bcc0d06d7d13a13a2ae30bf30f1b434f5a28b",
+      "d": 18,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDT",
+      "i": "https://rango.vip/i/ozJgoE",
+      "a": "0x9d228444fc4b7e15a2c481b48e10247a03351fd8",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDT",
+      "i": "https://rango.vip/i/ICZdda",
+      "a": "0xf0ff231e3f1a50f83136717f287adab862f89431",
+      "p": 1.075,
+      "d": 6,
+      "n": "USDT",
+      "ss": [
+          "KyberSwap Avax Aggregator",
+          "ParaSwap Avalanche",
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDT",
+      "i": "https://rango.vip/i/jHz2TY",
+      "a": "0x2ae95d92355d1c2ab073fd1f9c69d76f0e557ab4",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "USDT",
+      "i": "https://rango.vip/i/jHz2TY",
+      "a": "0x16a9d7fece7feb0d8ece07483e5d80f52c0a6e31",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "USDT",
+      "i": "https://rango.vip/i/jHz2TY",
+      "a": "0x71502667a00334dee00c5ba34a07f7feff03832d",
+      "d": 6,
+      "n": "(PoS) Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "USDT",
+      "i": "https://rango.vip/i/jHz2TY",
+      "a": "0xa9a78f45944372cc51b7aef0c2f6817c9729a21d",
+      "d": 18,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "USDT",
+      "i": "https://rango.vip/i/jHz2TY",
+      "a": "0xf6b4185fcf8af291c0e3927fbeab7046b4f6a8ca",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "USDT",
+      "i": "https://rango.vip/i/BJp4Ci",
+      "d": 6,
+      "ip": true,
+      "ss": [
+          "IBC"
+      ]
+  },
+  {
+      "b": "LINEA",
+      "s": "USDT",
+      "i": "https://rango.vip/i/ROLR2T",
+      "a": "0x6c6470898882b65e0275723d883a0d877aade43f",
+      "d": 6,
+      "n": "Tether USD",
+      "is": true,
+      "ss": [
+          "KyberSwap Linea Aggregator"
+      ]
+  },
+  {
+      "b": "SONIC",
+      "s": "USDT",
+      "i": "https://rango.vip/i/gP0Maq",
+      "a": "0x6047828dc181963ba44974801ff68e538da5eaf9",
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "is": true,
+      "ss": [
+          "KyberSwap Sonic Aggregator"
+      ]
+  },
+  {
+      "b": "MOONBEAM",
+      "s": "USDT",
+      "i": "https://rango.vip/i/27UlnR",
+      "a": "0xefaeee334f0fd1712f9a8cc375f427d9cdd40d73",
+      "d": 6,
+      "n": "Tether USD",
+      "ip": true,
+      "c": "Beamswap Tokenlist",
+      "cu": "https://rango.vip/i/5zO3Q7",
+      "ss": [
+          "BeamSwap",
+          "StellaSwap"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDT",
+      "i": "https://rango.vip/i/FDQ6lI",
+      "a": "0xde3a24028580884448a5397872046a019649b084",
+      "d": 6,
+      "n": "Tether USD",
+      "ss": [
+          "ParaSwap Avalanche"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "XRP",
+      "i": "https://rango.vip/i/0rFE8w",
+      "a": "0x1d2f0da169ceb9fc7b3144628db156f3f6c60dbe",
+      "p": 2.26,
+      "d": 18,
+      "n": "XRP Token",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "PancakeSwapBsc",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "XRP",
+      "i": "https://rango.vip/i/KFh4Sf",
+      "a": "0x07e0edf8ce600fb51d44f51e3348d77d67f298ae",
+      "p": 0.00454656,
+      "d": 8,
+      "n": "HarryPotterObamaPacMan8Inu",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "XRP",
+      "i": "https://rango.vip/i/LeVJrW",
+      "a": "0xb1c064c3f2908f741c9dea4afc5773238b53e6cc",
+      "p": 0.00004858,
+      "d": 9,
+      "n": "WarioXrpDumbledoreYugioh69Inu",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "XRP",
+      "i": "https://rango.vip/i/xPQOwg",
+      "a": "Ga2AXHpfAF6mv2ekZwcsJFqu7wB4NV331qNH7fW9Nst8",
+      "d": 6,
+      "n": "Wrapped XRP",
+      "ss": [
+          "Jupiter"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "BNB",
+      "i": "https://rango.vip/i/SLh08X",
+      "a": "0x264c1383ea520f73dd837f915ef3a732e204a493",
+      "p": 83.03,
+      "d": 18,
+      "n": "Binance",
+      "ip": true,
+      "c": "Pangolin Tokenlist",
+      "cu": "https://rango.vip/i/pKfL2Y",
+      "ss": [
+          "KyberSwap Avax Aggregator",
+          "PangolinSwap",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "BNB",
+      "i": "https://rango.vip/tokens/ALL/BNB.png",
+      "p": 617.53,
+      "d": 18,
+      "ip": true,
+      "ss": [
+          "ThorChain",
+          "Shimmer Bridge",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "Satellite",
+          "PancakeSwapBsc",
+          "KyberSwap BSC Aggregator",
+          "ThorChainStreamingSwap",
+          "DeBridgeDLN",
+          "ParaSwap Bsc",
+          "RelayProtocol",
+          "Bridgers",
+          "Mayan"
+      ]
+  },
+  {
+      "b": "SHIMMER",
+      "s": "BNB",
+      "i": "https://rango.vip/i/blrjtI",
+      "a": "0x2a6f394085b8e33fbd9dcfc776bce4ed95f1900d",
+      "d": 18,
+      "n": "Binance Coin BNB",
+      "ss": [
+          "Shimmer Bridge"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "BNB",
+      "i": "https://rango.vip/tokens/ALL/BNB.png",
+      "a": "ibc/f4a070a6d78496d53127ea85c094a9ec87dfc1f36071b8ccddbd020f933d213d",
+      "d": 18,
+      "n": "Wrapped BNB",
+      "ss": [
+          "Satellite",
+          "Osmosis"
+      ]
+  },
+  {
+      "b": "MOONBEAM",
+      "s": "BNB",
+      "i": "https://rango.vip/i/KW2KK6",
+      "a": "0xc9baa8cfdde8e328787e29b4b078abf2dadc2055",
+      "d": 18,
+      "n": "Binance | Multichain",
+      "c": "Stellaswap List",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "BeamSwap"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "BNB",
+      "i": "https://rango.vip/i/42woUZ",
+      "a": "0xa649325aa7c5093d12d6f98eb4378deae68ce23f",
+      "p": 42.29,
+      "d": 18,
+      "n": "Binance",
+      "ss": [
+          "ParaSwap Polygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "LINEA",
+      "s": "BNB",
+      "i": "https://rango.vip/i/ViWG4c",
+      "a": "0xf5c6825015280cdfd0b56903f9f8b5a2233476f5",
+      "p": 636.29,
+      "d": 18,
+      "n": "Binance Coin",
+      "ss": [
+          "KyberSwap Linea Aggregator",
+          "OpenOceanLinea",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "FANTOM",
+      "s": "BNB",
+      "i": "https://rango.vip/i/s4SoOM",
+      "a": "0xd67de0e0a0fd7b15dc8348bb9be742f3c5850454",
+      "p": 40.09,
+      "d": 18,
+      "n": "Binance",
+      "ss": [
+          "OpenOceanFantom",
+          "OneInchFantom",
+          "KyberSwap Fantom Aggregator",
+          "ParaSwap Fantom"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "BNB",
+      "i": "https://rango.vip/i/YzuBsg",
+      "a": "0xfa9343c3897324496a05fc75abed6bac29f8a40f",
+      "d": 18,
+      "n": "Binance",
+      "ss": [
+          "OpenOceanCronos"
+      ]
+  },
+  {
+      "b": "MOONRIVER",
+      "s": "BNB",
+      "i": "https://rango.vip/i/mirFg7",
+      "a": "0x2bf9b864cdc97b08b6d79ad4663e71b8ab65c45c",
+      "p": 12.28,
+      "d": 18,
+      "n": "Binance",
+      "ss": [
+          "SolarbeamSwap",
+          "OpenOceanMoonRiver"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "SOL",
+      "i": "https://rango.vip/tokens/ALL/SOL.png",
+      "p": 160.05,
+      "d": 9,
+      "n": "SOL",
+      "ip": true,
+      "ss": [
+          "Jupiter",
+          "RelayProtocol",
+          "SolanaWrapper",
+          "ChainflipDca",
+          "Chainflip",
+          "DeBridge",
+          "Bridgers",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "SOL",
+      "i": "https://rango.vip/i/YhJ1nK",
+      "a": "0xfe6b19286885a4f7f55adad09c3cd1f906d2478f",
+      "p": 160.77,
+      "d": 9,
+      "ss": [
+          "ThorChain",
+          "KyberSwap Avax Aggregator",
+          "ParaSwap Avalanche",
+          "Mayan",
+          "AvaxChainV3",
+          "ThorChainStreamingSwap",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "SOL",
+      "i": "https://rango.vip/i/YhJ1nK",
+      "a": "0xfa54ff1a158b5189ebba6ae130ced6bbd3aea76e",
+      "p": 160.77,
+      "d": 9,
+      "n": "Wrapped SOL",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "Mayan",
+          "PancakeSwapBsc",
+          "KyberSwap BSC Aggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "SOL",
+      "i": "https://rango.vip/i/z1hgrR",
+      "a": "0x570a5d26f7765ecb712c0924e4de545b89fd43df",
+      "p": 159.82,
+      "d": 18,
+      "n": "SOLANA",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "PancakeSwapBsc",
+          "KyberSwap BSC Aggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "SOL",
+      "i": "https://rango.vip/i/C58yZv",
+      "a": "0xd31a59c85ae9d8edefec411d448f90841571b89c",
+      "p": 160.77,
+      "d": 9,
+      "n": "Wrapped SOL",
+      "ss": [
+          "EthereumUniswapV3",
+          "Mayan",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "SOL",
+      "i": "https://rango.vip/i/ut1Llk",
+      "a": "0xc9de0f3e08162312528ff72559db82590b481800",
+      "d": 9,
+      "n": "SOL",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "SOL",
+      "i": "https://rango.vip/tokens/ALL/SOL.png",
+      "a": "ibc/1e43d59e565d41fb4e54ca639b838ffd5bcfc20003d330a56cb1396231aa1cba",
+      "p": 160.77,
+      "d": 9,
+      "ss": [
+          "Osmosis"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "SOL",
+      "i": "https://rango.vip/i/YhJ1nK",
+      "a": "0xd93f7e271cb87c23aaa73edc008a79646d1f9912",
+      "p": 160.77,
+      "d": 9,
+      "n": "Wrapped SOL",
+      "ss": [
+          "ParaSwap Polygon",
+          "Mayan",
+          "PolygonUniSwapV3",
+          "KyberSwap Polygon Aggregator",
+          "OneInchPolygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "SOL",
+      "i": "https://rango.vip/i/wTRNKl",
+      "a": "0x1c61629598e4a901136a81bc138e5828dc150d67",
+      "p": 160.72,
+      "d": 9,
+      "n": "Wrapped SOL",
+      "ss": [
+          "DeBridgeDLN",
+          "BaseUniSwapV3"
+      ]
+  },
+  {
+      "b": "FANTOM",
+      "s": "SOL",
+      "i": "https://rango.vip/i/YhJ1nK",
+      "a": "0xd99021c2a33e4cf243010539c9e9b7c52e0236c1",
+      "d": 9,
+      "n": "Wrapped SOL",
+      "ss": [
+          "OpenOceanFantom",
+          "OneInchFantom",
+          "KyberSwap Fantom Aggregator",
+          "ParaSwap Fantom"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "SOL",
+      "i": "https://rango.vip/i/6bB2xQ",
+      "d": 9,
+      "ip": true,
+      "ss": [
+          "IBC"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "SOL",
+      "i": "https://rango.vip/i/7LbCFR",
+      "a": "0x2bcc6d6cdbbdc0a4071e48bb3b969b06b3330c07",
+      "d": 9,
+      "n": "Wrapped SOL",
+      "is": true,
+      "ss": [
+          "KyberSwap Arbitrum Aggregator"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "SOL",
+      "i": "https://rango.vip/i/SPYpdq",
+      "a": "0x7dff46370e9ea5f0bad3c4e29711ad50062ea7a4",
+      "d": 18,
+      "n": "SOL",
+      "is": true,
+      "ss": [
+          "ParaSwap Polygon",
+          "KyberSwap Polygon Aggregator"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "SOL",
+      "i": "https://rango.vip/i/uAf34t",
+      "a": "0xba1cf949c382a32a09a17b2adf3587fc7fa664f1",
+      "d": 9,
+      "n": "Solana",
+      "c": "Superchain Token List",
+      "cu": "https://rango.vip/i/SyFTiK",
+      "ss": [
+          "ParaSwap Optimism"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "SOL",
+      "i": "https://rango.vip/i/rA9Ebn",
+      "a": "0xb74da9fe2f96b9e0a5f4a3cf0b92dd2bec617124",
+      "d": 9,
+      "n": "Wrapped SOL (Wormhole)",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "ParaSwap Arbitrum"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDC",
+      "i": "https://rango.vip/i/nMyvER",
+      "a": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "p": 1.0000405485969757,
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "Arbitrum Bridge",
+          "Chainflip",
+          "ChainflipDca",
+          "Satellite",
+          "ThorChainStreamingSwap",
+          "Across",
+          "XY Finance",
+          "stargateV2",
+          "SWFT",
+          "EthereumUniswapV3",
+          "Rainbow Bridge",
+          "Bridgers",
+          "Mayan",
+          "EthUniSwapV2",
+          "Symbiosis",
+          "ThorChain",
+          "XO Swap",
+          "KyberSwap ETH Aggregator",
+          "Circle CCTP",
+          "MayaProtocolStreamingSwap",
+          "stargate",
+          "Optimism Bridge",
+          "MayaProtocol",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth",
+          "RelayProtocol",
+          "OrbiterV2",
+          "DeBridge",
+          "AllBridge"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "USDC",
+      "i": "https://rango.vip/tokens/ALL/USDC.E.png",
+      "a": "0xc21223249ca28397b4b6541dffaecc539bff0c59",
+      "p": 1.006,
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "ss": [
+          "XY Finance",
+          "VVSFinance",
+          "CronaSwap",
+          "RelayProtocol",
+          "MMFinance",
+          "Bridgers",
+          "OpenOceanCronos"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDC",
+      "i": "https://rango.vip/i/e4x0s8",
+      "a": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+      "p": 1,
+      "d": 18,
+      "n": "USD Coin",
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "Shimmer Bridge",
+          "ThorChain",
+          "XO Swap",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "KyberSwap BSC Aggregator",
+          "PancakeSwapBsc",
+          "ThorChainStreamingSwap",
+          "DeBridgeDLN",
+          "XY Finance",
+          "stargateV2",
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "RelayProtocol",
+          "SWFT",
+          "OrbiterV2",
+          "DeBridge",
+          "Bridgers",
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDC",
+      "i": "https://rango.vip/i/mh9zko",
+      "a": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+      "p": 0.999975,
+      "d": 6,
+      "n": "USD Coin (PoS)",
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "XY Finance",
+          "PolygonCurveFinance",
+          "ParaSwap Polygon",
+          "PolygonUniSwapV3",
+          "Mayan",
+          "KyberSwap Polygon Aggregator",
+          "stargate",
+          "OneInchPolygon",
+          "DeBridgeDLN",
+          "AllBridge"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/Tr7k3p",
+      "a": "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
+      "p": 0.998571,
+      "d": 6,
+      "n": "USD Coin (Arb1)",
+      "ip": true,
+      "ss": [
+          "XY Finance",
+          "KyberSwap Arbitrum Aggregator",
+          "ParaSwap Arbitrum",
+          "Arbitrum Bridge",
+          "XO Swap",
+          "ArbitrumUniSwapV3",
+          "Arbitrum SushiAggregator",
+          "Mayan",
+          "stargate",
+          "SushiArbitrum",
+          "DeBridgeDLN",
+          "ArbitrumCurveFinance"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/iICQ6P",
+      "a": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "p": 0.999978,
+      "d": 6,
+      "n": "USDC",
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "Shimmer Bridge",
+          "ChainflipDca",
+          "Chainflip",
+          "ArbitrumUniSwapV3",
+          "Arbitrum SushiAggregator",
+          "Circle CCTP",
+          "Across",
+          "DeBridgeDLN",
+          "KyberSwap Arbitrum Aggregator",
+          "ParaSwap Arbitrum",
+          "stargateV2",
+          "RelayProtocol",
+          "OrbiterV2",
+          "DeBridge",
+          "Bridgers",
+          "Mayan",
+          "AllBridge"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/aNVfBL",
+      "a": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "p": 1.000005,
+      "d": 6,
+      "n": "USDC",
+      "ip": true,
+      "ss": [
+          "Jupiter",
+          "RelayProtocol",
+          "ChainflipDca",
+          "Chainflip",
+          "DeBridge",
+          "Bridgers",
+          "Mayan",
+          "Circle CCTP",
+          "AllBridge",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDC",
+      "i": "https://rango.vip/i/j9eYAa",
+      "a": "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e",
+      "p": 0.999978,
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "c": "Pangolin Tokenlist",
+      "cu": "https://rango.vip/i/pKfL2Y",
+      "ss": [
+          "Symbiosis",
+          "Shimmer Bridge",
+          "ThorChain",
+          "XO Swap",
+          "ParaSwap Avalanche",
+          "KyberSwap Avax Aggregator",
+          "Circle CCTP",
+          "ThorChainStreamingSwap",
+          "stargate",
+          "DeBridgeDLN",
+          "AvalancheCurveFinance",
+          "XY Finance",
+          "stargateV2",
+          "RelayProtocol",
+          "SWFT",
+          "DeBridge",
+          "PangolinSwap",
+          "Bridgers",
+          "Mayan",
+          "AvaxChainV3",
+          "AllBridge"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "USDC",
+      "i": "https://rango.vip/i/074QYQ",
+      "a": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "p": 0.999978,
+      "d": 6,
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "ThorChain",
+          "XO Swap",
+          "SushiBase",
+          "Circle CCTP",
+          "OpenOceanBase",
+          "Base SushiAggregator",
+          "ThorChainStreamingSwap",
+          "AlienBase",
+          "Across",
+          "OneInchBase",
+          "DeBridgeDLN",
+          "KyberSwap Base Aggregator",
+          "stargateV2",
+          "RelayProtocol",
+          "BaseCurveFinance",
+          "SWFT",
+          "OrbiterV2",
+          "DeBridge",
+          "Bridgers",
+          "Mayan",
+          "BaseUniSwapV2",
+          "BaseUniSwapV3"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDC",
+      "i": "https://rango.vip/i/Pu7SFw",
+      "a": "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359",
+      "p": 0.999978,
+      "d": 6,
+      "n": "USDC",
+      "ss": [
+          "Shimmer Bridge",
+          "Circle CCTP",
+          "PolygonUniSwapV3",
+          "Across",
+          "DeBridgeDLN",
+          "stargateV2",
+          "RelayProtocol",
+          "OrbiterV2",
+          "DeBridge",
+          "ParaSwap Polygon",
+          "Bridgers",
+          "Mayan",
+          "KyberSwap Polygon Aggregator",
+          "OneInchPolygon",
+          "AllBridge"
+      ]
+  },
+  {
+      "b": "LINEA",
+      "s": "USDC",
+      "i": "https://rango.vip/tokens/ALL/USDC.E.png",
+      "a": "0x176211869ca2b568f2a7d4ee941e073a821ee1ff",
+      "p": 0.99938,
+      "d": 6,
+      "n": "USDC",
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "XY Finance",
+          "KyberSwap Linea Aggregator",
+          "OpenOceanLinea",
+          "OrbiterV2",
+          "DeBridge",
+          "LineaPancakeV3",
+          "LineaKyberV3",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/cY81Jl",
+      "a": "0x0b2c639c533813f4aa9d7837caf62653d097ff85",
+      "p": 0.999978,
+      "d": 6,
+      "n": "USDC",
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "Circle CCTP",
+          "Across",
+          "DeBridgeDLN",
+          "stargateV2",
+          "RelayProtocol",
+          "OpenOceanOptimism",
+          "OrbiterV2",
+          "DeBridge",
+          "Bridgers",
+          "Mayan",
+          "OptimismUniSwapV3",
+          "ParaSwap Optimism",
+          "AllBridge",
+          "KyberSwap Optimism Aggregator"
+      ]
+  },
+  {
+      "b": "STARKNET",
+      "s": "USDC",
+      "i": "https://rango.vip/tokens/ALL/USDC.E.png",
+      "a": "0x53c91253bc9682c04929ca02ed00b3e423f6710d2ee7e0d5ebb06f3ecf368a8",
+      "p": 0.999921,
+      "d": 6,
+      "n": "USDC Token",
+      "ip": true,
+      "ss": [
+          "Avnu",
+          "OrbiterV2",
+          "10KSwap"
+      ]
+  },
+  {
+      "b": "SCROLL",
+      "s": "USDC",
+      "i": "https://rango.vip/tokens/ALL/USDC.E.png",
+      "a": "0x06efdbff2a14a7c8e15944d1f4a48f9f95f663a4",
+      "p": 1.006,
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "ss": [
+          "XY Finance",
+          "stargateV2",
+          "KyberSwap Scroll Aggregator",
+          "OrbiterV2",
+          "ZebraScrollV3",
+          "Across"
+      ]
+  },
+  {
+      "b": "FANTOM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/nR5lUB",
+      "a": "0x28a92dde19d9989f39a49905d7c9c2fac7799bdf",
+      "p": 0.935623,
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "SpookySwap",
+          "OpenOceanFantom",
+          "stargate",
+          "OneInchFantom",
+          "KyberSwap Fantom Aggregator",
+          "ParaSwap Fantom"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/qCQYZR",
+      "a": "0x7f5c764cbc14f9669b88837ca1490cca17c31607",
+      "p": 0.999059,
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "XO Swap",
+          "stargate",
+          "Optimism Bridge",
+          "DeBridgeDLN",
+          "XY Finance",
+          "OpenOceanOptimism",
+          "SWFT",
+          "Bridgers",
+          "Mayan",
+          "OptimismUniSwapV3",
+          "ParaSwap Optimism",
+          "KyberSwap Optimism Aggregator"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDC",
+      "i": "https://rango.vip/i/WsQbBH",
+      "a": "0x672147dd47674757c457eb155baa382cc10705dd",
+      "d": 6,
+      "n": "USD Coin (PoS)",
+      "ss": [
+          "BSC SushiAggregator",
+          "Mayan"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDC",
+      "i": "https://rango.vip/i/Cntotl",
+      "a": "0xb04906e95ab5d797ada81508115611fee694c2b3",
+      "p": 0.999975,
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "Mayan",
+          "KyberSwap BSC Aggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDC",
+      "i": "https://rango.vip/i/nZZwLD",
+      "a": "0x566957ef80f9fd5526cd2bef8be67035c0b81130",
+      "d": 6,
+      "n": "USD Coin (PoS)",
+      "ss": [
+          "Mayan",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "SHIMMER",
+      "s": "USDC",
+      "i": "https://rango.vip/i/ThzkLl",
+      "a": "0xece555d37c37d55a6341b80cf35ef3bc57401d1a",
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "ss": [
+          "Shimmer Bridge",
+          "ShimmerMagicSeaSwap"
+      ]
+  },
+  {
+      "b": "SUI",
+      "s": "USDC",
+      "i": "https://rango.vip/tokens/ALL/USDC.E.png",
+      "a": "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+      "p": 0.999978,
+      "d": 6,
+      "n": "USDC",
+      "ss": [
+          "Bridgers",
+          "CetusSui"
+      ]
+  },
+  {
+      "b": "MODE",
+      "s": "USDC",
+      "i": "https://rango.vip/i/0BjDMb",
+      "a": "0xd988097fb8612cc24eec14542bc03424c656005f",
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "c": "SupSwap Tokens",
+      "cu": "https://rango.vip/i/OcQd5b",
+      "ss": [
+          "SupSwapModeV3",
+          "SwapMode",
+          "Across"
+      ]
+  },
+  {
+      "b": "JUNO",
+      "s": "USDC",
+      "i": "https://rango.vip/tokens/ALL/USDC.E.png",
+      "a": "ibc/eac38d55372f38f1afd68df7fe9ef762dcf69f26520643cf3f9d292a738d8034",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "WYNDDex",
+          "Satellite",
+          "IBC"
+      ]
+  },
+  {
+      "b": "BOBA",
+      "s": "USDC",
+      "i": "https://rango.vip/tokens/ALL/USDC.E.png",
+      "a": "0x66a2a913e447d6b4bf33efbec43aaef87890fbbc",
+      "p": 0.999975,
+      "d": 6,
+      "ip": true,
+      "ss": [
+          "Symbiosis"
+      ]
+  },
+  {
+      "b": "POLYGONZK",
+      "s": "USDC",
+      "i": "https://rango.vip/i/yueAA6",
+      "a": "0xa8ce8aee21bc2a48a5ef670afcc9274c7bbbc035",
+      "p": 1.002,
+      "d": 6,
+      "ip": true,
+      "ss": [
+          "Symbiosis",
+          "OpenOceanPolygonZk",
+          "OrbiterV2"
+      ]
+  },
+  {
+      "b": "MOONBEAM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/4X1z8U",
+      "a": "0x8f552a71efe5eefc207bf75485b356a0b3f01ec9",
+      "p": 0.137562,
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "c": "Stellaswap List",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "BeamSwap",
+          "StellaSwap"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "USDC",
+      "i": "https://rango.vip/tokens/ALL/USDC.E.png",
+      "a": "ibc/498a0751c798a0d9a389aa3691123dada57daa4fe165d5c75894505b876ba6e4",
+      "p": 0.999975,
+      "d": 6,
+      "ss": [
+          "Osmosis",
+          "IBC"
+      ]
+  },
+  {
+      "b": "AURORA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/70ybz2",
+      "a": "0x368ebb46aca6b8d0787c96b2b20bd3cc3f2c45f7",
+      "d": 6,
+      "n": "USDC",
+      "c": "Trisolaris List",
+      "cu": "https://rango.vip/i/bAJQCV",
+      "ss": [
+          "stargateV2",
+          "TrisolarisSwap"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/8DXWdM",
+      "a": "FHfba3ov5P3RjaiLVgh8FTv4oirxQDoVXuoUUDvHuXax",
+      "p": 0.998601,
+      "d": 6,
+      "n": "USD Coin (Portal from Avalanche)",
+      "ss": [
+          "Jupiter",
+          "Mayan"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/JeBKoG",
+      "a": "E2VmbootbVCBkMNNxKQgCLMS1X3NoGMaYAsufaAsf7M",
+      "p": 0.99843,
+      "d": 6,
+      "n": "USD Coin (PoS) (Portal from Polygon)",
+      "ss": [
+          "Jupiter",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3r4mHq",
+      "a": "FCqfQSujuPxy6V42UvafBhsysWtEq1vhjfMN1PUbgaxA",
+      "p": 0.99882687,
+      "d": 8,
+      "n": "USD Coin (Portal from BSC)",
+      "ss": [
+          "Jupiter",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/gNoPud",
+      "a": "A9mUU4qviSctJVPJdBJWkb28deg915LYJKrzQ19ji3FM",
+      "p": 0.999975,
+      "d": 6,
+      "n": "USD Coin (Portal from Ethereum)",
+      "ss": [
+          "Jupiter",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDC",
+      "i": "https://rango.vip/i/Cntotl",
+      "a": "0x4318cb63a2b8edf2de971e2f17f77097e499459d",
+      "p": 0.999975,
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "ParaSwap Polygon",
+          "Mayan",
+          "PolygonUniSwapV3",
+          "KyberSwap Polygon Aggregator",
+          "OneInchPolygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDC",
+      "i": "https://rango.vip/i/Cntotl",
+      "a": "0xb24ca28d4e2742907115fecda335b40dbda07a4c",
+      "p": 0.999975,
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "KyberSwap Avax Aggregator",
+          "ParaSwap Avalanche",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "OKC",
+      "s": "USDC",
+      "i": "https://rango.vip/i/C2zkO5",
+      "a": "0xc946daf81b08146b1c7a8da2a851ddf2b3eaaf85",
+      "p": 0.999975,
+      "d": 18,
+      "n": "USDC",
+      "ip": true,
+      "c": "SushiSwap Menu",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "CherrySwap"
+      ]
+  },
+  {
+      "b": "ZKSYNC",
+      "s": "USDC",
+      "i": "https://rango.vip/i/T5Si7T",
+      "a": "0x1d17cbcf0d6d143135ae902365d2e5e2a16538d4",
+      "p": 0.999978,
+      "d": 6,
+      "n": "USDC",
+      "ss": [
+          "RelayProtocol",
+          "KyberSwap Zksync Aggregator",
+          "Bridgers",
+          "OneInchZksync"
+      ]
+  },
+  {
+      "b": "CELO",
+      "s": "USDC",
+      "i": "https://rango.vip/i/QOv3iT",
+      "a": "0xceba9300f2b948710d2653dd7b07f33a8b32118c",
+      "p": 0.999978,
+      "d": 6,
+      "n": "USDC",
+      "ip": true,
+      "ss": [
+          "RelayProtocol",
+          "Bridgers",
+          "CeloUniswapV3"
+      ]
+  },
+  {
+      "b": "FANTOM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/Cntotl",
+      "a": "0x2ec752329c3eb419136ca5e4432aa2cdb1ea23e6",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "OpenOceanFantom",
+          "OneInchFantom",
+          "KyberSwap Fantom Aggregator",
+          "ParaSwap Fantom"
+      ]
+  },
+  {
+      "b": "FANTOM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/M4gWuP",
+      "a": "0xb8398da4fb3bc4306b9d9d9d13d9573e7d0e299f",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "OpenOceanFantom",
+          "OneInchFantom",
+          "KyberSwap Fantom Aggregator",
+          "ParaSwap Fantom"
+      ]
+  },
+  {
+      "b": "MOONRIVER",
+      "s": "USDC",
+      "i": "https://rango.vip/i/ZVjX5G",
+      "a": "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "ss": [
+          "SolarbeamSwap",
+          "OpenOceanMoonRiver"
+      ]
+  },
+  {
+      "b": "POLYGONZK",
+      "s": "USDC",
+      "i": "https://rango.vip/i/U6x0GN",
+      "a": "0x37eaa0ef3549a5bb7d431be78a3d99bd360d19e5",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "OpenOceanPolygonZk"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "CR4xnGrhsu1fWNPoX4KbTUUtqGMF3mzRLfj4S6YEs1Yo",
+      "d": 6,
+      "n": "USD Coin (Wormhole)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/DPIE1a",
+      "a": "HAxCJjnmgkdXhwZYeJiUvBgm4NdQvqhGJCS3KxCnCxWs",
+      "d": 6,
+      "n": "USD Coin (Arb1) (Wormhole)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "C321jHPwWBzgfSGndosDTp5pBsiXPyMU1irxKLVcedRB",
+      "d": 6,
+      "n": "USD Coin (Wormhole)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "J8kcD4Wnd1ehne1dpL8WNtgZQR6Jpui2cTZcrmg5ybAa",
+      "d": 6,
+      "n": "USD Coin (Wormhole)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3pWaPl",
+      "a": "D6YyAUMTJipLQfUhYs6psdnwpmMz6KbM4Qs9AtCmPpxR",
+      "d": 6,
+      "n": "USD Coin (Wormhole)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "EfqRM8ZGWhDTKJ7BHmFvNagKVu3AxQRDQs8WMMaoBCu6",
+      "d": 6,
+      "n": "USD Coin (Wormhole)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDC",
+      "i": "https://rango.vip/i/DPIE1a",
+      "a": "0x5c14172d3876200ad4063a33aee47a281020d4b3",
+      "d": 6,
+      "n": "USD Coin (Arb1)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDC",
+      "i": "https://rango.vip/i/DPIE1a",
+      "a": "0x39ebf69137d98fb7659ef8d4ea21ec26394389d7",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDC",
+      "i": "https://rango.vip/i/pPhCnQ",
+      "a": "0x7cd167b101d2808cfd2c45d17b2e7ea9f46b74b6",
+      "d": 18,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "0xfbce0f9e92ad1003e893ba647bc055d845aaa507",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDC",
+      "i": "https://rango.vip/i/M4gWuP",
+      "a": "0x41f7b8b9b897276b7aae926a9016935280b44e97",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "KyberSwap ETH Aggregator",
+          "Mayan",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "0xe77c99b64414e0fd9aeea48affbbd2e97a895020",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3pWaPl",
+      "a": "0x3e7570058930728e03b798673ae2a43fdc209758",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDC",
+      "i": "https://rango.vip/i/DPIE1a",
+      "a": "0x32a266c3ba64cc5f2a5bc18cc02927ad23ee7e15",
+      "d": 6,
+      "n": "USD Coin (Arb1)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDC",
+      "i": "https://rango.vip/i/DPIE1a",
+      "a": "0xc88dc63bf0c8c8198c97db0945e3ef25ca89a8e4",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "0xe6d82bbe75041e42e51d755e922ce1ba91af9c4d",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "0xa41ae127d04f7ee73b5058e2c60fb7c7a2d21f79",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3pWaPl",
+      "a": "0xf697e6070599a192dbc0907609e7a0bb4cfc4b41",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDC",
+      "i": "https://rango.vip/i/DPIE1a",
+      "a": "0x79f848d0257f20051afe82b292ef7707da942823",
+      "d": 6,
+      "n": "USD Coin (Arb1)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDC",
+      "i": "https://rango.vip/i/DPIE1a",
+      "a": "0xaea5cc14defbc1b845fde729e563b717ee6825ae",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDC",
+      "i": "https://rango.vip/i/DPIE1a",
+      "a": "0x4b3a922c773bdcf3ba8f1a4fdac2029e1d0e9868",
+      "d": 18,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDC",
+      "i": "https://rango.vip/i/M4gWuP",
+      "a": "0x576cf361711cd940cd9c397bb98c4c896cbd38de",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "ParaSwap Polygon",
+          "Mayan",
+          "PolygonUniSwapV3",
+          "KyberSwap Polygon Aggregator",
+          "OneInchPolygon"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "0x31f12acb60c3c32ee884f3894a873347c097d925",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3pWaPl",
+      "a": "0x09d67f6b613b988dcadfcc48600d0e12f942b307",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDC",
+      "i": "https://rango.vip/i/DPIE1a",
+      "a": "0xa2ba71dbdb6ad2add0329b892135dce49c5abb02",
+      "d": 6,
+      "n": "USD Coin (Arb1)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDC",
+      "i": "https://rango.vip/i/xtbWPC",
+      "a": "0x6145e8a910ae937913426bf32de2b26039728acf",
+      "d": 18,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDC",
+      "i": "https://rango.vip/i/KVN3H7",
+      "a": "0x543672e9cbec728cbba9c3ccd99ed80ac3607fa8",
+      "d": 6,
+      "n": "USD Coin (PoS)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDC",
+      "i": "https://rango.vip/i/M4gWuP",
+      "a": "0x0950fc1ad509358daead5eb8020a3c7d8b43b9da",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "KyberSwap Avax Aggregator",
+          "ParaSwap Avalanche",
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "0xbe04f76a0ba2100c3f2d6aa1fd8484f415469573",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3pWaPl",
+      "a": "0x7b9313e7c3794820376f1a4f2549cc964bd17123",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "0x599adb10e6a012df34935d47407450f6d7170e3c",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "0x3a5c2da9e30741cb59a5e9446a23a86886fc9dc2",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3pWaPl",
+      "a": "0xf6938032c44bb69cd0af34a2a50eab75d89b35dc",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "0xbb1eab9eb8fdf65f0e291d013da07b4b65a27a01",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/ACM9Om",
+      "a": "0x8ab72605e48c1f70a20bdd2b3a217fec24d777f9",
+      "d": 6,
+      "n": "USD Coin (PoS)",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/3v4jxw",
+      "a": "0x711e53d031ea9b0bb0c24dd506df11b41aea419e",
+      "d": 6,
+      "n": "USD Coin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "NOBLE",
+      "s": "USDC",
+      "i": "https://rango.vip/i/nMyvER",
+      "d": 6,
+      "ip": true,
+      "ss": [
+          "Circle CCTP",
+          "IBC"
+      ]
+  },
+  {
+      "b": "MOONBEAM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/By4M4u",
+      "a": "0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b",
+      "p": 0.056475,
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "c": "Beamswap Tokenlist",
+      "cu": "https://rango.vip/i/5zO3Q7",
+      "ss": [
+          "BeamSwap",
+          "StellaSwap"
+      ]
+  },
+  {
+      "b": "MOONBEAM",
+      "s": "USDC",
+      "i": "https://rango.vip/i/By4M4u",
+      "a": "0x931715fee2d06333043d11f658c8ce934ac61d0c",
+      "d": 6,
+      "n": "USD Coin",
+      "c": "Beamswap Tokenlist",
+      "cu": "https://rango.vip/i/5zO3Q7",
+      "ss": [
+          "BeamSwap",
+          "StellaSwap"
+      ]
+  },
+  {
+      "b": "TAIKO",
+      "s": "USDC",
+      "i": "https://rango.vip/i/n4fKpw",
+      "a": "0x07d83526730c7438048d55a4fc0b850e2aab6f0b",
+      "p": 1.007,
+      "d": 6,
+      "n": "USD Coin",
+      "ip": true,
+      "c": "Custom taiko token list",
+      "cu": "https://rango.vip/i/NuXmra",
+      "ss": [
+          "PankoUniSwapV3Taiko"
+      ]
+  },
+  {
+      "b": "DOGE",
+      "s": "DOGE",
+      "i": "https://rango.vip/tokens/ALL/DOGE.png",
+      "p": 0.190042,
+      "d": 8,
+      "ss": [
+          "ThorChain",
+          "ThorChainStreamingSwap"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "DOGE",
+      "i": "https://rango.vip/i/j5QmZU",
+      "a": "0xba2ae424d960c26247dd6c32edc70b295c744c43",
+      "p": 0.189877,
+      "d": 8,
+      "n": "Dogecoin",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "PancakeSwapBsc",
+          "KyberSwap BSC Aggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "DOGE",
+      "i": "https://rango.vip/i/YZxqmE",
+      "a": "0x1121acc14c63f3c872bfca497d10926a6098aac5",
+      "p": 0.01226287,
+      "d": 18,
+      "n": "Department Of Government Efficiency",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "DOGE",
+      "i": "https://rango.vip/i/O5Bdbn",
+      "a": "0xa4fb6e1781fbcc921df51352af4cc83ff6c1308f",
+      "p": 4.4269e-8,
+      "d": 9,
+      "n": "Department Of Government Efficiency",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "DOGE",
+      "i": "https://rango.vip/i/1WY4ox",
+      "a": "0x1a8e39ae59e5556b56b76fcba98d22c9ae557396",
+      "d": 8,
+      "n": "Dogecoin",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "DOGE",
+      "i": "https://rango.vip/i/Xwbyki",
+      "a": "B54Fyr1XrWNA5RsRRkovoVFwQwzwBfqaJPLoFR4pMoAX",
+      "p": 0.00026896,
+      "d": 8,
+      "n": "Department Of Governm",
+      "ss": [
+          "Jupiter"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "DOGE",
+      "i": "https://rango.vip/i/FOc2YY",
+      "a": "0x81fcc294d91bd8ffc8a822d7df0e2fd2f8526c39",
+      "p": 0.00026896,
+      "d": 9,
+      "n": "Department Of Government Efficiency",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "DOGE",
+      "i": "https://rango.vip/i/mVKU1i",
+      "a": "0x67f0870bb897f5e1c369976b4a2962d527b9562c",
+      "p": 0.01226287,
+      "d": 18,
+      "n": "Department Of Government Efficiency",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "DOGE",
+      "i": "https://rango.vip/i/XGEivS",
+      "a": "9TY6DUg1VSssYH5tFE95qoq5hnAGFak4w3cn72sJNCoV",
+      "p": 0.080809,
+      "d": 9,
+      "n": "Department of Gov Efficiency",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "TON",
+      "s": "DOGE",
+      "i": "https://rango.vip/i/JE4IaF",
+      "a": "EQBphnWv7EkQvjIkGPjMNacYtXo2dEqFIybPTf8IxyBGjNSz",
+      "d": 9,
+      "ss": [
+          "Coffee Swap"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "ADA",
+      "i": "https://rango.vip/i/Sw12Eo",
+      "a": "0x3ee2200efb3400fabb9aacf31297cbdd1d435d47",
+      "p": 0.739298,
+      "d": 18,
+      "n": "Cardano Token",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "PancakeSwapBsc",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "ADA",
+      "i": "https://rango.vip/i/ssuwvP",
+      "a": "0x0e517979c2c1c1522ddb0c73905e0d39b3f990c0",
+      "p": 0.737785,
+      "d": 6,
+      "n": "ADA",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance",
+          "CronaSwap"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "ADA",
+      "i": "https://rango.vip/i/MtEHkB",
+      "a": "E4Q5pLaEiejwEQHcM9GeYSQfMyGy8DJ4bPWgeYthn24v",
+      "p": 0.0003545,
+      "d": 9,
+      "n": "Ada",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "TRX",
+      "i": "https://rango.vip/i/npsgXt",
+      "a": "0x85eac5ac2f758618dfa09bdbe0cf174e7d574d5b",
+      "d": 18,
+      "n": "TRON",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "PancakeSwapBsc",
+          "KyberSwap BSC Aggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "TRX",
+      "i": "https://rango.vip/i/vAjBHr",
+      "a": "0x50327c6c5a14dcade707abad2e27eb517df87ab5",
+      "p": 0.254531,
+      "d": 6,
+      "n": "TRON",
+      "ss": [
+          "EthereumUniswapV3",
+          "Optimism Bridge",
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "TRX",
+      "i": "https://rango.vip/i/9kwH0P",
+      "a": "0xe1be5d3f34e89de342ee97e6e90d405884da6c67",
+      "d": 6,
+      "n": "TRON",
+      "ss": [
+          "KyberSwap ETH Aggregator",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "TRON",
+      "s": "TRX",
+      "i": "https://rango.vip/tokens/ALL/TRX.png",
+      "p": 0.254662,
+      "d": 6,
+      "n": "TRX",
+      "ip": true,
+      "ss": [
+          "SunSwapRouter",
+          "Bridgers",
+          "SunSwap"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "TRX",
+      "i": "https://rango.vip/i/moiIuf",
+      "a": "0xb1ae0a34dc3976d98c1741c92b798daf8e0e1e11",
+      "d": 6,
+      "n": "TRON",
+      "ss": [
+          "Optimism Bridge",
+          "ParaSwap Optimism"
+      ]
+  },
+  {
+      "b": "SUI",
+      "s": "SUI",
+      "i": "https://rango.vip/i/p20vAx",
+      "a": "0x2::sui::SUI",
+      "p": 3.91,
+      "d": 9,
+      "n": "SUI Token",
+      "ip": true,
+      "ss": [
+          "Bridgers",
+          "CetusSui"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "SUI",
+      "i": "https://rango.vip/tokens/UNKNOWN/icon.png",
+      "a": "ibc/b1c287c2701774522570010eebcd864bcb7ab714711b3aa218699fdd75e832f5",
+      "d": 8,
+      "ss": [
+          "Osmosis"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "LINK",
+      "i": "https://rango.vip/i/9MVlyi",
+      "a": "0x514910771af9ca656af840dff83e8264ecf986ca",
+      "p": 15.412367022382226,
+      "d": 18,
+      "ss": [
+          "ThorChain",
+          "Arbitrum Bridge",
+          "KyberSwap ETH Aggregator",
+          "EthereumUniswapV3",
+          "Bridgers",
+          "Mayan",
+          "ThorChainStreamingSwap",
+          "Optimism Bridge",
+          "EthUniSwapV2",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "LINK",
+      "i": "https://rango.vip/i/ZcQ37s",
+      "a": "0xf8a0bf9cf54bb92f17374d9e9a321e6a111a51bd",
+      "p": 15.41,
+      "d": 18,
+      "n": "ChainLink Token",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "Bridgers",
+          "PancakeSwapBsc",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "LINK",
+      "i": "https://rango.vip/i/3PRSP3",
+      "a": "0xf97f4df75117a78c1a5a0dbb814af92458539fb4",
+      "p": 15.41,
+      "d": 18,
+      "n": "ChainLink Token",
+      "ss": [
+          "KyberSwap Arbitrum Aggregator",
+          "ParaSwap Arbitrum",
+          "Arbitrum Bridge",
+          "ArbitrumUniSwapV3",
+          "Arbitrum SushiAggregator",
+          "SushiArbitrum",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "LINK",
+      "i": "https://rango.vip/i/aXzAgD",
+      "a": "0xbc6f24649ccd67ec42342accdceccb2efa27c9d9",
+      "d": 18,
+      "n": "ChainLink Token",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "LINK",
+      "i": "https://rango.vip/tokens/ALL/LINK.png",
+      "a": "ibc/d3327a763c23f01ec43d1f0db3cefec390c362569b6fd191f40a5192f8960049",
+      "p": 15.41,
+      "d": 18,
+      "ss": [
+          "Osmosis",
+          "IBC"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "LINK",
+      "i": "https://rango.vip/i/P4iFwh",
+      "a": "CWE8jPTUYhdCTZYWPTe1o5DFqfdjzWKc9WKz6rSjQUdG",
+      "d": 6,
+      "n": "Chainlink",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "LINK",
+      "i": "https://rango.vip/i/2zAOCy",
+      "a": "2wpTofQ8SkACrkZWrZDjXPitYa8AwWgX8AfxdeBRRVLX",
+      "d": 8,
+      "n": "Chainlink (Portal)",
+      "ss": [
+          "Jupiter",
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "LINK",
+      "i": "https://rango.vip/i/ps0ehq",
+      "a": "0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39",
+      "p": 15.41,
+      "d": 18,
+      "n": "ChainLink Token",
+      "ss": [
+          "ParaSwap Polygon",
+          "PolygonUniSwapV3",
+          "KyberSwap Polygon Aggregator",
+          "OneInchPolygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "LINEA",
+      "s": "LINK",
+      "i": "https://rango.vip/i/S0lLwA",
+      "a": "0x5b16228b94b68c7ce33af2acc5663ebde4dcfa2d",
+      "d": 18,
+      "n": "ChainLink Token",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "LINK",
+      "i": "https://rango.vip/i/Lfh4Po",
+      "a": "GF4mRrsd52LHBZ4Fj9ijEwHCnh7c2wTMwDKwZQqipump",
+      "p": 0.00002376,
+      "d": 6,
+      "n": "Chainlink on Sol",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "LINK",
+      "i": "https://rango.vip/i/oWKRkL",
+      "a": "0x350a791bfc2c21f9ed5d10980dad2e2638ffa7f6",
+      "p": 15.41,
+      "d": 18,
+      "n": "ChainLink Token",
+      "ss": [
+          "OpenOceanOptimism",
+          "OptimismUniSwapV3",
+          "Optimism Bridge",
+          "ParaSwap Optimism",
+          "DeBridgeDLN",
+          "KyberSwap Optimism Aggregator"
+      ]
+  },
+  {
+      "b": "FANTOM",
+      "s": "LINK",
+      "i": "https://rango.vip/i/pYxndE",
+      "a": "0xb3654dc3d10ea7645f8319668e8f54d2574fbdc8",
+      "p": 15.41,
+      "d": 18,
+      "n": "ChainLink",
+      "ss": [
+          "OpenOceanFantom",
+          "KyberSwap Fantom Aggregator",
+          "ParaSwap Fantom"
+      ]
+  },
+  {
+      "b": "MOONRIVER",
+      "s": "LINK",
+      "i": "https://rango.vip/i/1miSgf",
+      "a": "0x0dcb0cb0120d355cde1ce56040be57add0185baa",
+      "d": 18,
+      "n": "Chainlink",
+      "ss": [
+          "OpenOceanMoonRiver"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "LINK",
+      "i": "https://rango.vip/i/q5qThO",
+      "a": "0xaf8906b6244a13dc64404e1715d5702fe8bc1d35",
+      "d": 18,
+      "n": "ChainLink Token",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "LINK",
+      "i": "https://rango.vip/i/q5qThO",
+      "a": "0xd7a2f809198b872196bfc43a248e067e0cf3fb88",
+      "d": 18,
+      "n": "ChainLink Token",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "LINK",
+      "i": "https://rango.vip/i/q5qThO",
+      "a": "0x20f8ac126d35c1d74281f2b95887277747b325e1",
+      "d": 18,
+      "n": "ChainLink Token",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "AVAX",
+      "i": "https://api.rango.exchange/tokens/AVAX/AVAX.png",
+      "p": 21.33,
+      "d": 18,
+      "n": "AVAX",
+      "ss": [
+          "ThorChain",
+          "Shimmer Bridge",
+          "ParaSwap Avalanche",
+          "KyberSwap Avax Aggregator",
+          "Satellite",
+          "ThorChainStreamingSwap",
+          "DeBridgeDLN",
+          "AvalancheCurveFinance",
+          "RelayProtocol",
+          "PangolinSwap",
+          "Bridgers",
+          "Mayan",
+          "AvaxChainV3"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/Y9UsM4",
+      "a": "0x1ce0c2827e2ef14d5c4f29a091d735a204794041",
+      "p": 21.31,
+      "d": 18,
+      "n": "Avalanche",
+      "ip": true,
+      "ss": [
+          "XO Swap",
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "SWFT",
+          "BSCPancakeV3",
+          "Bridgers",
+          "PancakeSwapBsc",
+          "KyberSwap BSC Aggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SHIMMER",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/7EhvHS",
+      "a": "0xeaf8553fd72417c994525178fc917882d5aec725",
+      "d": 18,
+      "n": "Avalanche AVAX",
+      "ss": [
+          "Shimmer Bridge",
+          "ShimmerMagicSeaSwap"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/XooUdm",
+      "a": "0x8d58088d4e8ffe75a8b6357ba5ff17b93b912640",
+      "d": 9,
+      "n": "AVAX",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "AVAX",
+      "i": "https://rango.vip/tokens/ALL/AVAX.png",
+      "a": "ibc/6f62f01d913e3ffe472a38c78235b8f021b511bc6596adff02615c8f83d3b373",
+      "d": 18,
+      "n": "Wrapped AVAX",
+      "ss": [
+          "Satellite",
+          "Osmosis"
+      ]
+  },
+  {
+      "b": "MOONBEAM",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/RGkJWi",
+      "a": "0x4792c1ecb969b036eb51330c63bd27899a13d84e",
+      "d": 18,
+      "n": "Avalanche",
+      "c": "Stellaswap List",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "StellaSwap"
+      ]
+  },
+  {
+      "b": "AURORA",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/3NbIfL",
+      "a": "0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844",
+      "d": 18,
+      "n": "Avalanche",
+      "c": "Trisolaris List",
+      "cu": "https://rango.vip/i/bAJQCV",
+      "ss": [
+          "TrisolarisSwap"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/XkfowS",
+      "a": "AUrMpCDYYcPuHhyNX8gEEqbmDPFUpBpHrNW3vPeCFn5Z",
+      "p": 21.346910123,
+      "d": 9,
+      "n": "AVAX (Allbridge from Avalanche)",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/9nJ9YM",
+      "a": "0x2c89bbc92bd86f8075d1decc58c7f4e0107f286b",
+      "p": 21.32,
+      "d": 18,
+      "n": "Avalanche Token",
+      "ss": [
+          "ParaSwap Polygon",
+          "KyberSwap Polygon Aggregator",
+          "OneInchPolygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "LINEA",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/762gCA",
+      "a": "0x5471ea8f739dd37e9b81be9c5c77754d8aa953e4",
+      "p": 21.71,
+      "d": 18,
+      "n": "Avalanche",
+      "ss": [
+          "KyberSwap Linea Aggregator",
+          "OpenOceanLinea",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "FANTOM",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/O0q2YF",
+      "a": "0x511d35c52a3c244e7b8bd92c0c297755fbd89212",
+      "p": 1.73,
+      "d": 18,
+      "n": "Avalanche",
+      "ss": [
+          "OpenOceanFantom",
+          "OneInchFantom",
+          "ParaSwap Fantom"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/Y6jgD2",
+      "a": "0x765277eebeca2e31912c9946eae1021199b39c61",
+      "d": 18,
+      "n": "Avalanche",
+      "ss": [
+          "OpenOceanCronos"
+      ]
+  },
+  {
+      "b": "MOONRIVER",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/sII5kz",
+      "a": "0x14a0243c333a5b238143068dc3a7323ba4c30ecb",
+      "d": 18,
+      "n": "Avalanche",
+      "ss": [
+          "SolarbeamSwap",
+          "OpenOceanMoonRiver"
+      ]
+  },
+  {
+      "b": "CELO",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/enZ2pM",
+      "a": "0x8e3670fd7b0935d3fe832711debfe13bb689b690",
+      "d": 18,
+      "n": "AVAX",
+      "c": "Ubeswap",
+      "cu": "https://rango.vip/i/6claBr",
+      "ss": [
+          "UbeSwap"
+      ]
+  },
+  {
+      "b": "ZKSYNC",
+      "s": "AVAX",
+      "i": "https://rango.vip/i/bEpYEW",
+      "a": "0x6a5279e99ca7786fb13f827fc1fb4f61684933d6",
+      "d": 18,
+      "n": "Avalanche",
+      "ss": [
+          "KyberSwap Zksync Aggregator"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "XLM",
+      "i": "https://rango.vip/i/HVYOEL",
+      "a": "0x747d6c858168b8cd6e537160320b5de58fd3367c",
+      "d": 7,
+      "n": "XLM",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "BCH",
+      "s": "BCH",
+      "i": "https://rango.vip/tokens/ALL/BCH.png",
+      "p": 417.67,
+      "d": 8,
+      "ip": true,
+      "ss": [
+          "ThorChain",
+          "ThorChainStreamingSwap"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "BCH",
+      "i": "https://rango.vip/i/drR4Hv",
+      "a": "0x8ff795a6f4d97e7887c79bea79aba5cc76444adf",
+      "p": 416.79,
+      "d": 18,
+      "n": "Bitcoin Cash Token",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "PancakeSwapBsc",
+          "KyberSwap BSC Aggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "BCH",
+      "i": "https://rango.vip/i/xouOtQ",
+      "a": "0x7589b70abb83427bb7049e08ee9fc6479ccb7a23",
+      "d": 8,
+      "n": "Bitcoin Cash",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/4ubGv5",
+      "a": "0xb1547683da678f2e1f003a780143ec10af8a832b",
+      "p": 0.00001379,
+      "d": 18,
+      "n": "SHIBA INU",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/SOXCUK",
+      "a": "0x2859e4544c4bb03966803b044a93563bd2d0dd4d",
+      "p": 0.00001398,
+      "d": 18,
+      "n": "SHIBA INU",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "PancakeSwapBsc",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/XiPndv",
+      "a": "0xb455d798e8b07dbbf9d4609f7b7bdc574463d0b3",
+      "d": 18,
+      "ss": [
+          "BSC SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/GmLZJ2",
+      "a": "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce",
+      "p": 0.000014000741448897613,
+      "d": 18,
+      "n": "SHIBA INU",
+      "ss": [
+          "KyberSwap ETH Aggregator",
+          "EthereumUniswapV3",
+          "Bridgers",
+          "Mayan",
+          "EthUniSwapV2",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/e4tqeq",
+      "a": "0xfcaf0e4498e78d65526a507360f755178b804ba8",
+      "p": 0.00002697,
+      "d": 18,
+      "n": "NicCageWaluigiElmo42069Inu",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/bhZuIZ",
+      "a": "0xf4b7b9ab55a2eeb3bd6123b8f45b0abffd5089c7",
+      "p": 0.00024727,
+      "d": 9,
+      "n": "Strategic Hub for Innovation in Blockchain",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/IzF986",
+      "a": "0xbed48612bc69fa1cab67052b42a95fb30c1bcfee",
+      "d": 18,
+      "n": "SHIBA INU",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/QmEztA",
+      "a": "F6qoefQq4iCBLoNZ34RjEqHjHkD8vtmoRSdw9Nd55J1k",
+      "p": 0.00193764,
+      "d": 9,
+      "n": "Shibwifhatcoin",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/fnxNrE",
+      "a": "5MBBsoCVddAuF8XixvCcXNbHAw6WfpZ8WyTKMmczxxRN",
+      "p": 0.0000305978656,
+      "d": 9,
+      "n": "SHIBA INU",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/p64tF9",
+      "a": "CiKu4eHsVrc1eueVQeHn7qhXTcVu95gSQmBpX4utjL9z",
+      "p": 0.00001379,
+      "d": 8,
+      "n": "Shiba Inu (Portal)",
+      "ss": [
+          "Jupiter",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/UIPdWJ",
+      "a": "7wz31sC5z979UMtiqrtxsYYQ6bJzpjUTgPsZvXuZhso",
+      "p": 0.0000212,
+      "d": 6,
+      "n": "SHIB ON SOLANA",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "OKC",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/p98QLs",
+      "a": "0xaa27badaa3c9ec9081b8f6c9cdd2bf375f143780",
+      "d": 18,
+      "n": "SHIB",
+      "c": "SushiSwap Menu",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "CherrySwap"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/QbMdR8",
+      "a": "0x6f8a06447ff6fcf75d803135a7de15ce88c1d4ec",
+      "d": 18,
+      "n": "Shiba Inu",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "ParaSwap Polygon",
+          "PolygonUniSwapV3"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "SHIB",
+      "i": "https://rango.vip/i/QbMdR8",
+      "a": "0x5033833c9fe8b9d3e09eed2f73d2aaf7e3872fd1",
+      "d": 18,
+      "n": "Shiba Inu",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "ParaSwap Arbitrum"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "LEO",
+      "i": "https://rango.vip/i/M3URN1",
+      "a": "0xc8db98437bed9943f11c5b31b645b07c0efc17e0",
+      "p": 0.00048852,
+      "d": 18,
+      "n": "LEOONO by Virtuals",
+      "ss": [
+          "Base SushiAggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "LEO",
+      "i": "https://rango.vip/i/pFJafa",
+      "a": "0x2af5d2ad76741191d15dfe7bf6ac92d4bd912ca3",
+      "p": 8.817624799986788,
+      "d": 18,
+      "n": "Bitfinex LEO Token",
+      "ss": [
+          "KyberSwap ETH Aggregator",
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "LEO",
+      "i": "https://rango.vip/i/wkYSS0",
+      "a": "8Cd7wXoPb5Yt9cUGtmHNqAEmpMDrhfcVqnGbLC48b8Qm",
+      "p": 0.00035085,
+      "d": 6,
+      "n": "Leo",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "LEO",
+      "i": "https://rango.vip/i/D0Pua1",
+      "a": "0x04f388e30bfd03f357ae061ec5680c7e4ac4cf09",
+      "p": 4.7395e-8,
+      "d": 18,
+      "n": "LeoAVAX",
+      "ss": [
+          "ParaSwap Avalanche",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PI",
+      "i": "https://rango.vip/i/s9Ol6r",
+      "a": "FPcqeF4b9D3jtKkBZCEWCBnbfgtFbdMCESFnyc2Zmoon",
+      "d": 9,
+      "n": "☑ PI Network",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PI",
+      "i": "https://rango.vip/i/IP4YgZ",
+      "a": "NnGbkeLpzx9Tw7sSvERxw6XJcss92ywGbDUE8tymoon",
+      "d": 9,
+      "n": "☑ PI NETWORK",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PI",
+      "i": "https://rango.vip/i/YQqTny",
+      "a": "CWzipNbYXytSr87CdWtQBo7bAd8duaQAFowehN3Vmoon",
+      "d": 9,
+      "n": "PI Network",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PI",
+      "i": "https://rango.vip/i/JhTLRy",
+      "a": "8crZmd42i8SwRFhaCTpdAiCY6ZTMxLc2RxWy6ietmoon",
+      "d": 9,
+      "n": "PI Network",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "HBAR",
+      "i": "https://rango.vip/i/wCN8nk",
+      "a": "0xe0c7226a58f54db71edc6289ba2dc80349b41974",
+      "d": 8,
+      "n": "HBAR",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "TON",
+      "i": "https://rango.vip/i/UTGuBO",
+      "a": "0x6a6c2ada3ce053561c2fbc3ee211f23d9b8c520a",
+      "p": 0.01076174,
+      "d": 18,
+      "n": "TONToken",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "TON",
+      "i": "https://rango.vip/i/8Z8h3K",
+      "a": "0x2be5e8c109e2197d077d13a82daead6a9b3433c5",
+      "p": 1.15,
+      "d": 18,
+      "n": "Tokamak Network Token",
+      "ss": [
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "TON",
+      "s": "TON",
+      "i": "https://rango.vip/i/2nauDy",
+      "p": 3.18,
+      "d": 9,
+      "ip": true,
+      "ss": [
+          "Coffee Swap"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "HYPE",
+      "i": "https://rango.vip/i/iPoJ28",
+      "a": "0x62891201468a517eeec00fe72f33595a3f9047ee",
+      "d": 18,
+      "n": "HYPE",
+      "ss": [
+          "BSC SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "HYPE",
+      "i": "https://rango.vip/i/bKrdEU",
+      "a": "0x85225ed797fd4128ac45a992c46ea4681a7a15da",
+      "p": 0.00326253,
+      "d": 18,
+      "n": "Hyperbolic Protocol",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "HYPE",
+      "i": "https://rango.vip/i/bFGLZB",
+      "a": "8TQdiAzdZZEtkWUR8Zj1tqDYGPv9TR1XjPqrew39Vq9V",
+      "d": 7,
+      "n": "HypeProxy",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BLAST",
+      "s": "HYPE",
+      "i": "https://rango.vip/i/JlreGU",
+      "a": "0x9fe9991daf6b9a5d79280f48cbb6827d46de2ea4",
+      "p": 0.00353982,
+      "d": 9,
+      "n": "HyperBlast",
+      "is": true,
+      "ss": [
+          "KyberSwap Blast Aggregator",
+          "ThrusterV2.1"
+      ]
+  },
+  {
+      "b": "LTC",
+      "s": "LTC",
+      "i": "https://rango.vip/tokens/ALL/LTC.png",
+      "p": 92.55,
+      "d": 8,
+      "ip": true,
+      "ss": [
+          "ThorChain",
+          "ThorChainStreamingSwap"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "LTC",
+      "i": "https://rango.vip/i/3r7gBx",
+      "a": "0x4338665cbb7b2485a8855a139b75d5e34ab0db94",
+      "p": 92.67,
+      "d": 18,
+      "n": "Litecoin Token",
+      "ss": [
+          "XO Swap",
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "PancakeSwapBsc",
+          "KyberSwap BSC Aggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "LTC",
+      "i": "https://rango.vip/i/2fbMSI",
+      "a": "0x9d97be214b68c7051215bb61059b4e299cd792c3",
+      "d": 8,
+      "n": "Litecoin",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "OKC",
+      "s": "LTC",
+      "i": "https://rango.vip/i/uyDkdn",
+      "a": "0xfa520efc34c81bfc1e3dd48b7fe9ff326049f986",
+      "d": 18,
+      "n": "LTC",
+      "c": "SushiSwap Menu",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "CherrySwap"
+      ]
+  },
+  {
+      "b": "TRON",
+      "s": "LTC",
+      "i": "https://rango.vip/i/Lf3Pc8",
+      "a": "TR3DLthpnDdCGabhVDbD3VMsiJoCXY3bZd",
+      "d": 8,
+      "n": "Litecoin",
+      "c": "Tron Alliance List",
+      "cu": "https://rango.vip/i/iyBX2t",
+      "ss": [
+          "SunSwapRouter",
+          "SunSwap"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "DOT",
+      "i": "https://rango.vip/i/i4rT75",
+      "a": "0x7083609fce4d1d8dc0c979aab8c869ea2c873402",
+      "p": 4.29,
+      "d": 18,
+      "n": "Polkadot Token",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "SWFT",
+          "BSCPancakeV3",
+          "Bridgers",
+          "PancakeSwapBsc",
+          "KyberSwap BSC Aggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "DOT",
+      "i": "https://rango.vip/i/6zfhTZ",
+      "a": "0x994047fe66406cbd646cd85b990e11d7f5db8fc7",
+      "d": 10,
+      "n": "DOT",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance",
+          "CronaSwap"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "DOT",
+      "i": "https://rango.vip/tokens/ALL/DOT.png",
+      "a": "ibc/6b2b19d874851f631ff0af82c38a20d4b82f438c7a22f41eda33568345397244",
+      "d": 10,
+      "ss": [
+          "Osmosis"
+      ]
+  },
+  {
+      "b": "OKC",
+      "s": "DOT",
+      "i": "https://rango.vip/i/5YqMfc",
+      "a": "0xabc732f6f69a519f6d508434481376b6221eb7d5",
+      "d": 18,
+      "n": "DOT",
+      "c": "SushiSwap Menu",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "CherrySwap"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "DOT",
+      "i": "https://rango.vip/i/a71PR4",
+      "d": 10,
+      "ip": true,
+      "ss": [
+          "IBC"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "DAI",
+      "i": "https://rango.vip/i/KlMakr",
+      "a": "0x6b175474e89094c44da98b954eedeac495271d0f",
+      "p": 1.000138668952784,
+      "d": 18,
+      "ip": true,
+      "ss": [
+          "ThorChain",
+          "Arbitrum Bridge",
+          "KyberSwap ETH Aggregator",
+          "Satellite",
+          "ThorChainStreamingSwap",
+          "stargate",
+          "Optimism Bridge",
+          "Across",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth",
+          "RelayProtocol",
+          "EthereumUniswapV3",
+          "Bridgers",
+          "Mayan",
+          "EthUniSwapV2"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "DAI",
+      "i": "https://rango.vip/i/biAR5Y",
+      "a": "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
+      "p": 1,
+      "d": 18,
+      "n": "(PoS) Dai Stablecoin",
+      "ip": true,
+      "ss": [
+          "RelayProtocol",
+          "PolygonCurveFinance",
+          "ParaSwap Polygon",
+          "Bridgers",
+          "PolygonUniSwapV3",
+          "KyberSwap Polygon Aggregator",
+          "stargate",
+          "OneInchPolygon",
+          "Across",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "DAI",
+      "i": "https://rango.vip/i/JBvU2A",
+      "a": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
+      "p": 0.999158,
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ip": true,
+      "ss": [
+          "RelayProtocol",
+          "OpenOceanOptimism",
+          "OptimismUniSwapV3",
+          "stargate",
+          "Optimism Bridge",
+          "ParaSwap Optimism",
+          "Across",
+          "DeBridgeDLN",
+          "KyberSwap Optimism Aggregator"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "DAI",
+      "i": "https://rango.vip/i/zPmURd",
+      "a": "0x50c5725949a6f0c72e6c4a641f24049a917db0cb",
+      "p": 0.998692,
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ip": true,
+      "ss": [
+          "RelayProtocol",
+          "OpenOceanBase",
+          "Base SushiAggregator",
+          "Across",
+          "AlienBase",
+          "OneInchBase",
+          "DeBridgeDLN",
+          "BaseUniSwapV3",
+          "KyberSwap Base Aggregator"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "DAI",
+      "i": "https://rango.vip/i/qZquQP",
+      "a": "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
+      "p": 1,
+      "d": 18,
+      "n": "Dai Token",
+      "ip": true,
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "RelayProtocol",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "Bridgers",
+          "PancakeSwapBsc",
+          "KyberSwap BSC Aggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "DAI",
+      "i": "https://rango.vip/i/qoFMcm",
+      "a": "0x43bee29430a2dda4bc053dd5669a56efd6e0556a",
+      "d": 18,
+      "ss": [
+          "BSC SushiAggregator"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "DAI",
+      "i": "https://rango.vip/i/Z58Mn8",
+      "a": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
+      "p": 0.998877,
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ss": [
+          "KyberSwap Arbitrum Aggregator",
+          "ParaSwap Arbitrum",
+          "Arbitrum Bridge",
+          "RelayProtocol",
+          "ArbitrumUniSwapV3",
+          "Arbitrum SushiAggregator",
+          "SushiArbitrum",
+          "Across",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "DAI",
+      "i": "https://rango.vip/i/qgId7F",
+      "a": "0xf2001b145b43032aaf5ee2884e456ccd805f677d",
+      "p": 1,
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ip": true,
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance",
+          "CronaSwap",
+          "MMFinance",
+          "OpenOceanCronos"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "DAI",
+      "i": "https://rango.vip/tokens/ALL/DAI.png",
+      "a": "ibc/0cd3a0285e1341859b5e86b6ab7682f023d03e97607ccc1dc95706411d866df7",
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ss": [
+          "Satellite",
+          "Osmosis",
+          "IBC"
+      ]
+  },
+  {
+      "b": "STARKNET",
+      "s": "DAI",
+      "i": "https://rango.vip/tokens/ALL/DAI.png",
+      "a": "0xda114221cb83fa859dbdb4c44beeaa0bb37c7537ad5ae66fe5e0efd20e6eb3",
+      "p": 1.096,
+      "d": 18,
+      "ip": true,
+      "ss": [
+          "10KSwap"
+      ]
+  },
+  {
+      "b": "MOONBEAM",
+      "s": "DAI",
+      "i": "https://rango.vip/i/YV9OqX",
+      "a": "0x765277eebeca2e31912c9946eae1021199b39c61",
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ip": true,
+      "c": "Stellaswap List",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "BeamSwap"
+      ]
+  },
+  {
+      "b": "ZKSYNC",
+      "s": "DAI",
+      "i": "https://rango.vip/tokens/ALL/DAI.png",
+      "a": "0x4b9eb6c0b6ea15176bbf62841c6b2a8a398cb656",
+      "p": 0.995713,
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ss": [
+          "Across"
+      ]
+  },
+  {
+      "b": "LINEA",
+      "s": "DAI",
+      "i": "https://rango.vip/tokens/ALL/DAI.png",
+      "a": "0x4af15ec2a0bd43db75dd04e62faa3b8ef36b00d5",
+      "p": 1.008,
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ss": [
+          "KyberSwap Linea Aggregator",
+          "OpenOceanLinea",
+          "LineaPancakeV3",
+          "Across",
+          "LineaKyberV3",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "AURORA",
+      "s": "DAI",
+      "i": "https://rango.vip/i/NMILhp",
+      "a": "0xe3520349f477a5f6eb06107066048508498a291b",
+      "p": 1.014,
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "c": "Trisolaris List",
+      "cu": "https://rango.vip/i/bAJQCV",
+      "ss": [
+          "TrisolarisSwap",
+          "OneInchAurora",
+          "OpenOceanAurora"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "DAI",
+      "i": "https://rango.vip/i/PjnNe5",
+      "a": "EjmyN6qEC1Tf1JxiG1ae7UTJhUxSwk1TCWNWqxWV4J6o",
+      "p": 1.00087376,
+      "d": 8,
+      "n": "DAI (Portal)",
+      "ss": [
+          "Jupiter",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "FANTOM",
+      "s": "DAI",
+      "i": "https://rango.vip/i/p9l25P",
+      "a": "0x91a40c733c97a6e1bf876eaf9ed8c08102eb491f",
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ip": true,
+      "ss": [
+          "OpenOceanFantom",
+          "KyberSwap Fantom Aggregator"
+      ]
+  },
+  {
+      "b": "MOONRIVER",
+      "s": "DAI",
+      "i": "https://rango.vip/i/jHHuFw",
+      "a": "0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844",
+      "p": 0.461088,
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ip": true,
+      "ss": [
+          "SolarbeamSwap",
+          "OpenOceanMoonRiver"
+      ]
+  },
+  {
+      "b": "POLYGONZK",
+      "s": "DAI",
+      "i": "https://rango.vip/i/zBuOVv",
+      "a": "0xc5015b9d9161dca7e18e32f6f25c4ad850731fd4",
+      "p": 1.001,
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ip": true,
+      "ss": [
+          "OpenOceanPolygonZk"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "DAI",
+      "i": "https://rango.vip/i/vOxmBE",
+      "a": "0x3413a030ef81a3dd5a302f4b4d11d911e12ed337",
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "DAI",
+      "i": "https://rango.vip/i/y9vmyl",
+      "a": "0x732eb1747eccfc431ff19bc359ffc83755b1918c",
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "AVAX_CCHAIN",
+      "s": "DAI",
+      "i": "https://rango.vip/i/y9vmyl",
+      "a": "0xca319f81d147559e19a522a0a0310dd43a96ca0f",
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "STARKNET",
+      "s": "DAI",
+      "i": "https://rango.vip/i/KlMakr",
+      "a": "0x5574eb6b8789a91466f902c380d978e472db68170ff82a5b650b95a58ddf4ad",
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ss": [
+          "Avnu"
+      ]
+  },
+  {
+      "b": "SCROLL",
+      "s": "DAI",
+      "i": "https://rango.vip/i/3aGCtr",
+      "a": "0xca77eb3fefe3725dc33bccb54edefc3d9f764f97",
+      "d": 18,
+      "n": "Dai Stablecoin",
+      "ip": true,
+      "is": true,
+      "ss": [
+          "KyberSwap Scroll Aggregator",
+          "ZebraScrollV3"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "BGB",
+      "i": "https://rango.vip/i/4C2evT",
+      "a": "0x54d2252757e1672eead234d27b1270728ff90581",
+      "p": 4.442663586457356,
+      "d": 18,
+      "n": "BitgetToken",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "USDe",
+      "i": "https://rango.vip/i/hwnm0J",
+      "a": "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34",
+      "p": 1,
+      "d": 18,
+      "n": "USDe",
+      "ss": [
+          "KyberSwap Arbitrum Aggregator",
+          "ParaSwap Arbitrum",
+          "ArbitrumUniSwapV3",
+          "Arbitrum SushiAggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USDe",
+      "i": "https://rango.vip/i/3sfnGB",
+      "a": "0x4c9edd5852cd905f086c759e8383e09bff1e68b3",
+      "p": 1.0001227993334907,
+      "d": 18,
+      "n": "USDe",
+      "ss": [
+          "KyberSwap ETH Aggregator",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "USDe",
+      "i": "https://rango.vip/i/eP9eBc",
+      "a": "DEkqHyPN7GMRJ5cArtQFAWefqbZb33Hyf6s5iCwjEonT",
+      "p": 1.00013714,
+      "d": 9,
+      "n": "USDe",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "TON",
+      "s": "USDe",
+      "i": "https://rango.vip/i/0Hdu0Y",
+      "a": "EQAIb6KmdfdDR7CN1GBqVJuP25iCnLKCvBlJ07Evuu2dzP5f",
+      "d": 6,
+      "ss": [
+          "Coffee Swap"
+      ]
+  },
+  {
+      "b": "BERACHAIN",
+      "s": "USDe",
+      "i": "https://rango.vip/i/utE0MD",
+      "a": "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34",
+      "d": 18,
+      "n": "USDe",
+      "ip": true,
+      "is": true,
+      "ss": [
+          "KyberSwap BeraChain Aggregator"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/F8M4IR",
+      "a": "0x52b492a33e447cdb854c7fc19f1e57e8bfa1777d",
+      "p": 6.7154e-8,
+      "d": 18,
+      "n": "BasedPepe",
+      "ss": [
+          "Base SushiAggregator",
+          "DeBridgeDLN",
+          "BaseUniSwapV3"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/WalbMm",
+      "a": "0x698dc45e4f10966f6d1d98e3bfd7071d8144c233",
+      "p": 1.052e-9,
+      "d": 9,
+      "n": "Pepe",
+      "ss": [
+          "Base SushiAggregator",
+          "DeBridgeDLN",
+          "BaseUniSwapV3"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/2an48H",
+      "a": "0x80f45eacf6537498ecc660e4e4a2d2f99e195cf4",
+      "p": 0.00009188,
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "Base SushiAggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/bcDuDz",
+      "a": "0xb4fde59a779991bfb6a52253b51947828b982be3",
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "Base SushiAggregator"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/AB1gOx",
+      "a": "0x25d887ce7a35172c62febfd67a1856f20faebb00",
+      "p": 0.0000106,
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/XUFxoD",
+      "a": "0xef00278d7eadf3b2c05267a2f185e468ad7eab7d",
+      "p": 8.0586e-8,
+      "d": 18,
+      "n": "PEPE PAD",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/I2IGYn",
+      "a": "0x25d887ce7a35172c62febfd67a1856f20faebb00",
+      "p": 0.0000106,
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "ParaSwap Arbitrum",
+          "ArbitrumUniSwapV3",
+          "Arbitrum SushiAggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/Hoi0px",
+      "a": "0xa54b8e178a49f8e5405a4d44bb31f496e5564a05",
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "Arbitrum SushiAggregator"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/IfOQL7",
+      "a": "0xdee46be9d0b207e5d88d2efd84a045e725a242f7",
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "Arbitrum SushiAggregator"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/F2xQaI",
+      "a": "0xef00278d7eadf3b2c05267a2f185e468ad7eab7d",
+      "p": 8.0586e-8,
+      "d": 18,
+      "n": "PEPE PAD",
+      "ss": [
+          "ParaSwap Arbitrum",
+          "Arbitrum SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/ffelkU",
+      "a": "0x6982508145454ce325ddbe47a25d4ec3d2311933",
+      "p": 0.000010586783206940127,
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "KyberSwap ETH Aggregator",
+          "EthereumUniswapV3",
+          "Bridgers",
+          "EthUniSwapV2",
+          "Optimism Bridge",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/e8UFUl",
+      "a": "0xbe042e9d09cb588331ff911c2b46fd833a3e5bd6",
+      "p": 0.00024824,
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/p3TVa4",
+      "a": "0x4dfae3690b93c47470b03036a17b23c1be05127c",
+      "p": 3.95,
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/1LTkQw",
+      "a": "0x69e15ab0fd240de689d09e4851181a6667968008",
+      "p": 0.00005651,
+      "d": 9,
+      "n": "El Sapo Pepe",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/MsLUq9",
+      "a": "0x51a59a02ba906194285e81eb1f98ffa28e7cf4c9",
+      "p": 0.00027056,
+      "d": 9,
+      "n": "Pepe King Prawn",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/aa5yYJ",
+      "a": "0x2fb3842189fc7a699d047d9e647474f27779331d",
+      "p": 2.1071e-11,
+      "d": 18,
+      "n": "PEPE",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/htbtuK",
+      "a": "0xa57ed6e54be8125bbe45d6ca330e45ebb71ef11e",
+      "p": 1.72687e-10,
+      "d": 18,
+      "n": "PEPE",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/VTTzsz",
+      "a": "0x4a27e9aab8f8ba9de06766c8476ed1d16494e35f",
+      "p": 0.00000696,
+      "d": 18,
+      "n": "PEPEGOLD",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/56VnWX",
+      "a": "CYuXNHURE8cF3rQc1687DZnmsWx9ATNG3mZPFmryu22S",
+      "d": 9,
+      "n": "PEPESOLANA",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/xgsmmH",
+      "a": "F9CpWoyeBJfoRB8f2pBe2ZNPbPsEE76mWZWme3StsvHK",
+      "p": 0.00044647,
+      "d": 6,
+      "n": "Pepe",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/3WTCtV",
+      "a": "ox698TZsZAN2miNQj1FQb48A58FZ546c4sWqq9Y9vmU",
+      "p": 4.78429e-11,
+      "d": 4,
+      "n": "Pepe",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/D9VN41",
+      "a": "0xef4a1d459d62dfd2ebb9c45b04f90f0a7ba1d56e",
+      "p": 0.00024824,
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "ParaSwap Arbitrum",
+          "ArbitrumUniSwapV3",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "LINEA",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/MYh0qV",
+      "a": "0x7da14988e4f390c2e34ed41df1814467d3ade0c3",
+      "p": 0.00000924,
+      "d": 18,
+      "n": "Linea Bridged PEPE (Linea)",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/UCN7Mg",
+      "a": "2Zaq3WyDJj2ZkMcuqUiTBfAXCjqZtqihxcwUdwv9dyHA",
+      "p": 0.00123995,
+      "d": 9,
+      "n": "PEPE",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/0uROKG",
+      "a": "DHsPzhYsz9219sQDj6vYtQMBBHeuyXAM1RA4mjv2V9AT",
+      "p": 1.05766e-10,
+      "d": 4,
+      "n": "Pepe",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/QrGHWJ",
+      "a": "846XGqAnEhKFwc3QL2e5PQhSRvEbn9KspuxJ3nhY92kh",
+      "p": 0.00002019,
+      "d": 6,
+      "n": "PEPE GOLD",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/O5mNfe",
+      "a": "8jzRznet3cR3Y1KhciwUxKEqPku3BLcfiJLpVjMU3NF7",
+      "p": 0.00001231,
+      "d": 6,
+      "n": "PEPE",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/JARji3",
+      "a": "BWKyFgvQSfjNRbidRJ5CtuphashZNr3ba7oe9cjZpump",
+      "p": 0.00001255,
+      "d": 6,
+      "n": "PEPE BLACK",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/6hVHM6",
+      "a": "EdNiGWbkBwmmz7uhtdY3DqKZn1n5m1c61uLVgvXYZWGS",
+      "p": 8.2302e-10,
+      "d": 6,
+      "n": "Pepe",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "TON",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/bzhada",
+      "a": "EQCXzO7HhoK5fDQuCONE43l8-Qsreq5zq89ZVNhEna24eK-h",
+      "d": 9,
+      "ss": [
+          "Coffee Swap"
+      ]
+  },
+  {
+      "b": "TON",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/GPsBMM",
+      "a": "EQDPdNEYKpn26W-fgNVt6nyMgt3FFeEQmQwtcAFGxnhs1pUh",
+      "d": 9,
+      "ss": [
+          "Coffee Swap"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/QYU0SS",
+      "a": "0xc1c167cc44f7923cd0062c4370df962f9ddb16f5",
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "Optimism Bridge",
+          "ParaSwap Optimism"
+      ]
+  },
+  {
+      "b": "ZKSYNC",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/HY4mCL",
+      "a": "0xfd282f16a64c6d304ac05d1a58da15bed0467c71",
+      "d": 18,
+      "n": "Pepe",
+      "ss": [
+          "OneInchZksync"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "PEPE",
+      "i": "https://rango.vip/i/5W9Uk5",
+      "a": "0x35e6a59f786d9266c7961ea28c7b768b33959cbb",
+      "d": 18,
+      "n": "Pepe",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "ParaSwap Arbitrum"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "TAO",
+      "i": "https://rango.vip/i/n5nGvQ",
+      "a": "9cYXqd1ggyMTjwZFWnbDuf5EfLEcLuumMG67jRkJpump",
+      "p": 0.00002218,
+      "d": 6,
+      "n": "The Anthropic Order",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "TAO",
+      "i": "https://rango.vip/i/M1xGi2",
+      "a": "0xf0443834b7b21104b7102edbe8f9ec06204cd395",
+      "d": 9,
+      "n": "Friction Finance",
+      "ss": [
+          "ParaSwap Bsc"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "UNI",
+      "i": "https://rango.vip/i/Uy07Kn",
+      "a": "0xc3de830ea07524a0761646a6a4e4be0e114a3c83",
+      "d": 18,
+      "n": "Uniswap",
+      "ss": [
+          "Base SushiAggregator",
+          "OneInchBase"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "UNI",
+      "i": "https://rango.vip/i/4ZlNKp",
+      "a": "0xbf5140a22578168fd562dccf235e5d43a02ce9b1",
+      "p": 5.56,
+      "d": 18,
+      "n": "Uniswap",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "Bridgers",
+          "PancakeSwapBsc",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "UNI",
+      "i": "https://rango.vip/i/ezqwHV",
+      "a": "0xfa7f8980b0f1e64a2062791cc3b0871572f1f7f0",
+      "p": 5.56,
+      "d": 18,
+      "n": "Uniswap",
+      "ss": [
+          "KyberSwap Arbitrum Aggregator",
+          "ParaSwap Arbitrum",
+          "Arbitrum Bridge",
+          "ArbitrumUniSwapV3",
+          "Arbitrum SushiAggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "UNI",
+      "i": "https://rango.vip/i/DOLhyN",
+      "a": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+      "p": 5.545772555877258,
+      "d": 18,
+      "n": "Uniswap",
+      "ss": [
+          "Arbitrum Bridge",
+          "KyberSwap ETH Aggregator",
+          "EthereumUniswapV3",
+          "Bridgers",
+          "Mayan",
+          "EthUniSwapV2",
+          "Optimism Bridge",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "UNI",
+      "i": "https://rango.vip/i/WKwOmn",
+      "a": "0x2730d6fdc86c95a74253beffaa8306b40fedecbb",
+      "p": 5.59,
+      "d": 8,
+      "n": "UNICORN",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "UNI",
+      "i": "https://rango.vip/i/SKWP90",
+      "a": "0x16ad43896f7c47a5d9ee546c44a22205738b329c",
+      "d": 18,
+      "n": "Uniswap",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "UNI",
+      "i": "https://rango.vip/i/uJNLZU",
+      "a": "8FU95xFJhUUkyyCLU13HSzDLs7oC4QZdXQHL6SCeab36",
+      "p": 5.55542434,
+      "d": 8,
+      "n": "Uniswap (Portal)",
+      "ss": [
+          "Jupiter",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "UNI",
+      "i": "https://rango.vip/i/CW462o",
+      "a": "0xb33eaad8d922b1083446dc23f610c2567fb5180f",
+      "p": 5.56,
+      "d": 18,
+      "n": "Uniswap (PoS)",
+      "ss": [
+          "ParaSwap Polygon",
+          "PolygonUniSwapV3",
+          "KyberSwap Polygon Aggregator",
+          "OneInchPolygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "UNI",
+      "i": "https://rango.vip/i/L0qrKS",
+      "a": "0xf0b2b2d73a7c070e5f44a4e12b3f6a51949a3459",
+      "p": 0.00078797,
+      "d": 18,
+      "n": "UNILAPSE",
+      "ss": [
+          "ParaSwap Polygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "LINEA",
+      "s": "UNI",
+      "i": "https://rango.vip/i/xQrHFj",
+      "a": "0x636b22bc471c955a8db60f28d4795066a8201fa3",
+      "p": 5.62,
+      "d": 18,
+      "n": "Uniswap",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "UNI",
+      "i": "https://rango.vip/i/I1I6sJ",
+      "a": "0x6fd9d7ad17242c41f7131d257212c54a0e816691",
+      "p": 5.56,
+      "d": 18,
+      "n": "Uniswap",
+      "ss": [
+          "OptimismUniSwapV3",
+          "Optimism Bridge",
+          "ParaSwap Optimism",
+          "DeBridgeDLN",
+          "KyberSwap Optimism Aggregator"
+      ]
+  },
+  {
+      "b": "OKC",
+      "s": "UNI",
+      "i": "https://rango.vip/i/kF7vc0",
+      "a": "0x59d226bb0a4d74274d4354ebb6a0e1a1aa5175b6",
+      "d": 18,
+      "n": "UNI",
+      "c": "SushiSwap Menu",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "CherrySwap"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "UNI",
+      "i": "https://rango.vip/i/wkAcrj",
+      "a": "0xb8c9eafe23670f5287034844742d3df497260389",
+      "d": 18,
+      "n": "Uniswap",
+      "ss": [
+          "Mayan"
+      ]
+  },
+  {
+      "b": "STARKNET",
+      "s": "UNI",
+      "i": "https://rango.vip/i/DOLhyN",
+      "a": "0x49210ffc442172463f3177147c1aeaa36c51d152c1b0630f2364c300d4f48ee",
+      "d": 18,
+      "n": "Uniswap",
+      "ss": [
+          "Avnu"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "APT",
+      "i": "https://rango.vip/i/D9OZvJ",
+      "a": "0xa49c8cbbddfe4dbc8605f0f5c8f2845c5e225d22",
+      "d": 18,
+      "ss": [
+          "BSC SushiAggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "APT",
+      "i": "https://rango.vip/i/sOKUQD",
+      "a": "0x8cdf7af57e4c8b930e1b23c477c22f076530585e",
+      "d": 8,
+      "ss": [
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "APT",
+      "i": "https://rango.vip/i/rdxQjG",
+      "a": "APTtJyaRX5yGTsJU522N4VYWg3vCvSb65eam5GrPT5Rt",
+      "p": 0.00013746,
+      "d": 6,
+      "n": "Apricot",
+      "ss": [
+          "Jupiter",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SUI",
+      "s": "APT",
+      "i": "https://rango.vip/i/U9v1wC",
+      "a": "0x3a5143bb1196e3bcdfab6203d1683ae29edd26294fc8bfeafe4aaa9d2704df37::coin::COIN",
+      "d": 8,
+      "n": "Aptos Coin (Portal from Aptos)",
+      "ss": [
+          "CetusSui"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "APT",
+      "i": "https://rango.vip/i/en0lBC",
+      "a": "0xc5b3ac2df8d8d7ac851f763a5b3ff23b4a696d59",
+      "d": 8,
+      "n": "Aptos",
+      "c": "Superchain Token List",
+      "cu": "https://rango.vip/i/SyFTiK",
+      "ss": [
+          "ParaSwap Optimism"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "NEAR",
+      "i": "https://rango.vip/i/9gdUW1",
+      "a": "0x1fa4a73a3f0133f0025378af00236f3abdee5d63",
+      "p": 2.61,
+      "d": 18,
+      "n": "NEAR Protocol",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "PancakeSwapBsc",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "NEAR",
+      "i": "https://rango.vip/i/ZrBiVq",
+      "a": "0x85f17cf997934a597031b2e18a9ab6ebd4b9f6a4",
+      "p": 2.62,
+      "d": 24,
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "NEAR",
+      "i": "https://rango.vip/i/7skYcY",
+      "a": "0xafe470ae215e48c144c7158eae3ccf0c451cb0cb",
+      "d": 24,
+      "n": "NEAR",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "AURORA",
+      "s": "NEAR",
+      "i": "https://rango.vip/i/BZysEn",
+      "a": "0xc42c30ac6cc15fac9bd938618bcaa1a1fae8501d",
+      "p": 2.61,
+      "d": 24,
+      "n": "NEAR",
+      "ip": true,
+      "c": "AuroraSwap Default List",
+      "cu": "https://rango.vip/i/v1sE5N",
+      "ss": [
+          "TrisolarisSwap",
+          "OneInchAurora",
+          "OpenOceanAurora",
+          "AuroraSwap"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "NEAR",
+      "i": "https://rango.vip/i/GSAnqU",
+      "a": "BYPsjxa3YuZESQz1dKuBw1QSFCSpecsm8nCQhY5xbU1Z",
+      "p": 2.564460034,
+      "d": 9,
+      "n": "NEAR (Allbridge from Near)",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "OKB",
+      "i": "https://rango.vip/i/hy38PQ",
+      "a": "0x75231f58b43240c9718dd58b4967c5114342a86c",
+      "p": 52.557051052081746,
+      "d": 18,
+      "n": "OKB",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "OKC",
+      "s": "OKB",
+      "i": "https://rango.vip/i/Lf5FRJ",
+      "a": "0xdf54b6c6195ea4d948d03bfd818d365cf175cfc2",
+      "p": 52.67,
+      "d": 18,
+      "n": "OKB",
+      "c": "SushiSwap Menu",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "CherrySwap"
+      ]
+  },
+  {
+      "b": "XLAYER",
+      "s": "OKB",
+      "i": "https://rango.vip/i/PIVMde",
+      "p": 52.67,
+      "d": 18,
+      "n": "OKB",
+      "ip": true,
+      "ss": [
+          "PotatoSwap",
+          "Bridgers"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "ONDO",
+      "i": "https://rango.vip/i/9juLsL",
+      "a": "0xfaba6f8e4a5e8ab82f62fe7c39859fa577269be3",
+      "p": 0.9509423473717805,
+      "d": 18,
+      "n": "Ondo",
+      "ss": [
+          "EthereumUniswapV3",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "ONDO",
+      "i": "https://rango.vip/i/UQl85I",
+      "a": "0xa2d52a05b8bead5d824df54dd1aa63188b37a5e7",
+      "d": 18,
+      "n": "Ondo Finance",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "ParaSwap Arbitrum"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "AAVE",
+      "i": "https://rango.vip/i/h4K78m",
+      "a": "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9",
+      "p": 196.24600657742943,
+      "d": 18,
+      "ss": [
+          "ThorChain",
+          "KyberSwap ETH Aggregator",
+          "EthereumUniswapV3",
+          "Bridgers",
+          "ThorChainStreamingSwap",
+          "Optimism Bridge",
+          "EthUniSwapV2",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "AAVE",
+      "i": "https://rango.vip/i/SHhxeO",
+      "a": "0xfb6115445bff7b52feb98650c87f44907e58f802",
+      "p": 196.48,
+      "d": 18,
+      "n": "Aave Token",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "AAVE",
+      "i": "https://rango.vip/i/ZOQMph",
+      "a": "0xba5ddd1f9d7f570dc94a51479a000e3bce967196",
+      "p": 196.48,
+      "d": 18,
+      "n": "Aave Token",
+      "ss": [
+          "ParaSwap Arbitrum",
+          "ArbitrumUniSwapV3",
+          "Arbitrum SushiAggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "AAVE",
+      "i": "https://rango.vip/i/rVjcDm",
+      "a": "0xe657b115bc45c0786274c824f83e3e02ce809185",
+      "d": 18,
+      "n": "Aave",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "FANTOM",
+      "s": "AAVE",
+      "i": "https://rango.vip/i/bf8J2x",
+      "a": "0x6a07a792ab2965c72a5b8088d3a069a7ac3a993b",
+      "p": 196.48,
+      "d": 18,
+      "n": "Aave",
+      "c": "SpookySwap Default List",
+      "cu": "https://rango.vip/i/pgiQXn",
+      "ss": [
+          "SpookySwap",
+          "OpenOceanFantom",
+          "KyberSwap Fantom Aggregator",
+          "ParaSwap Fantom"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "AAVE",
+      "i": "https://rango.vip/i/xa24Lt",
+      "a": "3vAs4D1WE6Na4tCgt4BApgFfENbm8WY7q4cSPD1yM4Cg",
+      "d": 8,
+      "n": "Aave Token (Portal)",
+      "ss": [
+          "Jupiter"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "AAVE",
+      "i": "https://rango.vip/i/1qCXGa",
+      "a": "0xd6df932a45c0f255f85145f286ea0b292b21c90b",
+      "p": 196.48,
+      "d": 18,
+      "n": "Aave (PoS)",
+      "ss": [
+          "ParaSwap Polygon",
+          "PolygonUniSwapV3",
+          "KyberSwap Polygon Aggregator",
+          "OneInchPolygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "OPTIMISM",
+      "s": "AAVE",
+      "i": "https://rango.vip/i/1B1rnE",
+      "a": "0x76fb31fb4af56892a25e32cfc43de717950c9278",
+      "p": 196.48,
+      "d": 18,
+      "n": "Aave Token",
+      "ss": [
+          "OptimismUniSwapV3",
+          "Optimism Bridge",
+          "ParaSwap Optimism",
+          "DeBridgeDLN",
+          "KyberSwap Optimism Aggregator"
+      ]
+  },
+  {
+      "b": "MOONRIVER",
+      "s": "AAVE",
+      "i": "https://rango.vip/i/J3qlZS",
+      "a": "0xf27ee99622c3c9b264583dacb2cce056e194494f",
+      "d": 18,
+      "n": "Aave",
+      "ss": [
+          "OpenOceanMoonRiver"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "ETC",
+      "i": "https://rango.vip/i/Zki1Wb",
+      "a": "0x3d6545b08693dae087e957cb1180ee38b9e3c25e",
+      "d": 18,
+      "n": "Ethereum Classic",
+      "ss": [
+          "BSC SushiAggregator",
+          "OneInchBsc"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "ETC",
+      "i": "https://rango.vip/i/Yn8mCf",
+      "a": "0xd9ce64c200721a98103102f9ea8e894e347ea287",
+      "d": 18,
+      "n": "Ethereum Classic",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "OKC",
+      "s": "ETC",
+      "i": "https://rango.vip/i/gfdfXC",
+      "a": "0x99970778e2715bbc9cf8fb83d10dcbc2d2d551a3",
+      "d": 18,
+      "n": "ETC",
+      "c": "SushiSwap Menu",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "CherrySwap"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "GT",
+      "i": "https://rango.vip/i/TOEfDi",
+      "a": "0xe66747a101bff2dba3697199dcce5b743b454759",
+      "p": 21.767788373469326,
+      "d": 18,
+      "n": "GateChainToken",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "ICP",
+      "i": "https://rango.vip/i/Q1g3vl",
+      "a": "0x8bf3e654075e269c1c415e4889c12d9837452be0",
+      "d": 8,
+      "n": "ICP",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "GT",
+      "i": "https://rango.vip/i/nfELyT",
+      "a": "ABAq2R9gSpDDGguQxBk4u13s4ZYW6zbwKVBx15mCMG8",
+      "d": 8,
+      "n": "GateToken (Portal)",
+      "ss": [
+          "Jupiter"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "POL",
+      "i": "https://rango.vip/i/iGV6Ho",
+      "a": "0x455e53cbb86018ac2b8092fdcd39d8444affc3f6",
+      "p": 0.25168128613186236,
+      "d": 18,
+      "n": "Polygon Ecosystem Token",
+      "ss": [
+          "KyberSwap ETH Aggregator",
+          "EthereumUniswapV3",
+          "EthUniSwapV2",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "POL",
+      "i": "https://rango.vip/tokens/ALL/POL.png",
+      "p": 0.250301,
+      "d": 18,
+      "n": "POL",
+      "ip": true,
+      "ss": [
+          "RelayProtocol",
+          "PolygonCurveFinance",
+          "ParaSwap Polygon",
+          "PolygonUniSwapV3",
+          "Bridgers",
+          "Mayan",
+          "Satellite",
+          "KyberSwap Polygon Aggregator",
+          "QuickSwap",
+          "OneInchPolygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "POL",
+      "i": "https://rango.vip/i/ptUjLX",
+      "a": "0x044d8e7f3a17751d521efea8ccf9282268fe08cc",
+      "d": 18,
+      "n": "Polygon Ecosystem Token",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "ParaSwap Arbitrum"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "CRO",
+      "i": "https://rango.vip/i/LqX0G2",
+      "a": "0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b",
+      "p": 0.096914,
+      "d": 8,
+      "n": "CRO",
+      "ss": [
+          "EthereumUniswapV3",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "CRO",
+      "i": "https://rango.vip/tokens/ALL/CRO.png",
+      "p": 0.096914,
+      "d": 18,
+      "n": "CRO",
+      "ip": true,
+      "ss": [
+          "VVSFinance",
+          "CronaSwap",
+          "RelayProtocol",
+          "MMFinance",
+          "Bridgers",
+          "OpenOceanCronos"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "CRO",
+      "i": "https://rango.vip/tokens/ALL/CRO.png",
+      "a": "ibc/e6931f78057f7cc5da0fd6cef82ff39373a6e0452bf1fd76910b93292cf356c1",
+      "p": 0.096905,
+      "d": 8,
+      "ss": [
+          "Osmosis",
+          "IBC"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "CRO",
+      "i": "https://rango.vip/i/IGL0zX",
+      "a": "DvjMYMVeXgKxaixGKpzQThLoG98nc7HSU7eanzsdCboA",
+      "d": 8,
+      "n": "Crypto.com Coin (Portal)",
+      "ss": [
+          "Jupiter"
+      ]
+  },
+  {
+      "b": "CRYPTO_ORG",
+      "s": "CRO",
+      "i": "https://rango.vip/i/m0Whw4",
+      "d": 8,
+      "ip": true,
+      "ss": [
+          "IBC"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "CRO",
+      "i": "https://rango.vip/i/gKwj8R",
+      "a": "0xada58df0f643d959c2a47c9d4d4c1a4defe3f11c",
+      "d": 8,
+      "n": "CRO (PoS)",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "PolygonUniSwapV3"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "CRO",
+      "i": "https://rango.vip/i/pmpAyu",
+      "a": "0x8ea3156f834a0dfc78f1a5304fac2cda676f354c",
+      "d": 8,
+      "n": "Cronos",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "ParaSwap Arbitrum"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "KAS",
+      "i": "https://rango.vip/i/wQLeya",
+      "a": "0x51e72dd1f2628295cc2ef931cb64fdbdc3a0c599",
+      "p": 0.02074393,
+      "d": 8,
+      "n": "Kaspa",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "BSCPancakeV3",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "KAS",
+      "i": "https://rango.vip/i/2Cf6lY",
+      "a": "0x112b08621e27e10773ec95d250604a041f36c582",
+      "p": 0.02074393,
+      "d": 8,
+      "n": "Kaspa",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "KAS",
+      "i": "https://rango.vip/i/Jj1cFi",
+      "a": "0x3562ddf1f5ce2c02ef109e9d5a72e2fdb702711d",
+      "p": 0.02074393,
+      "d": 8,
+      "n": "Kaspa",
+      "ss": [
+          "ParaSwap Polygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/oDEqs5",
+      "a": "0x57f5fbd3de65dfc0bd3630f732969e5fb97e6d37",
+      "p": 0.191012,
+      "d": 9,
+      "n": "MAGA",
+      "ss": [
+          "Base SushiAggregator",
+          "DeBridgeDLN",
+          "BaseUniSwapV3"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/75pAo4",
+      "a": "0x4ea98c1999575aaadfb38237dd015c5e773f75a2",
+      "p": 0.191012,
+      "d": 9,
+      "n": "MAGA",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/Zf8gGy",
+      "a": "0x6aa56e1d98b3805921c170eb4b3fe7d4fda6d89b",
+      "p": 0.191012,
+      "d": 9,
+      "n": "MAGA",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/vmStlK",
+      "a": "0x576e2bed8f7b46d34016198911cdf9886f78bea7",
+      "d": 9,
+      "n": "MAGA",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/0iv2aC",
+      "a": "0x4f4a556361b8b4869f97b8709ff47c1b057ea13b",
+      "d": 9,
+      "n": "MAGA",
+      "ss": [
+          "DeBridgeDLN",
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/Blv7zu",
+      "a": "HaP8r3ksG76PhQLTqR8FYBeNiQpejcFbQmiHbg787Ut1",
+      "p": 0.190129,
+      "d": 8,
+      "n": "MAGA (Wormhole)",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/G7gWli",
+      "a": "AwRErBEFGTnohzfLeRSBH9HddQEy2oeRxnWLrbvFFh95",
+      "p": 0.0000012793,
+      "d": 6,
+      "n": "TRUMP",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/Kj5Z4x",
+      "a": "BqhNdGtS1Nqtzi2MvZ7G8NN1vRuHZ12UpHGJKe71e1JT",
+      "p": 0.00001837,
+      "d": 9,
+      "n": "MoonTrump",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/ZAkFOb",
+      "a": "4h8LjZWUfUQVgbEZ29UzTuGXNW6rwrJis78ZU66ekkPV",
+      "p": 0.000120449907,
+      "d": 9,
+      "n": "Donald Trump",
+      "ss": [
+          "Jupiter",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/o8ETAp",
+      "a": "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN",
+      "p": 12.355612088366762,
+      "d": 6,
+      "n": "OFFICIAL TRUMP",
+      "ss": [
+          "Jupiter",
+          "Bridgers",
+          "Mayan",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/NSIvzL",
+      "a": "0x69420cb71f5fa439a84545e79557977c0600c46e",
+      "p": 0.00036909,
+      "d": 9,
+      "n": "TrumpEffect69420",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/VsuVQK",
+      "a": "0xd28b3fd350a14f0b1d14633e3d14db7b80406391",
+      "p": 0.00000275,
+      "d": 18,
+      "n": "Meme TrumpCoin",
+      "ss": [
+          "ParaSwap Polygon",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "TON",
+      "s": "TRUMP",
+      "i": "https://rango.vip/i/viFRyd",
+      "a": "EQBZGBxlhSpBzQfFdj7AqJa6tIavsCaFBYDl2C5J5TIFecrH",
+      "d": 6,
+      "ss": [
+          "Coffee Swap"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "RENDER",
+      "i": "https://rango.vip/i/QiMGH1",
+      "a": "rndrizKT3MK1iimdxRdWabcF7Zg7AR5T4nud4EkHBof",
+      "p": 4.62908697,
+      "d": 8,
+      "n": "Render Token",
+      "ss": [
+          "Jupiter",
+          "Bridgers",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "VET",
+      "i": "https://rango.vip/i/8a3Zhn",
+      "a": "0x6fdcdfef7c496407ccb0cec90f9c5aaa1cc8d888",
+      "d": 18,
+      "n": "VeChain",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "VET",
+      "i": "https://rango.vip/i/rgoXn8",
+      "a": "0xc9b5b981e7ffd630f456614d75230022f46fd03d",
+      "d": 18,
+      "n": "VET",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "USD1",
+      "i": "https://rango.vip/i/W2LVuN",
+      "a": "0x8d0d000ee44948fc98c9b98a4fa4921476f08b0d",
+      "p": 1.001,
+      "d": 18,
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "Bridgers"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "USD1",
+      "i": "https://rango.vip/i/bGCQJo",
+      "a": "0x8d0d000ee44948fc98c9b98a4fa4921476f08b0d",
+      "p": 0.9999548952734174,
+      "d": 18,
+      "n": "World Liberty Financial USD",
+      "ss": [
+          "Bridgers"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "FIL",
+      "i": "https://rango.vip/i/epM89A",
+      "a": "0x0d8ce2a99bb6e3b7db580ed848240e4a0f9ae153",
+      "p": 2.85,
+      "d": 18,
+      "n": "Filecoin",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "PancakeSwapBsc",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "FIL",
+      "i": "https://rango.vip/i/vKbsPE",
+      "a": "0x7d7130b0b4733d603cea12628b52067ce8458058",
+      "d": 18,
+      "n": "Filecoin",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "OKC",
+      "s": "FIL",
+      "i": "https://rango.vip/i/DQJb41",
+      "a": "0x3f8969be2fc0770dcc174968e4b4ff146e0acdaf",
+      "d": 18,
+      "n": "FIL",
+      "c": "SushiSwap Menu",
+      "cu": "https://rango.vip/i/3O2Kju",
+      "ss": [
+          "CherrySwap"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "ALGO",
+      "i": "https://rango.vip/i/fPzwDf",
+      "a": "0x29ffeffcd2154824c6e645afeacca4bd95c893d2",
+      "d": 18,
+      "n": "Algowave",
+      "ss": [
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "CRONOS",
+      "s": "ALGO",
+      "i": "https://rango.vip/i/BIJOe6",
+      "a": "0x2fefe47989214c2e74a6319076c138d395681407",
+      "d": 6,
+      "n": "Algorand",
+      "c": "Rango Token List",
+      "cu": "https://rango.vip/i/lYlZID",
+      "ss": [
+          "VVSFinance"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "ENA",
+      "i": "https://rango.vip/i/BotOeA",
+      "a": "0x57e114b691db790c35207b2e685d4a43181e6061",
+      "p": 0.3203332581605149,
+      "d": 18,
+      "n": "ENA",
+      "ss": [
+          "KyberSwap ETH Aggregator",
+          "EthereumUniswapV3",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "SOLANA",
+      "s": "ENA",
+      "i": "https://rango.vip/i/fQGsaB",
+      "a": "72QvBVwpxqmheEPfaCwWSWqEFsUy3rhWt6JhQBMNTwD1",
+      "d": 9,
+      "n": "Ethena",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "ENA",
+      "i": "https://rango.vip/i/l1tTgv",
+      "a": "0xdf8f0c63d9335a0abd89f9f752d293a98ea977d8",
+      "d": 18,
+      "n": "Ethena",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "ParaSwap Arbitrum"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "FET",
+      "i": "https://rango.vip/i/E5P2xh",
+      "a": "0x031b41e504677879370e9dbcf937283a8691fa7f",
+      "p": 0.769376,
+      "d": 18,
+      "n": "Fetch",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "OneInchBsc",
+          "BSCPancakeV3",
+          "PancakeSwapBsc",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "FET",
+      "i": "https://rango.vip/i/QQe5jh",
+      "a": "0xaea46a60368a7bd060eec7df8cba43b7ef41ad85",
+      "p": 0.769376,
+      "d": 18,
+      "n": "Fetch",
+      "ss": [
+          "KyberSwap ETH Aggregator",
+          "EthereumUniswapV3",
+          "Bridgers",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "OSMOSIS",
+      "s": "FET",
+      "i": "https://rango.vip/tokens/ALL/FET.png",
+      "a": "ibc/5d1f516200ee8c6b2354102143b78a2deda25ede771ac0f8dc3c1837c8fd4447",
+      "p": 0.769376,
+      "d": 18,
+      "ss": [
+          "Osmosis"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "FET",
+      "i": "https://rango.vip/i/PcXrUI",
+      "a": "0x7583feddbcefa813dc18259940f76a02710a8905",
+      "d": 18,
+      "n": "Fetch (PoS)",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "PolygonUniSwapV3"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "FET",
+      "i": "https://rango.vip/i/PcXrUI",
+      "a": "0x4be87c766a7ce11d5cc864b6c3abb7457dcc4cc9",
+      "d": 18,
+      "n": "Fetch ai",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "ParaSwap Arbitrum"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "MNT",
+      "i": "https://rango.vip/i/0JIoGu",
+      "a": "0x3e81aa8d6813ec9d7e6ddb4e523fb1601a0e86f3",
+      "p": 0.04514127,
+      "d": 18,
+      "n": "Mr Mint",
+      "ss": [
+          "ParaSwap Bsc",
+          "BSC SushiAggregator",
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "MNT",
+      "i": "https://rango.vip/i/9tDJUl",
+      "a": "0x3c3a81e81dc49a522a592e7622a7e711c06bf354",
+      "p": 0.7448905624925978,
+      "d": 18,
+      "n": "Mantle",
+      "ss": [
+          "EthereumUniswapV3",
+          "DeBridgeDLN",
+          "Eth SushiAggregator",
+          "OneInchEth"
+      ]
+  },
+  {
+      "b": "ETH",
+      "s": "MNT",
+      "i": "https://rango.vip/i/874W0s",
+      "a": "0x149cac67f1cd5d80651e7c9bb359ec285d821a05",
+      "d": 18,
+      "n": "Minterest",
+      "ss": [
+          "Eth SushiAggregator"
+      ]
+  },
+  {
+      "b": "BASE",
+      "s": "MNT",
+      "i": "https://rango.vip/i/2X14yk",
+      "a": "0x26d3c0d9f4cc4c130097b6afdebe4f5e497e6bdf",
+      "p": 0.051072,
+      "d": 6,
+      "n": "Mynth",
+      "ss": [
+          "DeBridgeDLN"
+      ]
+  },
+  {
+      "b": "BSC",
+      "s": "MNT",
+      "i": "https://rango.vip/i/sNqtR3",
+      "a": "0x26d3c0d9f4cc4c130097b6afdebe4f5e497e6bdf",
+      "p": 0.051072,
+      "d": 6,
+      "n": "Mynth",
+      "c": "CoinGecko",
+      "cu": "https://rango.vip/i/GNfYiH",
+      "ss": [
+          "ParaSwap Bsc"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "MNT",
+      "i": "https://rango.vip/i/CZzeYq",
+      "a": "0x9c1a1c7ba9c2602123fd7ef3eb41a769edf6c53a",
+      "d": 18,
+      "n": "Mantle",
+      "c": "Uniswap Labs Default",
+      "cu": "https://rango.vip/i/Z9PYJa",
+      "ss": [
+          "ParaSwap Arbitrum"
+      ]
+  },
+  {
+      "b": "ARBITRUM",
+      "s": "MNT",
+      "i": "https://rango.vip/i/sNqtR3",
+      "a": "0x26d3c0d9f4cc4c130097b6afdebe4f5e497e6bdf",
+      "p": 0.051072,
+      "d": 6,
+      "n": "Mynth",
+      "c": "CoinGecko",
+      "cu": "https://rango.vip/i/GNfYiH",
+      "ss": [
+          "ParaSwap Arbitrum"
+      ]
+  },
+  {
+      "b": "POLYGON",
+      "s": "MNT",
+      "i": "https://rango.vip/i/sNqtR3",
+      "a": "0x26d3c0d9f4cc4c130097b6afdebe4f5e497e6bdf",
+      "p": 0.051072,
+      "d": 6,
+      "n": "Mynth",
+      "c": "CoinGecko",
+      "cu": "https://rango.vip/i/GNfYiH",
+      "ss": [
+          "ParaSwap Polygon"
+      ]
+  }
+]

@@ -60,7 +60,7 @@ const DexifierDetailRango = () => {
         icon: '/assets/logo.png',
       })
     }
-  }, [pendingSwap])
+  }, [notify, pendingSwap])
 
   // Handle canceling the swap
   const onCancel = () => {

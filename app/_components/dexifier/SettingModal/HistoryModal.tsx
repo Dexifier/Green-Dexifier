@@ -67,7 +67,7 @@ const HistoryModal: React.FC<PropsWithChildren> = ({ children, ...props }) => {
           .includes(search.toLowerCase())
       )
     );
-  }, [search]);
+  }, [dummyData, search]);
 
   const tokenContainer = (symbol: string, blockchain: string, imageSrc: string) => (
     <div className="w-[100px]">

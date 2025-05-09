@@ -77,7 +77,7 @@ const AddressesCard = () => {
         };
       }
     }
-  }, [swapStatus]);
+  }, [amountFrom, amountTo, swapStatus]);
 
   async function pasteFromClipboard(setFunc: React.Dispatch<React.SetStateAction<string>>) {
     try {
