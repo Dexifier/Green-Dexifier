@@ -231,7 +231,18 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
         blockchain: networks.find((n) => n.id === currency.networkId)?.network,
         image: currency.icon,
       }));
-      return [...tk, ...cu];
+        
+      const seen = new Set<string>();
+      const uniqueItems = [...tk, ...cu].filter(item => {
+        const key = `${item.address}-${item.symbol}-${item.blockchain}`;
+        if (seen.has(key)) {
+          return false;
+        }
+        seen.add(key);
+        return true;
+      });
+
+      return uniqueItems;
     } else return [];
   }, [networks, tokens, currencies]);
 

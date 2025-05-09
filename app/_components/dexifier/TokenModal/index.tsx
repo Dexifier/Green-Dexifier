@@ -86,7 +86,7 @@ const TokenModal: React.FC<PropsWithChildren<TokenModalProps>> = ({ children, se
     return connectedWallets.reduce((total, connectedWallet) => {
       const walletBalance = connectedWallet.balances?.reduce((sum, balance) => {
         // Check if the balance matches the specific chain and address
-        if (balance.chain === token.blockchain && balance.address === token.address) {
+        if (balance.chain === token.blockchain && balance.address === token.address && balance.symbol === token.symbol) {
           return sum + parseFloat(balance.amount) * (inUSD ? balance.usdPrice || 0 : 1);
         }
         return sum;
