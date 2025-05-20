@@ -557,8 +557,8 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const initToken = (tokenFrom?: string, tokenTo?: string) => {
-    const [chainFrom, coinFrom] = (tokenFrom || '').split('.');
-    const [chainTo, coinTo] = (tokenTo || '').split('.');
+    const [chainFrom, coinFrom] = (tokenFrom?.toUpperCase() || '').split('.');
+    const [chainTo, coinTo] = (tokenTo?.toUpperCase() || '').split('.');
 
     if (chainFrom && coinFrom) {
       setTokenFrom(
