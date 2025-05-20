@@ -26,7 +26,7 @@ const TokenInput: React.FC<TokenInputProps> = ({ token, setToken, ...props }) =>
     <div className={cn(`flex border-[#695F5F]/40 items-center justify-between backdrop-blur-lg rounded-lg p-2 shadow-md`, isMobile ? "bg-primary/30 h-12" : "border h-[53px] bg-[#000]/30")}>
       {/* Input field for token amount */}
       <div className="flex flex-col flex-1">
-        <Input {...props} /> {/* Custom input for entering token amount */}
+        <Input {...props} value={Number(props.value).toFixed(2)} /> {/* Custom input for entering token amount */}
         <span className="text-xs px-3 opacity-50">
           {/* Display estimated USD value of the token */}
           ~
