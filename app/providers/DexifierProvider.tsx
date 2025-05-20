@@ -104,9 +104,9 @@ interface DexifierContextType {
   stopConfirming: () => void;
   sendTx: (recipient: string) => Promise<
     | {
-        success: boolean;
-        data: any;
-      }
+      success: boolean;
+      data: any;
+    }
     | undefined
   >;
   isMobile: boolean;
@@ -114,7 +114,7 @@ interface DexifierContextType {
   chains: Blockchain[];
   coins: Token[];
   createSwap: () => Promise<any>;
-  initToken: (tokenFrom?: string, tokenTo?: string) => void;
+  initToken: (from?: { chain: string, coin: string }, to?: { chain: string, coin: string }) => void;
   errorMessage: string;
 }
 
@@ -231,7 +231,7 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
         blockchain: networks.find((n) => n.id === currency.networkId)?.network,
         image: currency.icon,
       }));
-        
+
       const seen = new Set<string>();
       const uniqueItems = [...tk, ...cu].filter(item => {
         const key = `${item.address}-${item.symbol}-${item.blockchain}`;
@@ -347,19 +347,17 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
         ) {
           // Use the createQuotes function from api/chainflip.ts
           const chainflipQuotes = await createQuotes({
-            sourceAsset: `${tokenFrom.symbol.toLowerCase()}.${
-              CHAINFLIP_BLOCKCHAIN_NAME_MAP[tokenFrom.blockchain]
-            }` as Asset,
-            destinationAsset: `${tokenTo.symbol.toLowerCase()}.${
-              CHAINFLIP_BLOCKCHAIN_NAME_MAP[tokenTo.blockchain]
-            }` as Asset,
+            sourceAsset: `${tokenFrom.symbol.toLowerCase()}.${CHAINFLIP_BLOCKCHAIN_NAME_MAP[tokenFrom.blockchain]
+              }` as Asset,
+            destinationAsset: `${tokenTo.symbol.toLowerCase()}.${CHAINFLIP_BLOCKCHAIN_NAME_MAP[tokenTo.blockchain]
+              }` as Asset,
             amount: amount,
             commissionBps: 15,
           });
 
           if (allRoutes.push(...chainflipQuotes)) return allRoutes;
         }
-      } catch (error) {}
+      } catch (error) { }
       try {
         const exolixRateRequest: RateRequest = {
           coinFrom: tokenFrom.symbol,
@@ -407,7 +405,7 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
               (a, b) => a.swaps.length - b.swaps.length
             );
           allRoutes.push(...rangoMultiRouteSimulationResults);
-        } catch (error) {}
+        } catch (error) { }
       return allRoutes;
     };
     return debounce(async () => {
@@ -556,21 +554,18 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
-  const initToken = (tokenFrom?: string, tokenTo?: string) => {
-    const [chainFrom, coinFrom] = (tokenFrom?.toUpperCase() || '').split('.');
-    const [chainTo, coinTo] = (tokenTo?.toUpperCase() || '').split('.');
-
-    if (chainFrom && coinFrom) {
+  const initToken = (from?: { chain: string, coin: string }, to?: { chain: string, coin: string }) => {
+    if (from) {
       setTokenFrom(
         coins.find(
-          (coin) => coin.blockchain === chainFrom && coin.symbol === coinFrom
+          (coin) => coin.blockchain === from.chain && coin.symbol === from.coin
         )
       );
     }
-    if (chainTo && coinTo) {
+    if (to) {
       setTokenTo(
         coins.find(
-          (coin) => coin.blockchain === chainTo && coin.symbol === coinTo
+          (coin) => coin.blockchain === to.chain && coin.symbol === to.coin
         )
       );
     }
@@ -634,14 +629,3 @@ export const useDexifier = () => {
 };
 
 export default DexifierProvider;
-
-function useCallBack(
-  arg0: (
-    tokenFrom: Token,
-    tokenTo: Token,
-    amount: string
-  ) => Promise<DexifierRoute[]>,
-  arg1: never[]
-) {
-  throw new Error('Function not implemented.');
-}
