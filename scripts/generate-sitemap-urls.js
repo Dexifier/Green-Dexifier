@@ -60,7 +60,7 @@ for (const fromSymbol of symbols) {
     // Generate pairs for each combination of blockchains
     for (const fromToken of fromTokens) {
       for (const toToken of toTokens) {
-        const url = `https://dexifier.com/swap/${fromToken.b}.${fromSymbol}/${toToken.b}.${toSymbol}`;
+        const url = `https://dexifier.com/swap-${fromToken.b.toLowerCase()}-${fromSymbol.toLowerCase()}-to-${toToken.b.toLowerCase()}-${toSymbol.toLowerCase()}`;
         pairs.push({
           loc: url,
           lastmod: new Date().toISOString(),
