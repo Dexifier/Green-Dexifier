@@ -1,6 +1,6 @@
 # Dexifier
 
-**Dexifier** is a cutting-edge project built using **NEXT14** and **SHADCN**, dedicated to providing easy and infinite exchange routes.
+**Dexifier** is a cutting-edge Decentralized Exchange, dedicated to providing easy and infinite exchange routes, no matter on what chain or network, and without KYC or logins.
 
 ## Project Overview
 
