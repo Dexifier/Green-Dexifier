@@ -40,5 +40,11 @@ export const MAP_BLOCKCHAIN_RANGO_2_EXOLIX: Record<string, string> = {
 }
 
 export function getExolixflipBlockchainName(key: string): string | undefined {
-  return EXOLIX_BLOCKCHAIN_NAME_MAP[key.charAt(0).toUpperCase() + key.slice(1).toLowerCase()];
+  // Case-insensitive lookup — Rango chain names are all-caps ("BTC", "ETH"),
+  // while this map mixes cases ("Tron", "BTC"). The old TitleCase normalize
+  // silently dropped every all-caps chain (BTC, ETH, BSC, LTC...).
+  const entry = Object.entries(EXOLIX_BLOCKCHAIN_NAME_MAP).find(
+    ([mapKey]) => mapKey.toLowerCase() === key.toLowerCase()
+  );
+  return entry?.[1];
 }

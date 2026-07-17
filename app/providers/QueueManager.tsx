@@ -1,4 +1,6 @@
-import type { SwapQueueContext } from '@rango-dev/queue-manager-rango-preset';
+'use client'
+
+import type { SwapQueueContext, TargetNamespace } from '@rango-dev/queue-manager-rango-preset';
 import type { Network, WalletType } from '@rango-dev/wallets-shared';
 import type { PropsWithChildren } from 'react';
 
@@ -35,11 +37,12 @@ function QueueManager(props: PropsWithChildren<{ apiKey?: string }>) {
     connect,
     canSwitchNetworkTo,
     getWalletInfo,
+    hubProvider,
   } = useWallets();
 
   const swapQueueDef = useMemo(() => {
     return makeQueueDefinition({
-      API_KEY: props.apiKey || "30a7dc74-0886-4c5d-bc18-dc04e6280a96",
+      API_KEY: props.apiKey || "",
       BASE_URL: process.env.NEXT_PUBLIC_RANGO_API_URL,
     });
   }, [props.apiKey]);
@@ -54,12 +57,20 @@ function QueueManager(props: PropsWithChildren<{ apiKey?: string }>) {
     })),
   };
 
-  const switchNetwork = async (wallet: WalletType, network: Network) => {
-    if (!canSwitchNetworkTo(wallet, network)) {
+  // The queue asks to switch via a TargetNamespace ({ namespace, network }).
+  // Bridge it to the namespaces-based connect() of the new wallets API.
+  const switchNetwork = (wallet: WalletType, namespaces: TargetNamespace) => {
+    if (!canSwitchNetworkTo(wallet, namespaces.network as Network, namespaces)) {
       return undefined;
     }
-    return connect(wallet, network);
+    return connect(wallet, [namespaces]);
   };
+
+  const canSwitchNetworkToNamespace = (
+    type: WalletType,
+    network: Network,
+    namespace: TargetNamespace,
+  ) => canSwitchNetworkTo(type, network, namespace);
 
   const isMobileWallet = (walletType: WalletType): boolean =>
     !!getWalletInfo(walletType).mobileWallet;
@@ -91,9 +102,9 @@ function QueueManager(props: PropsWithChildren<{ apiKey?: string }>) {
     getSigners,
     wallets,
     providers: allProviders,
+    hubProvider,
     switchNetwork,
-    canSwitchNetworkTo,
-    connect,
+    canSwitchNetworkTo: canSwitchNetworkToNamespace,
     state,
     isMobileWallet,
   };

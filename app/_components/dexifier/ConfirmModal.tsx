@@ -8,7 +8,8 @@ import {
 } from "react";
 import { ConfirmRouteRequest, ConfirmRouteResponse } from "rango-types/mainApi";
 import CustomLoader from "../common/loader";
-import { rangoSDK, toastError } from "@/lib/utils";
+import { confirmRangoRoute } from "@/lib/api-client";
+import { toastError } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
@@ -200,7 +201,7 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
 
         // Attempt to confirm the route and handle errors
         try {
-          const confirmData: ConfirmRouteResponse = await rangoSDK.confirmRoute(
+          const confirmData: ConfirmRouteResponse = await confirmRangoRoute(
             confirmRequest
           );
           if (confirmData && manager) {
@@ -221,14 +222,17 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
               });
 
             // Calculate the pending swap
-            const swap = calculatePendingSwap(
-              confirmSwapResult.requestAmount,
-              confirmSwapResult,
-              getWalletsForNewSwap(selectedWallets),
-              settings,
-              confirmHasError(confirmData).error,
-              { blockchains, tokens }
-            );
+            const swap = calculatePendingSwap({
+              inputAmount: confirmSwapResult.requestAmount,
+              bestRoute: confirmSwapResult,
+              wallets: getWalletsForNewSwap(selectedWallets),
+              settings: {
+                slippage: settings.slippage,
+                infiniteApprove: settings.infiniteApproval,
+              },
+              validateBalanceOrFee: confirmHasError(confirmData).error,
+              meta: { blockchains, tokens },
+            });
 
             // Create the swap request via the manager
             await manager.create(

@@ -8,21 +8,23 @@ import { Separator } from "@/components/ui/separator";
 import { useWalletList, WalletInfoWithExtra } from "@rango-dev/widget-embedded";
 import { WalletState } from "@rango-dev/ui";
 
-// Enum to define background colors for different wallet states
-enum BgColorSet {
-  'not_installed' = "#97979763", // Color for wallets not installed
-  'disconnected' = "#639cff6e", // Color for disconnected wallets
-  'connecting' = "#5ce3ff63", // Color for wallets in the connecting state
-  'connected' = "#639cff6e", // Color for connected wallets
-}
+// Background colors for different wallet states
+const BgColorSet: Record<WalletState, string> = {
+  [WalletState.NOT_INSTALLED]: "#97979763",
+  [WalletState.DISCONNECTED]: "#639cff6e",
+  [WalletState.CONNECTING]: "#5ce3ff63",
+  [WalletState.CONNECTED]: "#639cff6e",
+  [WalletState.PARTIALLY_CONNECTED]: "#639cff6e",
+};
 
-// Enum to define text colors for different wallet states
-enum TextColorSet {
-  'not_installed' = "#a6e6ffad", // Text color for wallets not installed
-  'disconnected' = "#c5c5c5ad", // Text color for disconnected wallets
-  'connecting' = "", // No specific text color for connecting state
-  'connected' = "#58ff66d6", // Text color for connected wallets
-}
+// Text colors for different wallet states
+const TextColorSet: Record<WalletState, string> = {
+  [WalletState.NOT_INSTALLED]: "#a6e6ffad",
+  [WalletState.DISCONNECTED]: "#c5c5c5ad",
+  [WalletState.CONNECTING]: "",
+  [WalletState.CONNECTED]: "#58ff66d6",
+  [WalletState.PARTIALLY_CONNECTED]: "#58ff66d6",
+};
 
 // WalletConnectModalProps interface defines optional chain prop for filtering wallets by chain
 interface WalletConnectModalProps {
