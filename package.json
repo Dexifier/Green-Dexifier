@@ -6,7 +6,7 @@
     "node": ">=20.9.0"
   },
   "scripts": {
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && node scripts/patch-ledger-cryptojs.mjs",
     "db:init": "prisma generate && prisma migrate reset --force && prisma migrate deploy && tsx prisma/seed.ts",
     "dev": "next dev",
     "build": "next build",
