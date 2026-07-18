@@ -409,13 +409,15 @@ const RouteCard = () => {
   return (
     <Card
       className={cn(
-        "h-full flex flex-col w-full glass-card shadow-card p-6 rounded-3xl text-white",
-        isMobile ? "p-5" : "max-w-[650px] p-6"
+        "h-full flex flex-col w-full rounded-[28px] border border-primary/25 bg-[#041008]/85 backdrop-blur-2xl neon-frame text-white",
+        isMobile ? "p-5 border-none bg-transparent shadow-none backdrop-blur-none before:hidden" : "max-w-[650px] p-6"
       )}
     >
       <CardHeader className="md:p-4 py-4 px-0">
         <div className="h-auto bg-transparent flex w-full justify-between gap-4">
-          <CardTitle>Routes</CardTitle>
+          <CardTitle className="font-display text-2xl font-bold uppercase tracking-[0.2em] text-glow">
+            Routes
+          </CardTitle>
           <RadioGroup
             defaultValue={FILTERS[0]}
             onValueChange={(value) => setFilter(value)}
@@ -490,7 +492,7 @@ const RouteCard = () => {
                         value={index.toString()}
                         id={index.toString()}
                         key={index}
-                        className="w-full rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition duration-300 hover:border-primary/40 hover:bg-primary/5 data-[state=checked]:border-primary data-[state=checked]:bg-primary/10 data-[state=checked]:shadow-neon-sm"
+                        className="w-full rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition duration-300 hover:border-primary/40 hover:bg-primary/5 data-[state=checked]:border-primary data-[state=checked]:bg-primary/10 data-[state=checked]:shadow-neon"
                       >
                         {'outputAmount' in route ? (
                           rangoRoute(route, index === 0)

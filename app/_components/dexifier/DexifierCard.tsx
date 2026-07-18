@@ -24,7 +24,7 @@ import TooltipTemplate from "../common/tooltip-template";
 import SettingModal from "./SettingModal";
 import { cn } from "@/lib/utils";
 import { formatCryptoAmount } from "@/app/utils";
-import { ArrowDownUp } from "lucide-react";
+import { ArrowDownUp, Settings2 } from "lucide-react";
 
 const DexifierCard: React.FC = () => {
   // Use custom hook to get connected wallet details
@@ -80,36 +80,33 @@ const DexifierCard: React.FC = () => {
   return (
     <Card
       className={cn(
-        "w-full rounded-3xl text-white glass-card shadow-card",
-        isMobile ? "p-0" : "max-w-[650px] p-6 h-full"
+        "w-full text-white rounded-[28px] border border-primary/25 bg-[#041008]/85 backdrop-blur-2xl neon-frame",
+        isMobile ? "p-0 border-none bg-transparent shadow-none backdrop-blur-none before:hidden" : "max-w-[560px] p-8 h-full"
       )}
     >
       {!isMobile && (
         <>
-          <CardHeader className="p-4">
+          <CardHeader className="p-0 pb-6">
             <div className="h-auto bg-transparent flex w-full justify-between items-center">
-              <CardTitle>Swap</CardTitle>
+              <CardTitle className="font-display text-2xl font-bold uppercase tracking-[0.2em] text-glow">
+                Swap
+              </CardTitle>
               <SettingModal>
-                <Button className="bg-transparent hover:bg-transparent">
+                <Button className="bg-transparent hover:bg-transparent text-white/60 hover:text-primary transition-colors">
                   <TooltipTemplate content="Settings" className="!mb-1">
-                    <Image
-                      src={"/assets/icons/setting.png"}
-                      alt="button-icon"
-                      width={18}
-                      height={18}
-                    />
+                    <Settings2 size={20} />
                   </TooltipTemplate>
                 </Button>
               </SettingModal>
             </div>
           </CardHeader>
-          <Separator className="hidden md:block bg-[#AAA]/20" />
+          <Separator className="hidden md:block bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
         </>
       )}
       <CardContent
         className={cn(
           "flex flex-col justify-around",
-          isMobile ? "px-5 py-[31px]" : "px-[31px] py-10"
+          isMobile ? "px-5 py-[31px]" : "px-0 py-8"
         )}
       >
         <div className="w-full flex flex-col justify-evenly gap-2">
@@ -148,7 +145,7 @@ const DexifierCard: React.FC = () => {
             type="number"
             id="tokenFrom"
             placeholder="0.0"
-            className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:outline-0 focus-visible:ring-offset-0 placeholder:text-white/30 pr-8 text-3xl md:text-4xl font-semibold tnum h-auto py-1"
+            className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:outline-0 focus-visible:ring-offset-0 placeholder:text-white/30 pr-8 text-4xl md:text-5xl font-semibold tnum h-auto py-1 caret-primary"
             value={amountFrom}
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
               // e.target.value = parseFloat(e.target.value).toString();
@@ -161,11 +158,10 @@ const DexifierCard: React.FC = () => {
 
           {/* Reverse Swap Button */}
           <Button
-            variant="outline"
-            className="self-center mt-7 mb-1 h-[54px] w-[54px] rounded-full border border-primary/40 bg-black/40 p-1 text-primary transition-all duration-500 hover:rotate-180 hover:border-primary hover:shadow-neon"
+            className="self-center mt-7 mb-1 h-[54px] w-[54px] rounded-full border-none bg-primary p-1 text-black shadow-neon transition-all duration-500 hover:rotate-180 hover:shadow-neon-lg hover:brightness-110"
             onClick={reverseTokenPair}
           >
-            <ArrowDownUp size={24} />
+            <ArrowDownUp size={24} strokeWidth={2.5} />
           </Button>
 
           {/* Token To Section */}
@@ -175,7 +171,7 @@ const DexifierCard: React.FC = () => {
           <TokenInput
             type="number"
             id="tokenTo"
-            className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:outline-0 focus-visible:ring-offset-0 text-3xl md:text-4xl font-semibold tnum h-auto py-1"
+            className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:outline-0 focus-visible:ring-offset-0 text-4xl md:text-5xl font-semibold tnum h-auto py-1"
             disabled
             token={tokenTo}
             setToken={setTokenTo}
@@ -184,12 +180,12 @@ const DexifierCard: React.FC = () => {
         </div>
       </CardContent>
       {!isMobile && (
-        <CardFooter className="text-base md:text-xl p-0">
+        <CardFooter className="text-base md:text-xl p-0 pt-6">
           {/* Footer Section: Handles the swap confirmation or wallet connection */}
           {!selectedRoute?.hasOwnProperty('outputAmount') ? (
             <Button
               variant="neon"
-              className="w-full md:max-w-[75%] lg:max-w-[67%] h-14 mx-auto text-xl"
+              className="btn-sheen w-full h-16 text-xl font-extrabold uppercase tracking-widest"
               disabled={!selectedRoute || state === DEXIFIER_STATE.PENDING || (!!swapData && state < DEXIFIER_STATE.PROCESSING)}
               onClick={() => {
                 // After a swap ends (success/failure) offer a reset; during
@@ -206,7 +202,7 @@ const DexifierCard: React.FC = () => {
           ) : !isWalletConnected ? (
             <WalletConnectModal>
               <Button
-                className="h-14 w-3/4 lg:w-[67%] mx-auto"
+                className="btn-sheen w-full h-16 text-xl font-extrabold uppercase tracking-widest"
                 variant="neon"
               >
                 Connect Wallet
@@ -216,7 +212,7 @@ const DexifierCard: React.FC = () => {
             <ConfirmModal>
               <Button
                 variant="neon"
-                className="w-full md:max-w-[75%] lg:max-w-[67%] h-14 mx-auto text-xl"
+                className="btn-sheen w-full h-16 text-xl font-extrabold uppercase tracking-widest"
                 disabled={!selectedRoute || !!swapData}
               >
                 Swap Now

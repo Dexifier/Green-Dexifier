@@ -4,17 +4,25 @@
 
 body {
   color: white;
-  background-color: #030a06;
+  background-color: #020a05;
 }
 
-/* ---------- Dexifier design tokens (neon-degen system) ---------- */
+/* ---------- Dexifier neon-degen design system ---------- */
 
 /* Tabular figures for all amounts — stops number jitter on quote updates */
 .tnum {
   font-variant-numeric: tabular-nums;
 }
 
-/* Shared glass surface for the main cards */
+.font-display {
+  font-family: var(--font-display), inherit;
+}
+
+.text-glow {
+  text-shadow: 0 0 18px rgba(19, 241, 135, 0.45);
+}
+
+/* Shared glass surface for panels */
 .glass-card {
   background: linear-gradient(
     165deg,
@@ -27,17 +35,146 @@ body {
   -webkit-backdrop-filter: blur(18px);
 }
 
-/* Subtle static ambient glow (replaces the busy background image) */
-.bg-ambient {
-  background:
-    radial-gradient(55% 45% at 12% 0%, rgba(19, 241, 135, 0.13), transparent 62%),
-    radial-gradient(45% 40% at 88% 12%, rgba(0, 224, 255, 0.06), transparent 60%),
-    radial-gradient(65% 55% at 50% 105%, rgba(15, 189, 107, 0.11), transparent 66%),
-    #030a06;
+/* ---- Animated aurora background ---- */
+.aurora-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(110px);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+.aurora-orb-1 {
+  width: 55vw;
+  height: 55vw;
+  left: -15vw;
+  top: -22vw;
+  background: radial-gradient(circle at 40% 40%, rgba(19, 241, 135, 0.5), transparent 62%);
+  animation: aurora-drift-1 26s ease-in-out infinite alternate;
+}
+.aurora-orb-2 {
+  width: 44vw;
+  height: 44vw;
+  right: -12vw;
+  top: -10vw;
+  background: radial-gradient(circle at 60% 40%, rgba(0, 224, 255, 0.3), transparent 60%);
+  animation: aurora-drift-2 32s ease-in-out infinite alternate;
+}
+.aurora-orb-3 {
+  width: 62vw;
+  height: 62vw;
+  left: 18vw;
+  bottom: -38vw;
+  background: radial-gradient(circle at 50% 50%, rgba(15, 189, 107, 0.38), transparent 64%);
+  animation: aurora-drift-3 38s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift-1 {
+  to {
+    transform: translate(9vw, 7vh) scale(1.14);
+  }
+}
+@keyframes aurora-drift-2 {
+  to {
+    transform: translate(-8vw, 9vh) scale(1.1);
+  }
+}
+@keyframes aurora-drift-3 {
+  to {
+    transform: translate(-6vw, -7vh) scale(1.16);
+  }
 }
 
-.text-glow {
-  text-shadow: 0 0 18px rgba(19, 241, 135, 0.45);
+/* Perspective grid fading in from the horizon */
+.dex-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(19, 241, 135, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19, 241, 135, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 90% 55% at 50% 115%, black 25%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 55% at 50% 115%, black 25%, transparent 72%);
+  transform: perspective(650px) rotateX(38deg) scale(2.4);
+  transform-origin: bottom;
+}
+
+/* Film grain so the glows don't look like flat vector blobs */
+.dex-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- Animated neon frame (rotating conic border) ---- */
+@property --dex-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.neon-frame {
+  position: relative;
+  box-shadow:
+    0 0 90px rgba(19, 241, 135, 0.13),
+    0 24px 70px rgba(0, 0, 0, 0.6);
+}
+.neon-frame::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--dex-angle),
+    rgba(19, 241, 135, 0) 0%,
+    rgba(19, 241, 135, 0.95) 10%,
+    rgba(0, 224, 255, 0.55) 20%,
+    rgba(19, 241, 135, 0) 32%,
+    rgba(19, 241, 135, 0) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: dex-spin 6s linear infinite;
+  pointer-events: none;
+}
+@keyframes dex-spin {
+  to {
+    --dex-angle: 360deg;
+  }
+}
+
+/* ---- CTA sheen sweep ---- */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 70%
+  );
+  transform: translateX(-130%);
+  animation: sheen-sweep 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+.btn-sheen:disabled::after {
+  display: none;
+}
+@keyframes sheen-sweep {
+  55%,
+  100% {
+    transform: translateX(130%);
+  }
 }
 
 input[type="number"] {
