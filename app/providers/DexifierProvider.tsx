@@ -205,7 +205,9 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
           commissionBps: 15,
         });
 
-        if (allRoutes.push(...chainflipQuotes)) return allRoutes
+        // Query every provider and show all routes side by side — never
+        // return early just because Chainflip answered.
+        allRoutes.push(...chainflipQuotes)
       }
     } catch (error) { }
     try {

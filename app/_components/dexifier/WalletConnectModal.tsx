@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Search from "../common/search";
 import { PropsWithChildren, useMemo, useState } from "react";
-import { useWallets } from "@rango-dev/wallets-react";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { useWalletList, WalletInfoWithExtra } from "@rango-dev/widget-embedded";
+import { useStatefulConnect, useWalletList, WalletInfoWithExtra } from "@rango-dev/widget-embedded";
 import { WalletState } from "@rango-dev/ui";
+import type { Namespace } from "@hub3js/namespaces";
 
 // Background colors for different wallet states
 const BgColorSet: Record<WalletState, string> = {
@@ -34,7 +34,9 @@ interface WalletConnectModalProps {
 const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> = (props) => {
   const [search, setSearch] = useState<string>(""); // State for search input
   const { list } = useWalletList({ chain: props.chain }); // Fetch wallet list filtered by chain (if provided)
-  const { connect, disconnect } = useWallets(); // Functions for connecting and disconnecting wallets
+  // Hub-based wallets (MetaMask, Phantom, …) require explicit namespaces when
+  // connecting — useStatefulConnect handles that flow for us.
+  const { handleConnect, handleDisconnect } = useStatefulConnect();
 
   // Memoize the filtered wallet list based on the search input
   const filteredWalletList = useMemo(() => {
@@ -44,18 +46,33 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
   }, [search, list]); // Recalculate when search input or wallet list changes
 
   // Handle wallet interaction: open wallet install link, connect or disconnect wallet
-  const handleWallet = (walletInfo: WalletInfoWithExtra) => {
+  const handleWallet = async (walletInfo: WalletInfoWithExtra) => {
     if (walletInfo.state === WalletState.NOT_INSTALLED) {
       // If wallet is not installed, open its installation link
       window.open(walletInfo.link as string, "_blank");
+      return;
     }
     if (walletInfo.state === WalletState.CONNECTED) {
       // If wallet is connected, disconnect it
-      disconnect(walletInfo.type).catch(console.error);
+      await handleDisconnect(walletInfo).catch(console.error);
+      return;
     }
-    if (walletInfo.state === WalletState.DISCONNECTED) {
-      // If wallet is disconnected, connect it
-      connect(walletInfo.type).catch(console.error);
+    // Disconnected / partially connected: connect. Single-namespace hub
+    // wallets (MetaMask, Phantom, …) connect directly through handleConnect.
+    const result = await handleConnect(walletInfo).catch(console.error);
+    if (!result) return;
+    // Multi-namespace wallets need an explicit namespace selection. This is a
+    // multi-chain app, so connect to every namespace the wallet offers.
+    if (result.status === "Detached" || result.status === "namespace") {
+      const namespaces =
+        (walletInfo as WalletInfoWithExtra & {
+          properties?: { name: string; value?: { data?: { value: Namespace }[] } }[];
+        }).properties
+          ?.find((p) => p.name === "namespaces")
+          ?.value?.data?.map((d) => d.value) ?? [];
+      if (namespaces.length) {
+        await handleConnect(walletInfo, { forceConnectToNamespaces: namespaces }).catch(console.error);
+      }
     }
   }
 

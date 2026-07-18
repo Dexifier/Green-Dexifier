@@ -23,6 +23,11 @@ import { cn } from "@/lib/utils";
 import FloatingTooltip from "../common/floating-tooltip";
 import { Blockchain, Token } from "@/app/types/dexifier";
 import { MAP_BLOCKCHAIN_RANGO_2_EXOLIX } from "@/app/utils/exolix";
+import { CHAINFLIP_BLOCKCHAIN_NAME_MAP } from "@/app/utils/chainflip";
+
+// Crypto amounts need real precision: 0.00115 BTC must not render as "0.00".
+const formatCryptoAmount = (n: number): string =>
+  n.toLocaleString("en-US", { maximumSignificantDigits: 8 });
 
 const FILTERS = ["Shortest", "Best rate", "Lowest fee", "Fastest"];
 
@@ -78,7 +83,7 @@ const RouteCard = () => {
                 {singleNodeTemplate(
                   singleNode.from.logo as string,
                   singleNode.from.symbol,
-                  parseFloat(singleNode.fromAmount).toFixed(2),
+                  formatCryptoAmount(parseFloat(singleNode.fromAmount)),
                   singleNode.from.blockchainLogo
                 )}
                 {isEven ? (
@@ -138,7 +143,7 @@ const RouteCard = () => {
                   {singleNodeTemplate(
                     singleNode.to.logo as string,
                     singleNode.to.symbol,
-                    parseFloat(singleNode.toAmount).toFixed(2),
+                    formatCryptoAmount(parseFloat(singleNode.toAmount)),
                     singleNode.to.blockchainLogo
                   )}
                 </div>
@@ -157,23 +162,25 @@ const RouteCard = () => {
   const chainflipRoute = (route: ChainflipQuote) => {
     const [ingressAsset, ingressChain] = route.ingressAsset.split('.')
     const [egressAsset, egressChain] = route.egressAsset.split('.')
+    // Translate Chainflip chain slugs (sol/btc/eth/arb/dot) to the Rango chain
+    // names (SOLANA/BTC/ETH/ARBITRUM/POLKADOT) used by coins and chains.
+    const ingressRangoChain = CHAINFLIP_BLOCKCHAIN_NAME_MAP[ingressChain] ?? ingressChain.toUpperCase();
+    const egressRangoChain = CHAINFLIP_BLOCKCHAIN_NAME_MAP[egressChain] ?? egressChain.toUpperCase();
     const tokenFrom: Token | undefined = coins.find(
       (token: Token) =>
-        token.blockchain === ingressChain || token.blockchain === MAP_BLOCKCHAIN_RANGO_2_EXOLIX[ingressChain] &&
-        token.symbol === ingressAsset.toUpperCase()
+        token.blockchain === ingressRangoChain &&
+        token.symbol.toUpperCase() === ingressAsset.toUpperCase()
     );
     const tokenTo: Token | undefined = coins.find(
       (token: Token) =>
-        token.blockchain === egressChain || token.blockchain === MAP_BLOCKCHAIN_RANGO_2_EXOLIX[egressChain] &&
-        token.symbol === egressAsset.toUpperCase()
+        token.blockchain === egressRangoChain &&
+        token.symbol.toUpperCase() === egressAsset.toUpperCase()
     );
     const blockchainFrom: Blockchain | undefined = chains.find(
-      (blockchain: Blockchain) =>
-        blockchain.name === ingressChain || blockchain.name === MAP_BLOCKCHAIN_RANGO_2_EXOLIX[ingressChain]
+      (blockchain: Blockchain) => blockchain.name === ingressRangoChain
     );
     const blockchainTo: Blockchain | undefined = chains.find(
-      (blockchain: Blockchain) =>
-        blockchain.name === egressChain || blockchain.name === MAP_BLOCKCHAIN_RANGO_2_EXOLIX[egressChain]
+      (blockchain: Blockchain) => blockchain.name === egressRangoChain
     );
     return (
       <div className={`relative w-full flex overflow-x-auto`}>
@@ -182,7 +189,7 @@ const RouteCard = () => {
             {singleNodeTemplate(
               tokenFrom?.image || '',
               tokenFrom?.symbol || '',
-              route.ingressAmount.toFixed(2),
+              formatCryptoAmount(route.ingressAmount),
               blockchainFrom?.logo || ''
             )}
             <div>
@@ -196,7 +203,7 @@ const RouteCard = () => {
               <TooltipTemplate content={`Chainflip`}>
                 <TokenIcon
                   token={{
-                    image: "https://docs.chainflip.io/chainfliplogo.png",
+                    image: "/assets/chainflip-logo.svg",
                     alt: "Chainflip",
                     className: "size-5",
                   }}
@@ -209,7 +216,7 @@ const RouteCard = () => {
             {singleNodeTemplate(
               tokenTo?.image || '',
               tokenTo?.symbol || '',
-              route.egressAmount.toFixed(2),
+              formatCryptoAmount(route.egressAmount),
               blockchainTo?.logo || ''
             )}
           </div>
@@ -238,7 +245,7 @@ const RouteCard = () => {
               {singleNodeTemplate(
                 tokenFrom.image || '',
                 tokenFrom.symbol,
-                route.fromAmount.toFixed(2),
+                formatCryptoAmount(route.fromAmount),
                 blockchainFrom?.logo || ''
               )}
               <div>
@@ -265,7 +272,7 @@ const RouteCard = () => {
               {singleNodeTemplate(
                 tokenTo.image || '',
                 tokenTo.symbol,
-                route.toAmount.toFixed(2),
+                formatCryptoAmount(route.toAmount),
                 blockchainTo?.logo || ''
               )}
             </div>
