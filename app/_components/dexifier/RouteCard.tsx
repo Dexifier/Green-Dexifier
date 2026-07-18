@@ -409,7 +409,7 @@ const RouteCard = () => {
   return (
     <Card
       className={cn(
-        "h-full flex flex-col w-full rounded-[28px] border border-primary/25 bg-[#041008]/85 backdrop-blur-2xl neon-frame text-white",
+        "h-full flex flex-col w-full rounded-[28px] border border-primary/25 bg-[#041008]/85 backdrop-blur-2xl neon-frame animate-rise text-white",
         isMobile ? "p-5 border-none bg-transparent shadow-none backdrop-blur-none before:hidden" : "max-w-[650px] p-6"
       )}
     >
@@ -492,7 +492,8 @@ const RouteCard = () => {
                         value={index.toString()}
                         id={index.toString()}
                         key={index}
-                        className="w-full rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition duration-300 hover:border-primary/40 hover:bg-primary/5 data-[state=checked]:border-primary data-[state=checked]:bg-primary/10 data-[state=checked]:shadow-neon"
+                        style={{ animationDelay: `${index * 70}ms` }}
+                        className="route-row-enter w-full rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition duration-300 hover:border-primary/40 hover:bg-primary/5 data-[state=checked]:border-primary data-[state=checked]:bg-primary/10 data-[state=checked]:shadow-neon"
                       >
                         {'outputAmount' in route ? (
                           rangoRoute(route, index === 0)

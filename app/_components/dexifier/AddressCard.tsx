@@ -262,9 +262,9 @@ const AddressesCard = () => {
   };
 
   return (
-    <Card className="flex flex-col max-w-[650px] md:min-h-[540px] w-full h-full md:bg-modal/5 bg-primary/10 border border-[#AAA]/20 backdrop-blur-lg md:p-6 md:rounded-[2rem] rounded-[20px] shadow-lg text-white">
+    <Card className="flex flex-col max-w-[650px] md:min-h-[540px] w-full h-full bg-[#041008]/85 md:backdrop-blur-2xl md:p-6 rounded-[28px] border border-primary/25 md:neon-frame animate-rise text-white">
       <CardHeader className="md:p-4 md:pt-0 px-4 pt-6">
-        <CardTitle className="md:text-2xl text-lg font-semibold">
+        <CardTitle className="md:text-2xl text-lg font-display font-bold uppercase tracking-[0.15em] text-glow">
           {swapStatus ? (
             <span className="text-primary uppercase">
               Confirming Transaction

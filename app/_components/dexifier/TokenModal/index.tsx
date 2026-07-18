@@ -99,22 +99,22 @@ const TokenModal: React.FC<PropsWithChildren<TokenModalProps>> = ({ children, se
     <Dialog>
       {/* Trigger to open the dialog */}
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="flex flex-col sm:max-w-md bg-transparent max-h-[90vh] max-w-[90vw] p-4 md:p-6 bg-gradient-to-b from-black to-[#042214] border border-separator !rounded-3xl">
+      <DialogContent className="flex flex-col sm:max-w-md max-h-[90vh] max-w-[90vw] p-4 md:p-6 bg-[#041008]/95 backdrop-blur-2xl border border-primary/25 shadow-neon-lg !rounded-3xl">
         <DialogHeader className="flex flex-row justify-between">
           {/* Dialog header with title and close button */}
-          <DialogTitle className="text-2xl">Swap Source</DialogTitle>
+          <DialogTitle className="font-display text-xl font-bold uppercase tracking-[0.15em] text-glow">Swap Source</DialogTitle>
           <DialogClose>
             <X className="w-7 h-7 p-1 bg-primary rounded-full font-bold text-black hover:bg-primary-dark transition-colors duration-300" />
           </DialogClose>
         </DialogHeader>
-        <Separator className="bg-separator" />
-        <Label className="text-lg">Select Blockchain</Label>
+        <Separator className="bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+        <Label className="text-sm font-medium uppercase tracking-wider text-white/50">Select Blockchain</Label>
         {/* Display blockchain options */}
         <Blockchains selectedBlockchain={selectedBlockchain} setSelectedBlockchain={setSelectedBlockchain} />
         {/* Show token selection if a blockchain is selected */}
         {selectedBlockchain &&
           <>
-            <Label className="text-lg">Select Token</Label>
+            <Label className="text-sm font-medium uppercase tracking-wider text-white/50">Select Token</Label>
             {/* Search input for filtering tokens */}
             <Search value={search} onChange={(e) => setSearch(e.target.value)} />
             <div id="scrollableDiv" className="max-h-72 overflow-y-auto">
@@ -134,8 +134,8 @@ const TokenModal: React.FC<PropsWithChildren<TokenModalProps>> = ({ children, se
                   const tokenAmountInUSD = getTokenAmount(token, true);
                   return (
                     <DialogClose
-                      className={cn("p-2 border rounded-3xl w-full cursor-pointer bg-transparent hover:bg-white/5 transition-colors duration-300",
-                        isSelected ? "border-primary" : "border-separator"
+                      className={cn("p-2 border rounded-2xl w-full cursor-pointer bg-transparent hover:bg-primary/5 hover:border-primary/50 transition-all duration-300",
+                        isSelected ? "border-primary shadow-neon-sm bg-primary/10" : "border-white/10"
                       )}
                       onClick={() => setToken(token)} // Update selected token
                       key={index}

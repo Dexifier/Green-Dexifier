@@ -8,15 +8,6 @@ import { useStatefulConnect, useWalletList, WalletInfoWithExtra } from "@rango-d
 import { WalletState } from "@rango-dev/ui";
 import type { Namespace } from "@hub3js/namespaces";
 
-// Background colors for different wallet states
-const BgColorSet: Record<WalletState, string> = {
-  [WalletState.NOT_INSTALLED]: "#97979763",
-  [WalletState.DISCONNECTED]: "#639cff6e",
-  [WalletState.CONNECTING]: "#5ce3ff63",
-  [WalletState.CONNECTED]: "#639cff6e",
-  [WalletState.PARTIALLY_CONNECTED]: "#639cff6e",
-};
-
 // Text colors for different wallet states
 const TextColorSet: Record<WalletState, string> = {
   [WalletState.NOT_INSTALLED]: "#a6e6ffad",
@@ -85,27 +76,26 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
     <Dialog>
       {/* Trigger dialog via children */}
       <DialogTrigger asChild>{props.children}</DialogTrigger>
-      <DialogContent className="sm:max-w-md bg-transparent max-h-[90vh] max-w-[90vw] p-4 md:p-6 bg-gradient-to-b from-black to-[#042214] border border-separator !rounded-3xl">
+      <DialogContent className="sm:max-w-md bg-transparent max-h-[90vh] max-w-[90vw] p-4 md:p-6 bg-[#041008]/95 backdrop-blur-2xl border border-primary/25 shadow-neon-lg !rounded-3xl">
         {/* Dialog header with title and close button */}
         <DialogHeader className="flex flex-row justify-between">
-          <DialogTitle className="text-2xl">Connect <span className="text-primary">{props.chain}</span> Wallets</DialogTitle>
+          <DialogTitle className="font-display text-xl font-bold uppercase tracking-[0.15em]">Connect <span className="text-primary">{props.chain}</span> Wallets</DialogTitle>
           <DialogClose>
             <X className="w-7 h-7 p-1 bg-primary rounded-full font-bold text-black hover:bg-primary-dark transition-colors duration-300" />
           </DialogClose>
         </DialogHeader>
-        <Separator className="bg-separator" /> {/* Separator between header and content */}
+        <Separator className="bg-gradient-to-r from-transparent via-primary/40 to-transparent" /> {/* Separator between header and content */}
         {/* Search component for filtering wallets */}
         <Search value={search} onChange={(e) => setSearch(e.target.value)} />
         <div className="max-h-[60vh] flex flex-wrap justify-center overflow-auto gap-2 pr-1">
           {/* Render filtered wallets */}
           {filteredWalletList?.map((wallet, index) => (
-            <button key={index} className="flex flex-col min-w-[125px] items-center justify-center p-2 rounded-lg disabled:cursor-not-allowed hover:opacity-80"
-              style={{ backgroundColor: BgColorSet[wallet.state] }} // Set background color based on wallet state
+            <button key={index} className="flex flex-col min-w-[125px] items-center justify-center gap-1 p-3 rounded-2xl border border-white/10 bg-white/5 disabled:cursor-not-allowed hover:bg-primary/10 hover:border-primary/50 hover:shadow-neon-sm hover:-translate-y-0.5 transition-all duration-300"
               onClick={() => handleWallet(wallet)} // Handle wallet click to connect, disconnect, or open installation link
             >
               <Image src={wallet.image} alt={wallet.type} width={45} height={45} /> {/* Wallet image */}
-              <span className="text-sm">{wallet.title}</span> {/* Wallet title */}
-              <span className="text-xs color-grey-500" style={{ color: TextColorSet[wallet.state] }}>
+              <span className="text-sm font-medium">{wallet.title}</span> {/* Wallet title */}
+              <span className="text-xs" style={{ color: TextColorSet[wallet.state] }}>
                 {/* Wallet state text with color based on wallet state */}
                 {wallet.state}
               </span>

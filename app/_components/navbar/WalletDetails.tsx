@@ -158,8 +158,8 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
       <SheetTrigger asChild>
         {children}
       </SheetTrigger>
-      <SheetContent className="bg-gradient-to-b to-[#002f19] from-[#01150c] p-4 min-w-[450px] flex flex-col">
-        <SheetHeader className="border-b border-separator">
+      <SheetContent className="bg-[#041008]/95 backdrop-blur-2xl border-l border-primary/25 p-4 min-w-[450px] flex flex-col">
+        <SheetHeader className="border-b border-white/10">
           <SheetTitle className="w-full flex justify-center relative p-2">
             <span className="text-xl text-primary">
               {balancePending ? "…" : `${formatUsd(getWalletBalanceInUSD(filteredWallets))}$`}
