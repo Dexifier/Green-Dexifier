@@ -1,8 +1,5 @@
 "use client";
-import Image from "next/image";
 import React, { useMemo, useState } from "react"; // Importing React hooks
-import TooltipTemplate from "../common/tooltip-template"; // Import TooltipTemplate component for displaying tooltips
-import { useWidget } from "@rango-dev/widget-embedded"; // Importing hook from the Rango widget
 import {
   MultiRouteSimulationResult,
   SwapResult,
@@ -21,274 +18,186 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import FloatingTooltip from "../common/floating-tooltip";
-import { Blockchain, Token } from "@/app/types/dexifier";
-import { MAP_BLOCKCHAIN_RANGO_2_EXOLIX } from "@/app/utils/exolix";
-import { CHAINFLIP_BLOCKCHAIN_NAME_MAP } from "@/app/utils/chainflip";
 import { formatCryptoAmount } from "@/app/utils";
+import { Clock, Fuel } from "lucide-react";
 
 const FILTERS = ["Shortest", "Best rate", "Lowest fee", "Fastest"];
 
+// "~45s" / "~3m" / "~1h 20m"; null when the provider gives no estimate
+const formatEta = (seconds?: number | null): string | null => {
+  if (seconds == null || !isFinite(seconds) || seconds <= 0) return null;
+  if (seconds < 90) return `~${Math.round(seconds)}s`;
+  const m = Math.round(seconds / 60);
+  if (m < 60) return `~${m}m`;
+  const h = Math.floor(m / 60);
+  const rest = m % 60;
+  return `~${h}h${rest ? ` ${rest}m` : ""}`;
+};
+
+const formatFeeUsd = (value: number | null): string | null => {
+  if (value == null) return null;
+  return value >= 0.01 ? `$${value.toFixed(2)}` : `<$0.01`;
+};
+
+type RowData = {
+  logos: { image: string; alt: string }[];
+  title: string;
+  isBest?: boolean;
+  needsWallet: boolean; // rango routes need a browser wallet; others are wallet-less
+  pathText: string;
+  receiveAmount: string;
+  receiveSymbol: string;
+  eta?: string | null;
+  fee?: string | null;
+};
+
 const RouteCard = () => {
-  const { chains, coins, routes, setSelectedRoute, tokenFrom, tokenTo, state, isMobile } =
+  const { routes, setSelectedRoute, tokenFrom, tokenTo, state, isMobile } =
     useDexifier();
   const [filter, setFilter] = useState<string>("Shortest");
 
-  // Helper function to render a single node with logo, symbol, and amount
-  const singleNodeTemplate = (
-    logo: string,
-    symbol: string,
-    amount: string,
-    blockchainLogo?: string
-  ) => (
-    <div className="w-[50px]">
-      <div className="h-[50px] p-2 border border-white border-dashed rounded-full">
-        <TokenIcon
-          token={{
-            image: logo,
-            alt: symbol,
-            className: "size-8",
-          }}
-          blockchain={{
-            image: blockchainLogo,
-            alt: symbol,
-            className: "size-4",
-          }}
-        />
-      </div>
-      <div className="text-xs text-white flex flex-col">
-        <span>{amount}</span>
-        <span>{symbol}</span>
-      </div>
+  // Overlapped provider logos (max 3)
+  const providerStack = (logos: RowData["logos"]) => (
+    <div className="flex -space-x-2.5 shrink-0">
+      {logos.slice(0, 3).map((logo, i) => (
+        <div
+          key={i}
+          className="rounded-full border border-white/15 bg-[#0a140d] p-0.5"
+        >
+          <TokenIcon
+            token={{ image: logo.image, alt: logo.alt, className: "size-7" }}
+          />
+        </div>
+      ))}
     </div>
   );
 
-  // Provider badge (top-right of a route row), with an optional BEST chip
-  // for the top route under the current sort.
-  const badgeTemplate = (label: string, isBest?: boolean) => (
-    <div className="absolute top-0 right-2 flex gap-2">
-      {isBest && (
-        <span className="rounded-full bg-primary px-2 py-0.5 text-[11px] font-bold text-black shadow-neon-sm">
-          BEST
+  // Compact, info-dense route row: provider, path, receive amount, ETA, fee
+  const routeRow = (row: RowData) => (
+    <div className="relative w-full flex items-center gap-3.5">
+      {providerStack(row.logos)}
+      <div className="flex flex-col min-w-0 gap-0.5">
+        <div className="flex items-center gap-2">
+          <span className="font-semibold truncate">{row.title}</span>
+          {row.isBest && (
+            <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-black shadow-neon-sm">
+              BEST
+            </span>
+          )}
+          <span
+            className={cn(
+              "rounded-full border px-1.5 py-px text-[9px] font-semibold uppercase tracking-wider",
+              row.needsWallet
+                ? "border-white/25 text-white/60"
+                : "border-primary/40 text-primary"
+            )}
+          >
+            {row.needsWallet ? "Browser" : "Wallet-less"}
+          </span>
+        </div>
+        <span className="text-[11px] text-white/45 truncate tnum">
+          {row.pathText}
         </span>
-      )}
-      <span className="rounded-full border border-primary/40 bg-black/40 px-2 py-0.5 text-[11px] font-semibold text-primary">
-        {label}
-      </span>
+      </div>
+      <div className="ms-auto text-right shrink-0">
+        <div className="text-base md:text-lg font-bold tnum text-primary leading-tight">
+          {row.receiveAmount}{" "}
+          <span className="text-xs md:text-sm font-semibold">
+            {row.receiveSymbol}
+          </span>
+        </div>
+        {(row.eta || row.fee) && (
+          <div className="flex items-center justify-end gap-2.5 text-[11px] text-white/45 tnum">
+            {row.eta && (
+              <span className="flex items-center gap-1">
+                <Clock size={11} />
+                {row.eta}
+              </span>
+            )}
+            {row.fee && (
+              <span className="flex items-center gap-1">
+                <Fuel size={11} />
+                {row.fee}
+              </span>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 
-  // Function to render each route with relevant information
-  const rangoRoute = (route: MultiRouteSimulationResult, isBest?: boolean) => {
-    return (
-      <div className={`relative w-full flex overflow-x-auto`}>
-        {route.swaps.map((singleNode: SwapResult, index: number) => {
-          const isEven = index % 2 === 0;
-          const containerClasses =
-            "min-w-fit flex flex-col items-center justify-start gap-y-1.5";
-
-          return (
-            <div key={index} className="flex items-start">
-              <div
-                className={`relative ${!isEven && "mt-[3.125rem] ml-[24px]"} ${index !== 0 && isEven ? "ml-[40px]" : ""
-                  } ${containerClasses}`}
-              >
-                {singleNodeTemplate(
-                  singleNode.from.logo as string,
-                  singleNode.from.symbol,
-                  formatCryptoAmount(parseFloat(singleNode.fromAmount)),
-                  singleNode.from.blockchainLogo
-                )}
-                {isEven ? (
-                  <div>
-                    <Image
-                      src="/assets/icons/arrow-down.svg"
-                      width={59}
-                      height={21}
-                      alt="Arrow down"
-                      className={`absolute ${index !== 0
-                        ? "-right-[3.5625rem]"
-                        : "-right-[3.0625rem]"
-                        } top-6`}
-                    />
-                    <TooltipTemplate content={`${singleNode.swapperId}`}>
-                      <TokenIcon
-                        token={{
-                          image: singleNode.swapperLogo,
-                          alt: singleNode.swapperId,
-                          className: "size-5",
-                        }}
-                        className={`absolute ${index !== 0
-                          ? "-right-[2.425rem]"
-                          : "-right-[2.125rem]"
-                          } top-4`}
-                      />
-                    </TooltipTemplate>
-                  </div>
-                ) : (
-                  <div className="mx-2">
-                    <Image
-                      src="/assets/icons/arrow-up.svg"
-                      width={28.5}
-                      height={59}
-                      alt="Arrow up"
-                      className="absolute -right-[2.1625rem] -top-[1.875rem]"
-                    />
-                    <TooltipTemplate content={`${singleNode.swapperId}`}>
-                      <TokenIcon
-                        token={{
-                          image: singleNode.swapperLogo,
-                          alt: singleNode.swapperId,
-                          className: "size-5",
-                        }}
-                        className={`absolute -right-[1.9rem] -top-3`}
-                      />
-                    </TooltipTemplate>
-                  </div>
-                )}
-              </div>
-
-              {route.swaps.length === index + 1 && (
-                <div
-                  className={`${isEven ? "mt-[3.125rem] ms-[22px]" : "ms-[42px]"
-                    } ${containerClasses}`}
-                >
-                  {singleNodeTemplate(
-                    singleNode.to.logo as string,
-                    singleNode.to.symbol,
-                    formatCryptoAmount(parseFloat(singleNode.toAmount)),
-                    singleNode.to.blockchainLogo
-                  )}
-                </div>
-              )}
-            </div>
-          );
-        })}
-        {badgeTemplate("Browser", isBest)}
-      </div>
+  const rangoRowData = (route: MultiRouteSimulationResult, isBest?: boolean): RowData => {
+    const swaps = route.swaps ?? [];
+    const first = swaps[0];
+    const last = swaps[swaps.length - 1];
+    // Unique swappers, in order
+    const swappers = swaps.filter(
+      (s, i) => swaps.findIndex((x) => x.swapperId === s.swapperId) === i
     );
-  };
-
-  // Function to render each quote with relevant information
-  const chainflipRoute = (route: ChainflipQuote, isBest?: boolean) => {
-    const [ingressAsset, ingressChain] = route.ingressAsset.split('.')
-    const [egressAsset, egressChain] = route.egressAsset.split('.')
-    // Translate Chainflip chain slugs (sol/btc/eth/arb/dot) to the Rango chain
-    // names (SOLANA/BTC/ETH/ARBITRUM/POLKADOT) used by coins and chains.
-    const ingressRangoChain = CHAINFLIP_BLOCKCHAIN_NAME_MAP[ingressChain] ?? ingressChain.toUpperCase();
-    const egressRangoChain = CHAINFLIP_BLOCKCHAIN_NAME_MAP[egressChain] ?? egressChain.toUpperCase();
-    const tokenFrom: Token | undefined = coins.find(
-      (token: Token) =>
-        token.blockchain === ingressRangoChain &&
-        token.symbol.toUpperCase() === ingressAsset.toUpperCase()
+    const etaSec = swaps.reduce(
+      (acc, s: SwapResult) => acc + (s.estimatedTimeInSeconds || 0),
+      0
     );
-    const tokenTo: Token | undefined = coins.find(
-      (token: Token) =>
-        token.blockchain === egressRangoChain &&
-        token.symbol.toUpperCase() === egressAsset.toUpperCase()
-    );
-    const blockchainFrom: Blockchain | undefined = chains.find(
-      (blockchain: Blockchain) => blockchain.name === ingressRangoChain
-    );
-    const blockchainTo: Blockchain | undefined = chains.find(
-      (blockchain: Blockchain) => blockchain.name === egressRangoChain
-    );
-    return (
-      <div className={`relative w-full flex overflow-x-auto`}>
-        <div className="flex items-start">
-          <div className={`relative flex flex-col gap-y-1`}>
-            {singleNodeTemplate(
-              tokenFrom?.image || '',
-              tokenFrom?.symbol || '',
-              formatCryptoAmount(route.ingressAmount),
-              blockchainFrom?.logo || ''
-            )}
-            <div>
-              <Image
-                src="/assets/icons/arrow-down.svg"
-                width={59}
-                height={21}
-                alt="Arrow down"
-                className={`absolute -right-[3.0625rem] top-6`}
-              />
-              <TooltipTemplate content={`Chainflip`}>
-                <TokenIcon
-                  token={{
-                    image: "/assets/chainflip-logo.svg",
-                    alt: "Chainflip",
-                    className: "size-5",
-                  }}
-                  className={`absolute -right-[2.125rem] top-3.5`}
-                />
-              </TooltipTemplate>
-            </div>
-          </div>
-          <div className={`mt-[50px] ms-[22px] flex flex-col gap-y-1`}>
-            {singleNodeTemplate(
-              tokenTo?.image || '',
-              tokenTo?.symbol || '',
-              formatCryptoAmount(route.egressAmount),
-              blockchainTo?.logo || ''
-            )}
-          </div>
-        </div>
-        {badgeTemplate("Wallet-less", isBest)}
-      </div>
-    );
-  };
-
-  const exolixRoute = (route: RateResponse, isBest?: boolean) => {
-    if (tokenFrom && tokenTo) {
-      const blockchainFrom: Blockchain | undefined = chains.find(
-        (blockchain: Blockchain) =>
-          blockchain.name === tokenFrom.blockchain || tokenFrom.blockchain && blockchain.name === MAP_BLOCKCHAIN_RANGO_2_EXOLIX[tokenFrom.blockchain]
-      );
-      const blockchainTo: Blockchain | undefined = chains.find(
-        (blockchain: Blockchain) =>
-          blockchain.name === tokenTo.blockchain || tokenTo.blockchain && blockchain.name === MAP_BLOCKCHAIN_RANGO_2_EXOLIX[tokenTo.blockchain]
-      );
-      return (
-        <div className={`relative w-full flex overflow-x-auto`}>
-          <div className="flex items-start">
-            <div className={`relative flex flex-col gap-y-1`}>
-              {singleNodeTemplate(
-                tokenFrom.image || '',
-                tokenFrom.symbol,
-                formatCryptoAmount(route.fromAmount),
-                blockchainFrom?.logo || ''
-              )}
-              <div>
-                <Image
-                  src="/assets/icons/arrow-down.svg"
-                  width={59}
-                  height={21}
-                  alt="Arrow down"
-                  className={`absolute -right-[3.0625rem] top-6`}
-                />
-                <TooltipTemplate content={`Exolix`}>
-                  <TokenIcon
-                    token={{
-                      image: "https://exolix.com/favicon/favicon-32x32.png",
-                      alt: "Exolix",
-                      className: "size-5",
-                    }}
-                    className={`absolute -right-[2.125rem] top-3.5`}
-                  />
-                </TooltipTemplate>
-              </div>
-            </div>
-            <div className={`mt-[3.125rem] ms-[22px] flex flex-col gap-y-1`}>
-              {singleNodeTemplate(
-                tokenTo.image || '',
-                tokenTo.symbol,
-                formatCryptoAmount(route.toAmount),
-                blockchainTo?.logo || ''
-              )}
-            </div>
-          </div>
-          {badgeTemplate("Wallet-less", isBest)}
-        </div>
-      );
+    // Sum fee USD where the fee asset has a known price
+    let fee = 0;
+    let feeKnown = false;
+    for (const s of swaps) {
+      for (const f of s.fee ?? []) {
+        if (f.price != null) {
+          fee += parseFloat(f.amount) * f.price;
+          feeKnown = true;
+        }
+      }
     }
+    return {
+      logos: swappers.map((s) => ({ image: s.swapperLogo, alt: s.swapperId })),
+      title:
+        swappers.length === 1
+          ? swappers[0].swapperId
+          : `${swappers[0].swapperId} +${swappers.length - 1}`,
+      isBest,
+      needsWallet: true,
+      pathText: `${first?.from.symbol ?? ""} → ${last?.to.symbol ?? ""} · ${
+        swaps.length
+      } step${swaps.length > 1 ? "s" : ""}`,
+      receiveAmount: formatCryptoAmount(parseFloat(route.outputAmount)),
+      receiveSymbol: last?.to.symbol ?? "",
+      eta: formatEta(etaSec),
+      fee: formatFeeUsd(feeKnown ? fee : null),
+    };
+  };
+
+  const chainflipRowData = (route: ChainflipQuote, isBest?: boolean): RowData => {
+    const [ingressAsset] = route.ingressAsset.split(".");
+    const [egressAsset] = route.egressAsset.split(".");
+    return {
+      logos: [{ image: "/assets/chainflip-logo.svg", alt: "Chainflip" }],
+      title: "Chainflip",
+      isBest,
+      needsWallet: false,
+      pathText: `${ingressAsset} → ${egressAsset}`,
+      receiveAmount: formatCryptoAmount(route.egressAmount),
+      receiveSymbol: egressAsset,
+      eta: formatEta(route.estimatedDurationSeconds),
+      fee: null,
+    };
+  };
+
+  const exolixRowData = (route: RateResponse, isBest?: boolean): RowData | null => {
+    if (!tokenFrom || !tokenTo) return null;
+    return {
+      logos: [
+        { image: "https://exolix.com/favicon/favicon-32x32.png", alt: "Exolix" },
+      ],
+      title: "Exolix",
+      isBest,
+      needsWallet: false,
+      pathText: `${tokenFrom.symbol} → ${tokenTo.symbol}`,
+      receiveAmount: formatCryptoAmount(route.toAmount),
+      receiveSymbol: tokenTo.symbol,
+      eta: null,
+      fee: null,
+    };
   };
 
   function sortRoutesByLayers(routes: DexifierRoute[]) {
@@ -421,7 +330,7 @@ const RouteCard = () => {
           <RadioGroup
             defaultValue={FILTERS[0]}
             onValueChange={(value) => setFilter(value)}
-            className="flex items-center overflow-x-scroll"            
+            className="flex items-center overflow-x-scroll"
           >
             {FILTERS.map((filter) => (
               <RadioGroupPrimitive.Item
@@ -440,30 +349,18 @@ const RouteCard = () => {
         {state === DEXIFIER_STATE.FETCHING_ROUTES ? (
           [0, 1].map((val) => (
             <Skeleton
-              className="h-[170px] w-full rounded-lg p-4 mb-2"
+              className="h-[84px] w-full rounded-2xl p-4 mb-2 bg-white/5"
               key={val}
             >
-              <div className="flex gap-2">
-                <div className="flex flex-col items-center gap-2 w-12">
-                  <Skeleton className="size-12 rounded-full" />
-                  <Skeleton className="w-10 h-2 rounded-md" />
-                  <Skeleton className="w-10 h-2 rounded-md" />
+              <div className="flex items-center gap-3.5">
+                <Skeleton className="size-9 rounded-full shrink-0" />
+                <div className="flex flex-col gap-2">
+                  <Skeleton className="w-24 h-3 rounded-md" />
+                  <Skeleton className="w-32 h-2 rounded-md" />
                 </div>
-                <div>
-                  <div className="h-12 flex items-center">
-                    <Skeleton className="h-2 w-12 rounded-md" />
-                  </div>
-                  <div className="flex flex-col items-center gap-2 w-12 ml-6">
-                    <Skeleton className="size-12 rounded-full" />
-                    <Skeleton className="w-10 h-2 rounded-md" />
-                    <Skeleton className="w-10 h-2 rounded-md" />
-                  </div>
-                </div>
-                <Skeleton className="h-12 w-2 rounded-md mt-6" />
-                <div className="flex flex-col items-center gap-2 w-12">
-                  <Skeleton className="size-12 rounded-full" />
-                  <Skeleton className="w-10 h-2 rounded-md" />
-                  <Skeleton className="w-10 h-2 rounded-md" />
+                <div className="ms-auto flex flex-col items-end gap-2">
+                  <Skeleton className="w-20 h-4 rounded-md" />
+                  <Skeleton className="w-14 h-2 rounded-md" />
                 </div>
               </div>
             </Skeleton>
@@ -479,11 +376,20 @@ const RouteCard = () => {
                 className="w-full h-full space-y-2"
               >
                 {sortedRoutes.map((route, index) => {
+                  const row: RowData | null =
+                    "outputAmount" in route
+                      ? rangoRowData(route, index === 0)
+                      : "egressAmount" in route
+                        ? chainflipRowData(route, index === 0)
+                        : "toAmount" in route
+                          ? exolixRowData(route, index === 0)
+                          : null;
+                  if (!row) return null;
                   return (
                     <FloatingTooltip
                       key={index}
                       description={
-                        'outputAmount' in route
+                        row.needsWallet
                           ? "Browser wallet connection needed"
                           : "No wallet connection needed"
                       }
@@ -495,15 +401,7 @@ const RouteCard = () => {
                         style={{ animationDelay: `${index * 70}ms` }}
                         className="route-row-enter w-full rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition duration-300 hover:border-primary/40 hover:bg-primary/5 data-[state=checked]:border-primary data-[state=checked]:bg-primary/10 data-[state=checked]:shadow-neon"
                       >
-                        {'outputAmount' in route ? (
-                          rangoRoute(route, index === 0)
-                        ) : 'egressAmount' in route ? (
-                          chainflipRoute(route, index === 0)
-                        ) : 'toAmount' in route ? (
-                          exolixRoute(route, index === 0)
-                        ) : (
-                          <></>
-                        )}
+                        {routeRow(row)}
                       </RadioGroupPrimitive.Item>
                     </FloatingTooltip>
                   );

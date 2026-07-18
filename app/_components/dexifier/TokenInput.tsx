@@ -1,11 +1,12 @@
 import { Input } from "@/components/ui/input";
-import { Dispatch, InputHTMLAttributes, SetStateAction, useMemo } from "react";
+import { Dispatch, InputHTMLAttributes, SetStateAction, useEffect, useMemo, useRef, useState } from "react";
 import TokenModal from "./TokenModal";
 import { Button } from "@/components/ui/button";
 import TokenIcon from "../common/token-icon";
 import { useDexifier } from "@/app/providers/DexifierProvider";
 import { Blockchain, Token } from "@/app/types/dexifier";
 import { ChevronDown, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // Defining the interface for TokenInput props
 interface TokenInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -21,11 +22,23 @@ const TokenInput: React.FC<TokenInputProps> = ({ token, setToken, onClear, ...pr
     if (token) return chains.find((blockchain: Blockchain) => blockchain.name === token.blockchain)
   }, [chains, token]);
 
+  // Quote fields (disabled/readonly) flash softly whenever the value updates
+  const [flash, setFlash] = useState(false);
+  const prevValue = useRef(props.value);
+  useEffect(() => {
+    if (!props.disabled) return;
+    if (prevValue.current === props.value) return;
+    prevValue.current = props.value;
+    if (!props.value) return;
+    setFlash(true);
+    const timer = setTimeout(() => setFlash(false), 450);
+    return () => clearTimeout(timer);
+  }, [props.value, props.disabled]);
 
   return (
     <div className="flex items-center justify-between gap-2 rounded-2xl border border-white/10 bg-black/40 p-3 transition duration-300 hover:border-white/20 focus-within:border-primary/60 focus-within:shadow-neon-sm">
       {/* Input field for token amount */}
-      <div className="flex flex-col flex-1 min-w-0">
+      <div className={cn("flex flex-col flex-1 min-w-0", flash && "animate-quote-flash")}>
         <div className="relative">
           <Input {...props} /> {/* Custom input for entering token amount */}
           {onClear && !!props.value && (
