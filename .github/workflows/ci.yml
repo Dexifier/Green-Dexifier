@@ -13,8 +13,12 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
+
+      # npm 10.8.x (bundled with Node 20) crashes with "Exit handler never
+      # called!" on this dependency tree; latest npm fixes it.
+      - run: npm install -g npm@latest
 
       - run: npm ci
 
