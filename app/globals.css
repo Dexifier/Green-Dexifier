@@ -111,6 +111,21 @@ body {
 .animate-rise {
   animation: dex-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+/* Quote values softly rise in when they update */
+@keyframes quote-flash {
+  0% {
+    opacity: 0.2;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-quote-flash {
+  animation: quote-flash 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .route-row-enter {
   animation: dex-rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
