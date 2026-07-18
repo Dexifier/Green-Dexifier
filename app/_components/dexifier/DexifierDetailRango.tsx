@@ -1,6 +1,6 @@
 "use client";
-// This component displays the details of a swap transaction, including the tokens involved, swap status, and swap steps. 
-// It provides functionality to cancel or delete a swap, and shows detailed information about each step of the swap process.
+// This component displays the details of a swap transaction, including the tokens involved, swap status, and swap steps.
+// Steps are rendered as a vertical neon timeline: pending -> running -> done/error.
 import Image from "next/image";
 import Link from "next/link";
 import { cancelSwap } from "@rango-dev/queue-manager-rango-preset";
@@ -17,6 +17,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useDexifier } from "@/app/providers/DexifierProvider";
 import { useNotification } from "@/app/providers/NotificationProvider";
+import { formatCryptoAmount } from "@/app/utils";
+import { ArrowRight, Check, Loader2, TriangleAlert, X } from "lucide-react";
 
 interface SwapTokenProps {
   swapData: SwapResult, // Data related to the token being swapped
@@ -28,6 +30,8 @@ interface StepStateProps {
   swap: PendingSwap | undefined, // Pending swap data
   currentStep: number // Current step of the swap process
 }
+
+type StepState = "default" | "in-progress" | "completed" | "error" | "warning" | undefined;
 
 type RangoData = {
   swapData: ConfirmRouteResponse;
@@ -108,44 +112,108 @@ const DexifierDetailRango = () => {
     }
 
     return (
-      <div className="flex items-center justify-center p-3">
-        <span className="text-white/50 text-center">{message.replace('Rango', 'Dexifier')}</span>
-      </div>
+      <p className="mt-1.5 text-xs text-white/50 leading-relaxed">
+        {message.replace('Rango', 'Dexifier')}
+      </p>
+    );
+  };
+
+  // Timeline node: numbered circle that becomes a spinner / check / cross
+  const StepNode = ({ state, index }: { state: StepState; index: number }) => (
+    <div
+      className={cn(
+        "relative z-10 mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border-2 transition-colors duration-500",
+        state === "completed" && "border-primary bg-primary text-black shadow-neon-sm",
+        state === "in-progress" && "border-primary bg-primary/15 text-primary shadow-neon-sm",
+        state === "error" && "border-red-500 bg-red-500/15 text-red-400",
+        state === "warning" && "border-yellow-500 bg-yellow-500/15 text-yellow-400",
+        (state === "default" || !state) && "border-white/15 bg-white/5 text-white/40"
+      )}
+    >
+      {state === "completed" ? (
+        <Check size={14} strokeWidth={3} />
+      ) : state === "in-progress" ? (
+        <Loader2 size={14} className="animate-spin" />
+      ) : state === "error" ? (
+        <X size={14} strokeWidth={3} />
+      ) : state === "warning" ? (
+        <TriangleAlert size={13} />
+      ) : (
+        <span className="text-[11px] font-bold tnum">{index + 1}</span>
+      )}
+    </div>
+  );
+
+  const statePill = (state: StepState) => {
+    if (!state || state === "default") {
+      return (
+        <span className="rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/40">
+          Waiting
+        </span>
+      );
+    }
+    if (state === "in-progress") {
+      return (
+        <span className="rounded-full border border-primary/60 bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary shadow-neon-sm">
+          Running
+        </span>
+      );
+    }
+    if (state === "completed") {
+      return (
+        <span className="rounded-full border border-primary bg-primary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-black">
+          Done
+        </span>
+      );
+    }
+    if (state === "warning") {
+      return (
+        <span className="rounded-full border border-yellow-500/60 bg-yellow-500/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-yellow-400">
+          Warning
+        </span>
+      );
+    }
+    return (
+      <span className="rounded-full border border-red-500/60 bg-red-500/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-red-400">
+        Failed
+      </span>
     );
   };
 
   return selectedRoute && (
-    <Card className="max-w-[650px] min-h-[540px] w-full h-full bg-[#041008]/85 backdrop-blur-2xl p-2 rounded-[28px] border border-primary/25 neon-frame animate-rise text-white">
+    <Card className="max-w-[650px] min-h-[540px] w-full h-full rounded-[28px] border border-primary/25 bg-white/[0.07] backdrop-blur-2xl backdrop-saturate-150 neon-frame animate-rise p-2 text-white">
       <CardHeader className="flex flex-row justify-between items-center">
-        <h1 className="text-2xl">Swap Details</h1>
+        <h1 className="font-display text-2xl font-bold uppercase tracking-[0.2em] text-glow">
+          Swap Details
+        </h1>
         <button
-          className="text-red-700 hover:opacity-50 text-lg font-bold"
+          className="text-xs font-semibold uppercase tracking-wider text-red-400/80 transition hover:text-red-400 disabled:opacity-40"
           onClick={onDelete}
           disabled={!selectedSwap?.id}
         >
-          delete
+          Delete
         </button>
       </CardHeader>
       <CardContent className="overflow-auto h-[380px] px-6">
         <div className="mb-8">
           {pendingSwap && <div className="flex justify-between">
-            <span className="text-lg font-semibold">
+            <span className="text-sm font-semibold uppercase tracking-wider text-white/50">
               {`${pendingSwap.finishTime ? "Finished at" : "Created at"}:`}
             </span>
-            <span className="text-sm text-white/50">
+            <span className="text-sm text-white/50 tnum">
               {getSwapDate(pendingSwap)}
             </span>
           </div>}
           <div className="flex items-center justify-between">
-            <span className="text-lg font-semibold">Requested ID:</span>
-            <div className="flex gap-2">
-              <span className="text-sm text-white/50">
-                {selectedRoute.requestId.length > 40 ? (
-                  <>{selectedRoute.requestId.slice(0, 40)}...</>
-                ) : (
-                  selectedRoute.requestId
-                )}
-              </span>
+            <span className="text-sm font-semibold uppercase tracking-wider text-white/50">Requested ID:</span>
+            <div className="flex gap-2 items-center">
+              <span className="text-xs text-white/50 tnum">
+              {selectedRoute.requestId.length > 40 ? (
+                <>{selectedRoute.requestId.slice(0, 40)}...</>
+              ) : (
+                selectedRoute.requestId
+              )}
+            </span>
               <ButtonCopyIcon text={selectedRoute.requestId} />
               <Link href={`https://explorer.dexifier.com/swap/${selectedRoute.requestId}`} target="_blank">
                 <Image src={"/assets/icons/search-list.png"} width={22} height={22} alt="explorer" />
@@ -155,9 +223,9 @@ const DexifierDetailRango = () => {
         </div>
 
         {(swapData as ConfirmRouteResponse).result && swaps && <div className="mb-7 flex flex-col items-center text-xs">
-          <div className="flex gap-1">
+          <div className="flex gap-1 w-full items-center">
             <SwapToken swapData={swaps[0]} isFrom={true} />
-            <div className="relative border-t border-dashed min-w-24 flex-grow mt-8">
+            <div className="relative border-t border-white/20 min-w-24 flex-grow mt-8">
               {swaps && swaps.map((swap, index) => {
                 const percentage = ((index + 1) / (swaps.length + 1)) * 100; // Calculate percentage for left
                 return (
@@ -170,7 +238,7 @@ const DexifierDetailRango = () => {
                     }}
                   >
                     <TooltipTemplate content={swap.swapperId}>
-                      <Image src={swap.swapperLogo} width={25} height={25} alt="swapLogo" />
+                      <Image src={swap.swapperLogo} width={25} height={25} alt="swapLogo" className="rounded-full" />
                     </TooltipTemplate>
                   </div>
                 );
@@ -178,32 +246,61 @@ const DexifierDetailRango = () => {
             </div>
             <SwapToken swapData={swaps[swaps.length - 1]} isFrom={false} />
           </div>
-          <div className="w-full mt-4">
-            <span className="text-lg font-semibold">Swap Steps:</span>
+
+          {/* Vertical neon timeline of swap steps */}
+          <div className="w-full mt-8 mb-4">
+            <span className="font-display text-sm font-bold uppercase tracking-[0.2em] text-white/70">
+              Swap Steps
+            </span>
           </div>
-          <div>
+          <div className="w-full">
             {swaps && swaps.map((swap, index) => {
+              const state: StepState = pendingSwap
+                ? (getStepState(pendingSwap.steps[index]) as StepState)
+                : "default";
+              const isLast = index === swaps.length - 1;
               return (
-                <div key={index} className="mt-4">
-                  <div className="flex items-center gap-1">
-                    <SwapSteps swapData={swap} isFrom={true} />
-                    <div className="relative border-t border-dashed w-full min-w-24 h-[1px] flex-grow" >
-                      <div className="absolute w-full -top-3 flex justify-center">
+                <div key={index} className="relative flex gap-4 pb-6 last:pb-0">
+                  {/* connecting rail */}
+                  {!isLast && (
+                    <div
+                      className={cn(
+                        "absolute left-[13px] top-8 bottom-0 w-px transition-colors duration-500",
+                        state === "completed"
+                          ? "bg-gradient-to-b from-primary/70 to-primary/20"
+                          : "bg-white/10"
+                      )}
+                    />
+                  )}
+                  <StepNode state={state} index={index} />
+                  <div className="flex-1 min-w-0 rounded-2xl border border-white/10 bg-white/[0.03] p-3.5">
+                    <div className="flex items-center justify-between gap-3 flex-wrap">
+                      <div className="flex items-center gap-2 min-w-0 text-sm">
+                        <TokenIcon
+                          token={{ image: swap.from.logo, alt: swap.from.symbol, className: "size-6" }}
+                          blockchain={{ image: swap.from.blockchainLogo, alt: swap.from.blockchain, className: "size-3" }}
+                        />
+                        <span className="tnum font-semibold">{formatCryptoAmount(parseFloat(swap.fromAmount))}</span>
+                        <span className="text-white/60">{swap.from.symbol}</span>
+                        <ArrowRight size={14} className="text-primary shrink-0" />
+                        <TokenIcon
+                          token={{ image: swap.to.logo, alt: swap.to.symbol, className: "size-6" }}
+                          blockchain={{ image: swap.to.blockchainLogo, alt: swap.to.blockchain, className: "size-3" }}
+                        />
+                        <span className="tnum font-semibold">{formatCryptoAmount(parseFloat(swap.toAmount))}</span>
+                        <span className="text-white/60">{swap.to.symbol}</span>
+                      </div>
+                      <div className="flex items-center gap-2.5">
                         <TooltipTemplate content={swap.swapperId}>
-                          <TokenIcon
-                            token={{ image: swap.swapperLogo, className: "size-6" }}
-                          />
+                          <TokenIcon token={{ image: swap.swapperLogo, alt: swap.swapperId, className: "size-5" }} />
                         </TooltipTemplate>
+                        {statePill(state)}
                       </div>
                     </div>
-                    <SwapSteps swapData={swap} isFrom={false} />
-                    <div className="text-white/50 ml-2 col-span-2">
-                      {swap && <StepState swap={pendingSwap} currentStep={index} />}
-                    </div>
+                    {swap && <StepMessage swap={pendingSwap} currentStep={index} />}
                   </div>
-                  {swap && <StepMessage swap={pendingSwap} currentStep={index} />}
                 </div>
-              )
+              );
             })}
           </div>
         </div>}
@@ -226,7 +323,7 @@ const DexifierDetailRango = () => {
 const SwapToken: FC<SwapTokenProps> = ({ className, swapData, isFrom }) => {
   return (
     <div className={`${className} flex flex-col items-center`}>
-      <div className="size-16 p-2 border border-white border-dashed rounded-full">
+      <div className="size-16 p-2 border border-primary/30 rounded-full bg-white/5">
         <TokenIcon
           token={{
             image: swapData[isFrom ? "from" : "to"].logo,
@@ -239,77 +336,10 @@ const SwapToken: FC<SwapTokenProps> = ({ className, swapData, isFrom }) => {
           }}
         />
       </div>
-      <span className="text-xs">
-        {parseFloat(swapData[isFrom ? "fromAmount" : "toAmount"]).toFixed(2)}
+      <span className="text-xs tnum">
+        {formatCryptoAmount(parseFloat(swapData[isFrom ? "fromAmount" : "toAmount"]))}
       </span>
       <span className="text-sm">
-        {swapData[isFrom ? "from" : "to"].symbol}
-      </span>
-    </div>
-  );
-};
-
-// Component to display the step state of the swap (in-progress, completed, etc.)
-const StepState: FC<StepStateProps> = ({ swap, currentStep }) => {
-  if (swap === undefined) {
-    return null;
-  }
-  const state = getStepState(swap.steps[currentStep]); // Get the state of the current step
-  return (
-    state && <div className="flex justify-center items-center">{
-      state === "in-progress" ?
-        <div className="px-3.5 py-1 border border-primary text-primary w-fit rounded-full flex items-center gap-x-2.5">
-          <div className="flex items-center justify-center gap-x-2.5">
-            <Image
-              src={"/assets/loader.png"}
-              width={10}
-              height={10}
-              alt="Loader"
-              className="animate-spin"
-            />
-            <span>Running</span>
-          </div>
-        </div> :
-        (
-          state !== "default" &&
-          <div className="px-3.5 py-1 border border-primary text-primary w-fit rounded-full flex items-center gap-x-2.5">
-            <div className="flex items-center justify-center gap-x-2.5">
-              {state === "completed" &&
-                <Image
-                  src={"/assets/icons/check-filled.png"}
-                  width={11}
-                  height={11}
-                  alt="checked icon"
-                />}
-              <span>{state}</span>
-            </div>
-          </div>
-        )
-    }
-    </div>
-  )
-};
-
-// Component to display the steps of the swap, showing each step's details
-const SwapSteps: FC<SwapTokenProps> = ({ className, swapData, isFrom }) => {
-  return (
-    <div className={`${className} flex justify-center gap-2  items-center`}>
-      <TokenIcon
-        token={{
-          image: swapData[isFrom ? "from" : "to"].logo,
-          alt: swapData[isFrom ? "from" : "to"].symbol,
-          className: "size-8",
-        }}
-        blockchain={{
-          image: swapData[isFrom ? "from" : "to"].blockchainLogo,
-          alt: swapData[isFrom ? "from" : "to"].blockchain,
-          className: "size-4",
-        }}
-      />
-      <span className="text-xs">
-        {parseFloat(swapData[isFrom ? "fromAmount" : "toAmount"]).toFixed(2)}
-      </span>
-      <span className="text-xs">
         {swapData[isFrom ? "from" : "to"].symbol}
       </span>
     </div>

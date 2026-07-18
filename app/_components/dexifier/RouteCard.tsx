@@ -170,14 +170,16 @@ const RouteCard = () => {
   const chainflipRowData = (route: ChainflipQuote, isBest?: boolean): RowData => {
     const [ingressAsset] = route.ingressAsset.split(".");
     const [egressAsset] = route.egressAsset.split(".");
+    const ingress = ingressAsset.toUpperCase();
+    const egress = egressAsset.toUpperCase();
     return {
       logos: [{ image: "/assets/chainflip-logo.svg", alt: "Chainflip" }],
       title: "Chainflip",
       isBest,
       needsWallet: false,
-      pathText: `${ingressAsset} → ${egressAsset}`,
+      pathText: `${ingress} → ${egress}`,
       receiveAmount: formatCryptoAmount(route.egressAmount),
-      receiveSymbol: egressAsset,
+      receiveSymbol: egress,
       eta: formatEta(route.estimatedDurationSeconds),
       fee: null,
     };
