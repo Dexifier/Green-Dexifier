@@ -80,7 +80,7 @@ const DexifierCard: React.FC = () => {
   return (
     <Card
       className={cn(
-        "w-full text-white rounded-[28px] border border-primary/25 bg-[#041008]/35 backdrop-blur-2xl neon-frame animate-rise",
+        "w-full text-white rounded-[28px] border border-primary/25 bg-[#041008]/20 backdrop-blur-2xl neon-frame animate-rise",
         isMobile ? "p-0 border-none bg-transparent shadow-none backdrop-blur-none before:hidden" : "max-w-[560px] p-8"
       )}
     >

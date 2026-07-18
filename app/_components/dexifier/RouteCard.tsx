@@ -409,7 +409,7 @@ const RouteCard = () => {
   return (
     <Card
       className={cn(
-        "h-full flex flex-col w-full rounded-[28px] border border-primary/25 bg-[#041008]/35 backdrop-blur-2xl neon-frame animate-rise text-white",
+        "h-full flex flex-col w-full rounded-[28px] border border-primary/25 bg-[#041008]/20 backdrop-blur-2xl neon-frame animate-rise text-white",
         isMobile ? "p-5 border-none bg-transparent shadow-none backdrop-blur-none before:hidden" : "max-w-[650px] p-6"
       )}
     >
