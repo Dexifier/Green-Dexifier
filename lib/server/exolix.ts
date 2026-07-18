@@ -1,4 +1,5 @@
 import "server-only";
+import { joinApiUrl } from "@/lib/url";
 
 // Server-only Exolix client. The API key never reaches the browser bundle —
 // all browser calls go through the /api/exolix/* route handlers.
@@ -16,12 +17,7 @@ function authHeaders(): HeadersInit {
 }
 
 export async function exolixGet<T>(path: string, params?: Record<string, string>): Promise<T> {
-  const url = new URL(path, BASE_URL);
-  if (params) {
-    for (const [k, v] of Object.entries(params)) {
-      if (v !== undefined && v !== "") url.searchParams.set(k, v);
-    }
-  }
+  const url = joinApiUrl(BASE_URL, path, params);
   const res = await fetch(url, { headers: authHeaders(), cache: "no-store" });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
@@ -31,7 +27,7 @@ export async function exolixGet<T>(path: string, params?: Record<string, string>
 }
 
 export async function exolixPost<T>(path: string, body: unknown): Promise<T> {
-  const url = new URL(path, BASE_URL);
+  const url = joinApiUrl(BASE_URL, path);
   const res = await fetch(url, {
     method: "POST",
     headers: authHeaders(),
