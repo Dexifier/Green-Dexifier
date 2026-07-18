@@ -52,12 +52,16 @@ const config = {
           "0%, 100%": { boxShadow: "0 0 18px rgba(19,241,135,0.22)" },
           "50%": { boxShadow: "0 0 36px rgba(19,241,135,0.48)" },
         },
+        "pulse-glow-slow": {
+          "0%, 100%": { boxShadow: "0 0 14px rgba(19,241,135,0.12)" },
+          "50%": { boxShadow: "0 0 44px rgba(19,241,135,0.6)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "pulse-glow": "pulse-glow 3s ease-in-out infinite",
-        "pulse-glow-slow": "pulse-glow 8s ease-in-out infinite",
+        "pulse-glow-slow": "pulse-glow-slow 12s ease-in-out infinite",
       },
       screens: {
         xs: "450px",
