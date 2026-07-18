@@ -6,7 +6,7 @@
 // (useDexifier) is provided for easier consumption of the context in components.
 
 import { createContext, useContext, ReactNode, SetStateAction, Dispatch, useState, useEffect, useMemo, useRef } from "react";
-import { BlockchainMeta, ConfirmRouteResponse, MultiRouteRequest, MultiRouteResponse, MultiRouteSimulationResult, Token as RangoToken, Transaction, TransactionType } from "rango-types/mainApi"
+import { BlockchainMeta, ConfirmRouteResponse, MultiRouteRequest, MultiRouteResponse, MultiRouteSimulationResult, Transaction, TransactionType } from "rango-types/mainApi"
 import { Settings } from "../types/rango";
 import { ChainflipSwapResponse, ChainflipQuote, ChainflipError, ChainflipSwapStatus } from "../types/chainflip";
 import { DCurrency, DNetwork, ExTxInfo, RateRequest, RateResponse, TxRequest } from "../types/exolix";
@@ -25,6 +25,7 @@ import {
 } from "@/lib/api-client";
 import axios from "axios";
 import { MAP_BLOCKCHAIN_RANGO_2_EXOLIX, resolveExolixNetwork } from "../utils/exolix";
+import { dedupeTokens } from "../utils/tokens";
 import { Blockchain, Token } from "../types/dexifier";
 
 // Define the type for the context
@@ -144,32 +145,14 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
   }, [blockchains, networks]);
 
   const coins: Token[] = useMemo(() => {
-    const tk = tokens.map((token: RangoToken) => ({
-      address: token.address,
-      isPopular: token.isPopular,
-      symbol: token.symbol,
-      blockchain: token.blockchain,
-      image: token.image,
-      decimals: token.decimals,
-      usdPrice: token.usdPrice,
-    }))
-    const cu = currencies?.map(currency => ({
-      address: null,
+    const exolixCoins = currencies.map((currency) => ({
       symbol: currency.code,
-      blockchain: networks.find(n => n.id === currency.networkId)?.network,
+      blockchain: networks.find((n) => n.id === currency.networkId)?.network,
       image: currency.icon,
-    }))
-    const seen = new Set<string>();
-    const uniqueItems = [...tk, ...cu].filter(item => {
-      const key = `${item.address}-${item.symbol}-${item.blockchain}`;
-      if (seen.has(key)) {
-        return false;
-      }
-      seen.add(key);
-      return true;
-    });
-
-    return uniqueItems;
+    }));
+    // One canonical entry per (symbol, chain) — Rango meta contains many
+    // same-symbol clones per chain (a dozen fake USDC on Solana, ...).
+    return dedupeTokens(tokens, exolixCoins);
   }, [networks, tokens, currencies])
 
   const amountTo = useMemo(() => {

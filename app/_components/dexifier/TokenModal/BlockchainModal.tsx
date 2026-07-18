@@ -2,8 +2,8 @@
 // It uses React state and effects to manage the modal's behavior and the search/filtering functionality.
 // The component relies on various UI elements like Dialog, ScrollArea, and Avatar from a custom UI library and external dependencies.
 
-import React, { Dispatch, PropsWithChildren, SetStateAction, useEffect, useMemo, useState } from "react";
-import { chain, isEqual } from "lodash";
+import React, { Dispatch, PropsWithChildren, SetStateAction, useEffect, useState } from "react";
+import { isEqual } from "lodash";
 import {
   Dialog,
   DialogClose,
@@ -15,13 +15,12 @@ import {
 import { Separator } from "@/components/ui/separator";
 import _ from 'lodash';
 import { FaArrowLeft, FaCheck } from "react-icons/fa";
-import { useWidget } from "@rango-dev/widget-embedded";
-import { BlockchainMeta } from "rango-types/mainApi";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Search from "@/app/_components/common/search";
 import TokenIcon from "../../common/token-icon";
 import { Blockchain } from "@/app/types/dexifier";
 import { useDexifier } from "@/app/providers/DexifierProvider";
+import { getRecentChains, LOCAL_CHAIN_LOGOS, orderChains, rememberChain } from "@/app/utils/chains";
 
 // Define props for the BlockchainModal component
 interface BlockchainModalProps {
@@ -30,16 +29,16 @@ interface BlockchainModalProps {
 }
 
 const BlockchainModal: React.FC<PropsWithChildren<BlockchainModalProps>> = ({ children, selectedBlockchain, setSelectedBlockchain }) => {
-  const { meta } = useWidget(); // Access metadata using custom hook
-  const { blockchains } = meta; // Extract blockchains from the metadata
   const { chains } = useDexifier();
 
   const [search, setSearch] = useState<string>(''); // Search query state
   const [filteredBlockchains, setFilteredBlockchains] = useState<Blockchain[]>([]); // Filtered list of blockchains
 
-  // Effect to filter the blockchain list based on the search query
+  // Effect to filter the blockchain list based on the search query.
+  // Ordered by recent use, then curated popularity, then alphabetically.
+  // The modal mounts with the dialog, so getRecentChains() reads fresh values.
   useEffect(() => {
-    setFilteredBlockchains(chains.filter((blockchain: Blockchain) =>
+    setFilteredBlockchains(orderChains(chains, getRecentChains()).filter((blockchain: Blockchain) =>
       blockchain.name.toLowerCase().includes(search.toLowerCase()) || blockchain.displayName.toLowerCase().includes(search.toLowerCase()) || blockchain.shortName?.toLowerCase().includes(search.toLowerCase())
     ))
   }, [search, chains])
@@ -71,13 +70,16 @@ const BlockchainModal: React.FC<PropsWithChildren<BlockchainModalProps>> = ({ ch
               <DialogClose
                 key={index}
                 className="w-full flex items-center justify-between border-b border-separator hover:opacity-80 p-2"
-                onClick={() => setSelectedBlockchain(blockchain)} // Set selected blockchain on click
+                onClick={() => {
+                  rememberChain(blockchain.name); // Track usage for future ordering
+                  setSelectedBlockchain(blockchain);
+                }}
               >
                 {/* Avatar and display name for the blockchain */}
                 <div className="flex gap-4 items-center">
                   <TokenIcon
                     token={{
-                      image: blockchain.logo || '',
+                      image: LOCAL_CHAIN_LOGOS[blockchain.name] ?? blockchain.logo ?? '',
                       alt: blockchain.name,
                     }}
                   />  {/* Blockchain logo */}
