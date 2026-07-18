@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { formatUsd } from "@/app/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
@@ -37,6 +38,13 @@ const MainNavbar = () => {
 
   const { details: connectedWallets, totalBalance, isLoading } = useWidget().wallets;
   const { list } = useWalletList({})
+
+  // The widget's totalBalance arrives as an unformatted raw-sum string like
+  // "10738.14892158378109848..." — parse and format it before display.
+  const formattedTotalBalance = useMemo(() => {
+    const n = parseFloat(totalBalance ?? "");
+    return Number.isNaN(n) ? "0.00" : formatUsd(n);
+  }, [totalBalance]);
 
   const mappedWallets = connectedWallets.filter((connectedWallets, index, self) =>
     index === self.findIndex((w) => (
@@ -160,7 +168,7 @@ const MainNavbar = () => {
                             />
                           ))}
                         </div>
-                        <span className="flex items-center">{totalBalance} $</span>
+                        <span className="flex items-center">{formattedTotalBalance} $</span>
                       </div>
                     }
                   </button>

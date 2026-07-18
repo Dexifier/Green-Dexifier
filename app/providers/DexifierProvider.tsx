@@ -304,6 +304,10 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
       debounce(async () => {
         if (tokenFrom && tokenTo && amountFrom && parseFloat(amountFrom)) {
           setState(DEXIFIER_STATE.FETCHING_ROUTES)
+          // A new quote session invalidates any previous swap — otherwise a
+          // stale swapData keeps the Swap Now button disabled forever.
+          setSwapData(undefined)
+          setSwapStatus(undefined)
           const allRoutes = await getRoutes(tokenFrom, tokenTo, amountFrom)
           setRoutes(allRoutes)
           if (allRoutes.length) setSelectedRoute(allRoutes[0])

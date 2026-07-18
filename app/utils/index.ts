@@ -3,6 +3,14 @@ export const getAbbrAddress = (address: string | null) => {
   return address.slice(0, 4) + "..." + address.slice(-4)
 }
 
+// Crypto amounts need real precision: 0.00115 BTC must not render as "0.00".
+export const formatCryptoAmount = (n: number): string =>
+  n.toLocaleString("en-US", { maximumSignificantDigits: 8 });
+
+// USD totals shown to users: always exactly 2 decimals with grouping.
+export const formatUsd = (n: number): string =>
+  n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
 export function formatReadableDate(date: Date) {
   return date.toLocaleString('en-US', {
     year: 'numeric',

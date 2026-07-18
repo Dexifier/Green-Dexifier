@@ -24,10 +24,7 @@ import FloatingTooltip from "../common/floating-tooltip";
 import { Blockchain, Token } from "@/app/types/dexifier";
 import { MAP_BLOCKCHAIN_RANGO_2_EXOLIX } from "@/app/utils/exolix";
 import { CHAINFLIP_BLOCKCHAIN_NAME_MAP } from "@/app/utils/chainflip";
-
-// Crypto amounts need real precision: 0.00115 BTC must not render as "0.00".
-const formatCryptoAmount = (n: number): string =>
-  n.toLocaleString("en-US", { maximumSignificantDigits: 8 });
+import { formatCryptoAmount } from "@/app/utils";
 
 const FILTERS = ["Shortest", "Best rate", "Lowest fee", "Fastest"];
 
