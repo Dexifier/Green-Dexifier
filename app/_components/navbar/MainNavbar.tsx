@@ -84,8 +84,8 @@ const MainNavbar = () => {
     <header
       className={cn(scrolled ? '' : 'bg-transparent', 'w-screen transition fixed top-0 z-50 duration-300')}
     >
-      <div className={`max-w-[86rem] mx-auto px-2 sm:px-6 lg:px-8 pt-12 pb-4`}>
-        <div className="relative flex items-center justify-center md:justify-between">
+      <div className={`max-w-[86rem] mx-auto px-2 sm:px-6 lg:px-8 pt-5 pb-4`}>
+        <div className="relative flex items-center justify-center md:justify-between rounded-full border border-white/10 bg-black/40 backdrop-blur-xl px-6 py-3">
           {/* Logo */}
           <div className="absolute inset-0 flex items-center md:hidden">
             <button
@@ -131,7 +131,7 @@ const MainNavbar = () => {
           {/* Logo (hidden on small screens) */}
           <Link href="/">
             <Image
-              className="md:w-[285px] w-[200px]"
+              className="md:w-[220px] w-[180px]"
               src="/assets/logo.png"
               alt="Logo"
               width={285}
@@ -139,22 +139,22 @@ const MainNavbar = () => {
             />
           </Link>
           {/* Navigations */}
-          <div className={`hidden md:flex space-x-5`}>
+          <div className={`hidden md:flex items-center space-x-6`}>
             {NAVIGATIONS.map((link, index) => (
               <Link
                 key={index}
                 href={link.path}
                 target={link.target}
-                className={cn(pathname === link.path ? 'text-primary' : 'text-white', 'px-3 py-2 text-[1.375rem] transition-colors duration-300 hover:text-primary')}
+                className={cn(pathname === link.path ? 'text-primary' : 'text-white/80', 'px-1 py-2 text-sm font-semibold uppercase tracking-widest transition-colors duration-300 hover:text-primary')}
               >
                 {link.text}
               </Link>
             ))}
             {(!connectedWallets.length ?
               <WalletConnectModal>
-                <button className="flex text-[1.075rem] bg-primary rounded-full py-2 px-4 gap-2 items-center justify-center hover:opacity-80">
+                <button className="flex text-[1.075rem] bg-primary rounded-full py-2 px-4 gap-2 items-center justify-center shadow-neon transition hover:shadow-neon-lg hover:brightness-110">
                   <BiSolidWallet className="size-6 text-black" />
-                  <span className="text-black">Connect Wallet</span>
+                  <span className="text-black font-semibold">Connect Wallet</span>
                 </button>
               </WalletConnectModal>
               :

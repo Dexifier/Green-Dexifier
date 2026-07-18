@@ -2,13 +2,14 @@ import "./globals.css";
 import React from "react";
 import MainNavbar from "./_components/navbar/MainNavbar";
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Analytics from "./Analytics";
 import ProvidersWrapper from "./_components/providers-wrapper";
 
 const inter = Plus_Jakarta_Sans({ subsets: ["latin"] });
+const display = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.dexifier.com"),
@@ -63,7 +64,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://exolix.com" />
         <Analytics />
       </head>
-      <body id="root" className={inter.className}>
+      <body id="root" className={`${inter.className} ${display.variable}`}>
         <ProvidersWrapper>
           <MainNavbar />
           {children}

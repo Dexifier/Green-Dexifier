@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import AddressesCard from "./_components/dexifier/AddressCard";
+import AmbientBackground from "./_components/common/ambient-background";
 import { Loader2 } from "lucide-react";
 
 export default function SwapPage() {
@@ -27,16 +28,17 @@ export default function SwapPage() {
   return (
     <main
       className={cn(
-        "relative min-h-screen pt-32 bg-ambient",
-        isMobile ? "px-8" : "px-4"
+        "relative min-h-screen",
+        isMobile ? "px-8 pt-28" : "px-4"
       )}
     >
+      <AmbientBackground />
       <section
         className={cn(
           "flex justify-center",
           isMobile
             ? "h-full flex-col gap-8"
-            : "flex-row flex-wrap gap-5 h-[560px] items-stretch m-4 mt-32"
+            : "flex-row flex-wrap gap-8 h-[560px] items-stretch min-h-screen content-center -mt-10"
         )}
       >
         <DexifierCard />
