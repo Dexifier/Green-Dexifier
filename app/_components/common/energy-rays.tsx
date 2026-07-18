@@ -5,8 +5,9 @@ import { useEffect, useRef } from "react";
 // Energy rays: glowing comet heads flying smooth Lissajous-style paths,
 // each leaving a light trail that fades away after ~1.5s.
 // Rendered on a single full-screen canvas with additive blending.
+// Trail length is time-based, so the effect survives low frame rates.
 
-type Point = { x: number; y: number };
+type Point = { x: number; y: number; t: number };
 
 type Ray = {
   color: string; // "r, g, b"
@@ -26,7 +27,7 @@ type Ray = {
   py2: number;
   yBase: number;
   width: number;
-  maxPoints: number;
+  trailMs: number;
   points: Point[];
 };
 
@@ -54,11 +55,13 @@ export default function EnergyRays() {
     let raf = 0;
     let w = 0;
     let h = 0;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     const resize = () => {
       w = window.innerWidth;
       h = window.innerHeight;
+      // Cap the backing store so huge retina screens stay cheap to redraw
+      let dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (w * dpr > 2600) dpr = 2600 / w;
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -82,7 +85,7 @@ export default function EnergyRays() {
       py2: rand(0, Math.PI * 2),
       yBase: rand(0.28, 0.5),
       width: rand(1.6, 2.6),
-      maxPoints: Math.floor(rand(70, 100)),
+      trailMs: rand(1200, 1800),
       points: [],
     }));
 
@@ -97,6 +100,7 @@ export default function EnergyRays() {
         (r.yBase +
           r.ay1 * Math.cos(t * r.fy1 + r.py1) +
           r.ay2 * Math.sin(t * r.fy2 + r.py2)),
+      t,
     });
 
     let last = performance.now();
@@ -111,13 +115,15 @@ export default function EnergyRays() {
 
       for (const r of rays) {
         const p = head(r, now);
-        // After a long pause (hidden tab), restart the trail at the head
-        // instead of drawing a straight streak across the screen.
-        if (dt > 120 || r.points.length === 0) {
+        // Only a genuine pause (hidden tab) restarts the trail; slow
+        // frames just produce fewer, further-apart trail points.
+        if (dt > 500 || r.points.length === 0) {
           r.points = [p];
         } else {
           r.points.push(p);
-          if (r.points.length > r.maxPoints) r.points.shift();
+          while (r.points.length > 2 && now - r.points[0].t > r.trailMs) {
+            r.points.shift();
+          }
         }
         const pts = r.points;
         if (pts.length < 2) continue;
@@ -126,8 +132,8 @@ export default function EnergyRays() {
         // Two passes: wide soft glow, then thin bright core. A tail-to-head
         // gradient makes the trail fade out behind the ray.
         const passes = [
-          { lineWidth: r.width * 4, alpha: 0.07 },
-          { lineWidth: r.width, alpha: 0.55 },
+          { lineWidth: r.width * 4, alpha: 0.09 },
+          { lineWidth: r.width, alpha: 0.65 },
         ];
         for (const pass of passes) {
           const grad = ctx.createLinearGradient(tail.x, tail.y, p.x, p.y);
