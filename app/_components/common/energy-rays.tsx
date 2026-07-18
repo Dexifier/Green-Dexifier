@@ -70,10 +70,9 @@ type LayerCfg = {
   fogR: number;
 };
 
+// Only the far layer: two thin, dim, slow wanderers.
 const LAYERS: LayerCfg[] = [
   { count: 2, followers: 0, pull: [0, 0], width: [0.8, 1.3], alpha: 0.35, speed: 0.65, trail: [1000, 1400], glowR: 5, fogR: 18 },
-  { count: 3, followers: 3, pull: [0.2, 0.35], width: [1.5, 2.4], alpha: 0.8, speed: 1.0, trail: [1200, 1800], glowR: 7, fogR: 22 },
-  { count: 2, followers: 1, pull: [0.12, 0.18], width: [2.6, 3.6], alpha: 1.1, speed: 1.35, trail: [1500, 2200], glowR: 9, fogR: 28 },
 ];
 
 // green-biased brand palette (cycled per ray)
