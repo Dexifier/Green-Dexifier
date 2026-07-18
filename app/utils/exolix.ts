@@ -48,3 +48,17 @@ export function getExolixflipBlockchainName(key: string): string | undefined {
   );
   return entry?.[1];
 }
+
+// Resolve a coin's `blockchain` value to an Exolix network code.
+// DB-sourced coins already carry the Exolix code ("XMR", "TRX", ...) — pass
+// it through when it matches a known Exolix network. Rango-sourced coins
+// carry Rango chain names ("SOLANA", ...) — translate via the map, falling
+// back to the raw value so callers behave deterministically.
+export function resolveExolixNetwork(
+  blockchain: string | undefined,
+  exolixNetworks: { network: string }[],
+): string | undefined {
+  if (!blockchain) return undefined;
+  if (exolixNetworks.some((n) => n.network === blockchain)) return blockchain;
+  return getExolixflipBlockchainName(blockchain) ?? blockchain;
+}

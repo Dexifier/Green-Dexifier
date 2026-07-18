@@ -39,10 +39,11 @@ const MainNavbar = () => {
   const { details: connectedWallets, totalBalance, isLoading } = useWidget().wallets;
   const { list } = useWalletList({})
 
-  // The widget's totalBalance arrives as an unformatted raw-sum string like
-  // "10738.14892158378109848..." — parse and format it before display.
+  // The widget's totalBalance arrives as a grouped string like
+  // "10,738.148921583781..." — strip the comma separators before parsing
+  // (parseFloat("10,738...") would stop at the comma and read just 10).
   const formattedTotalBalance = useMemo(() => {
-    const n = parseFloat(totalBalance ?? "");
+    const n = parseFloat((totalBalance ?? "").replace(/,/g, ""));
     return Number.isNaN(n) ? "0.00" : formatUsd(n);
   }, [totalBalance]);
 

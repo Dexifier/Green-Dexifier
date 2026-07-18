@@ -7,14 +7,16 @@ import TokenIcon from "../common/token-icon";
 import { useDexifier } from "@/app/providers/DexifierProvider";
 import { cn } from "@/lib/utils";
 import { Blockchain, Token } from "@/app/types/dexifier";
+import { X } from "lucide-react";
 
 // Defining the interface for TokenInput props
 interface TokenInputProps extends InputHTMLAttributes<HTMLInputElement> {
   token: Token | undefined; // Token selected by the user
   setToken: Dispatch<SetStateAction<Token | undefined>>; // Setter function for updating the token state
+  onClear?: () => void; // When provided (editable fields), shows an ✕ button to clear the value
 }
 
-const TokenInput: React.FC<TokenInputProps> = ({ token, setToken, ...props }) => {
+const TokenInput: React.FC<TokenInputProps> = ({ token, setToken, onClear, ...props }) => {
   const { isMobile, chains } = useDexifier();
   // Find the selected blockchain's metadata
   const selectedBlochchain = useMemo<Blockchain | undefined>(() => {
@@ -26,7 +28,19 @@ const TokenInput: React.FC<TokenInputProps> = ({ token, setToken, ...props }) =>
     <div className={cn(`flex border-[#695F5F]/40 items-center justify-between backdrop-blur-lg rounded-lg p-2 shadow-md`, isMobile ? "bg-primary/30 h-12" : "border h-[53px] bg-[#000]/30")}>
       {/* Input field for token amount */}
       <div className="flex flex-col flex-1">
-        <Input {...props} /> {/* Custom input for entering token amount */}
+        <div className="relative">
+          <Input {...props} /> {/* Custom input for entering token amount */}
+          {onClear && !!props.value && (
+            <button
+              type="button"
+              aria-label="Clear amount"
+              onClick={onClear}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors cursor-pointer"
+            >
+              <X size={15} />
+            </button>
+          )}
+        </div>
         <span className="text-xs px-3 opacity-50">
           {/* Display estimated USD value of the token */}
           ~
