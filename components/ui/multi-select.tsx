@@ -94,8 +94,15 @@ interface MultiSelectProps
   /** The unit of options */
   unit?: string;
 
-  /** The default selected values when the component mounts. */
+  /** The default selected values when the component mounts (uncontrolled). */
   defaultValue?: string[];
+
+  /**
+   * Controlled selected values. When provided, the component is controlled:
+   * it renders exactly these values and reports changes via the callbacks
+   * (the parent is expected to update the prop).
+   */
+  value?: string[];
 
   /**
    * Placeholder text to be displayed when no values are selected.
@@ -145,6 +152,7 @@ export const MultiSelect = React.forwardRef<
       onValueChange,
       variant,
       defaultValue = [],
+      value,
       placeholder = "Select options",
       animation = 0,
       maxCount = 3,
@@ -161,13 +169,19 @@ export const MultiSelect = React.forwardRef<
     },
     ref
   ) => {
-    const [selectedValues, setSelectedValues] =
+    const [internalValues, setInternalValues] =
       React.useState<string[]>(defaultValue);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
 
+    // Controlled when `value` is provided, otherwise uncontrolled (defaultValue).
+    const selectedValues = value ?? internalValues;
+    const setSelectedValues = (next: string[]) => {
+      if (value === undefined) setInternalValues(next);
+    };
+
     const toggleOption = (option: string) => {
       const newSelectedValues = selectedValues.includes(option)
-        ? selectedValues.filter((value) => value !== option)
+        ? selectedValues.filter((v) => v !== option)
         : [...selectedValues, option];
       setSelectedValues(newSelectedValues);
       onValueChange && onValueChange(newSelectedValues);

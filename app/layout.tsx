@@ -53,6 +53,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Warm up connections to the remote icon hosts (popular chain icons
+            are vendored locally, everything else loads from these) */}
+        <link rel="preconnect" href="https://raw.githubusercontent.com" />
+        <link rel="dns-prefetch" href="https://raw.githubusercontent.com" />
+        <link rel="preconnect" href="https://rango.vip" />
+        <link rel="dns-prefetch" href="https://rango.vip" />
+        <link rel="preconnect" href="https://exolix.com" />
+        <link rel="dns-prefetch" href="https://exolix.com" />
         <Analytics />
       </head>
       <body id="root" className={inter.className}>
