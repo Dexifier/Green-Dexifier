@@ -27,13 +27,10 @@ export default function SwapPage() {
   return (
     <main
       className={cn(
-        "relative min-h-screen pt-32 md:bg-[url('/assets/background.jpg')] bg-cover",
+        "relative min-h-screen pt-32 bg-ambient",
         isMobile ? "px-8" : "px-4"
       )}
     >
-      <div className="fixed inset-0 w-screen h-screen md:hidden -z-50">
-        <div className="absolute w-full aspect-square bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-[#097441] to-transparent to-60% backdrop-blur-sm"></div>
-      </div>
       <section
         className={cn(
           "flex justify-center",
@@ -88,8 +85,8 @@ export default function SwapPage() {
       {isMobile && (
         <div className="flex-1 py-12">
           <Button
-            className={`text-black w-full font-semibold h-12 rounded-[10px]`}
-            variant={state === DEXIFIER_STATE.PENDING ? 'outline' : 'primary'}
+            className="w-full h-12"
+            variant={state === DEXIFIER_STATE.PENDING ? 'outline' : 'neon'}
             disabled={!selectedRoute || state === DEXIFIER_STATE.PENDING}
             onClick={() => {
               if (state === DEXIFIER_STATE.WITHDRAWAL_ADDRESS) {

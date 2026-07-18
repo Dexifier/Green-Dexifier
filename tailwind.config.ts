@@ -21,7 +21,16 @@ const config = {
         paragraph: "#F2F2F2",
         border: "#5f5f5f",
         error: "#f44336",
-        modal: "#0b4b2f12"
+        modal: "#0b4b2f12",
+        // Neon-degen design system
+        abyss: "#030a06",
+        accent: "#00e0a0",
+      },
+      boxShadow: {
+        "neon-sm": "0 0 12px rgba(19,241,135,0.25)",
+        neon: "0 0 24px rgba(19,241,135,0.35)",
+        "neon-lg": "0 0 64px rgba(19,241,135,0.28)",
+        card: "0 12px 48px rgba(0,0,0,0.55)",
       },
       container: {
         center: true,
@@ -39,10 +48,15 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "pulse-glow": {
+          "0%, 100%": { boxShadow: "0 0 18px rgba(19,241,135,0.22)" },
+          "50%": { boxShadow: "0 0 36px rgba(19,241,135,0.48)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
       },
       screens: {
         xs: "450px",
