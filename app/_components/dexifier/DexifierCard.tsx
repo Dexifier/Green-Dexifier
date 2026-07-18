@@ -80,7 +80,7 @@ const DexifierCard: React.FC = () => {
   return (
     <Card
       className={cn(
-        "w-full text-white rounded-[28px] border border-primary/25 bg-[#041008]/20 backdrop-blur-2xl neon-frame animate-rise",
+        "w-full text-white rounded-[28px] border border-primary/25 bg-white/[0.07] backdrop-blur-2xl backdrop-saturate-150 neon-frame animate-rise",
         isMobile ? "p-0 border-none bg-transparent shadow-none backdrop-blur-none before:hidden" : "max-w-[560px] p-8"
       )}
     >
@@ -158,7 +158,7 @@ const DexifierCard: React.FC = () => {
 
           {/* Reverse Swap Button */}
           <Button
-            className="self-center mt-7 mb-1 h-[54px] w-[54px] rounded-full border-none bg-primary p-1 text-black shadow-neon animate-pulse-glow-slow transition-all duration-500 hover:rotate-180 hover:shadow-neon-lg hover:brightness-110"
+            className="self-center mt-7 mb-1 h-[54px] w-[54px] rounded-full border-none bg-primary p-1 text-black shadow-neon animate-pulse-glow-slow transition-all [transition-duration:500ms] hover:rotate-180 hover:shadow-neon-lg hover:brightness-110"
             onClick={reverseTokenPair}
           >
             <ArrowDownUp size={24} strokeWidth={2.5} />
