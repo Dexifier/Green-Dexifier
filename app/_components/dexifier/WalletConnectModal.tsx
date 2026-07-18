@@ -61,8 +61,11 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
     // wallets (MetaMask, Phantom, …) connect directly through handleConnect.
     const result = await handleConnect(walletInfo).catch(console.error);
     if (!result) return;
-    // Multi-namespace wallets need an explicit namespace selection. This is a
-    // multi-chain app, so connect to every namespace the wallet offers.
+    // Multi-namespace wallets (e.g. MetaMask advertising EVM + Solana) need an
+    // explicit namespace selection. This is a multi-chain app, so connect to
+    // every namespace the wallet offers — one at a time, so a namespace that
+    // isn't actually usable (e.g. MetaMask Solana without the Snap) doesn't
+    // abort the others.
     if (result.status === "Detached" || result.status === "namespace") {
       const namespaces =
         (walletInfo as WalletInfoWithExtra & {
@@ -70,8 +73,10 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
         }).properties
           ?.find((p) => p.name === "namespaces")
           ?.value?.data?.map((d) => d.value) ?? [];
-      if (namespaces.length) {
-        await handleConnect(walletInfo, { forceConnectToNamespaces: namespaces }).catch(console.error);
+      for (const namespace of namespaces) {
+        await handleConnect(walletInfo, { forceConnectToNamespaces: [namespace] }).catch((error) =>
+          console.debug(`Namespace ${String(namespace)} not connected:`, error),
+        );
       }
     }
   }
