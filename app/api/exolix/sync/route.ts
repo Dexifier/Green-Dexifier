@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
-import { exolixGet } from "@/lib/server/exolix";
+import { getAllExolixCurrencies } from "@/lib/server/exolix-cache";
+import { dedupeNetworkRows, toCurrencyRows } from "@/lib/exolix-map";
 import { NextRequest, NextResponse } from "next/server";
 
 // Re-syncs the Exolix networks/currencies cache in Postgres.
@@ -8,56 +9,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const maxDuration = 60;
 
-type ExolixNetwork = {
-  coinNetworkId?: string;
-  network: string;
-  name: string;
-  shortName?: string | null;
-  addressRegex?: string | null;
-  notes?: string | null;
-  isDefault?: boolean;
-  decimal?: number | null;
-  icon?: string | null;
-  blockExplorer?: string | null;
-  depositMinAmount?: number | null;
-  memoNeeded?: boolean;
-  memoName?: string | null;
-  memoRegex?: string | null;
-  precision?: number;
-  contract?: string | null;
-};
-
-type ExolixCurrency = {
-  code: string;
-  name: string;
-  icon?: string | null;
-  notes?: string | null;
-  networks: ExolixNetwork[];
-};
-
-type CurrenciesPage = { count: number; data: ExolixCurrency[] };
-
-const PAGE_SIZE = 100;
-
-async function getAllCurrencies(): Promise<ExolixCurrency[]> {
-  const first = await exolixGet<CurrenciesPage>("/currencies", {
-    page: "1",
-    size: String(PAGE_SIZE),
-    withNetworks: "true",
-  });
-  const totalPages = Math.ceil(first.count / PAGE_SIZE);
-  const rest = await Promise.all(
-    Array.from({ length: totalPages - 1 }, (_, i) =>
-      exolixGet<CurrenciesPage>("/currencies", {
-        page: String(i + 2),
-        size: String(PAGE_SIZE),
-        withNetworks: "true",
-      }),
-    ),
-  );
-  return [first, ...rest].flatMap((p) => p.data);
-}
-
 async function handler(request: NextRequest) {
   const secret = process.env.CRON_SECRET;
   if (secret && request.headers.get("authorization") !== `Bearer ${secret}`) {
@@ -65,36 +16,12 @@ async function handler(request: NextRequest) {
   }
 
   try {
-    const currencies = await getAllCurrencies();
+    const currencies = await getAllExolixCurrencies();
 
     // Networks: dedupe by Exolix network code, insert missing ones.
-    // Whitelist only the schema fields — Exolix sends extra keys
-    // (contract, precision, platformTypes, ...) that Prisma would reject.
-    const networkByCode = new Map<string, Record<string, unknown>>();
-    for (const currency of currencies) {
-      for (const n of currency.networks) {
-        if (networkByCode.has(n.network)) continue;
-        networkByCode.set(n.network, {
-          network: n.network,
-          name: n.name,
-          shortName: n.shortName ?? null,
-          addressRegex: n.addressRegex ?? null,
-          notes: n.notes ?? null,
-          isDefault: n.isDefault ?? false,
-          decimal: n.decimal ?? null,
-          icon: n.icon ?? null,
-          blockExplorer: n.blockExplorer ?? null,
-          depositMinAmount: n.depositMinAmount ?? null,
-          memoNeeded: n.memoNeeded ?? false,
-          memoName: n.memoName ?? null,
-          memoRegex: n.memoRegex ?? null,
-          precision: n.precision ?? 0,
-          contract: n.contract ?? null,
-        });
-      }
-    }
+    const networkRows = dedupeNetworkRows(currencies);
     await prisma.network.createMany({
-      data: [...networkByCode.values()] as never,
+      data: networkRows as never,
       skipDuplicates: true,
     });
 
@@ -103,17 +30,7 @@ async function handler(request: NextRequest) {
     );
 
     // Currencies: full refresh (one row per currency-network pair).
-    const rows = currencies.flatMap((c) =>
-      c.networks
-        .map((n) => ({
-          code: c.code,
-          name: c.name,
-          icon: c.icon ?? null,
-          notes: c.notes ?? null,
-          networkId: idByNetwork.get(n.network),
-        }))
-        .filter((r): r is typeof r & { networkId: number } => !!r.networkId),
-    );
+    const rows = toCurrencyRows(currencies, idByNetwork);
     await prisma.$transaction([
       prisma.currency.deleteMany({}),
       prisma.currency.createMany({ data: rows }),
@@ -121,7 +38,7 @@ async function handler(request: NextRequest) {
 
     return NextResponse.json({
       ok: true,
-      networks: networkByCode.size,
+      networks: networkRows.length,
       currencies: rows.length,
     });
   } catch (error) {
