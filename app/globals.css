@@ -36,65 +36,132 @@ body {
 }
 
 /* ---- Animated aurora background ---- */
+/* Orbs: compact bright cores so they read as glowing blobs, not haze.
+   Two nested gradients: hot center + soft halo. */
 .aurora-orb {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(110px);
   mix-blend-mode: screen;
-  will-change: transform;
+  will-change: transform, opacity;
 }
 .aurora-orb-1 {
-  width: 55vw;
-  height: 55vw;
-  left: -15vw;
-  top: -22vw;
-  background: radial-gradient(circle at 40% 40%, rgba(19, 241, 135, 0.5), transparent 62%);
-  animation: aurora-drift-1 26s ease-in-out infinite alternate;
+  width: 38vw;
+  height: 38vw;
+  left: -8vw;
+  top: -12vw;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(19, 241, 135, 0.55) 0%,
+    rgba(19, 241, 135, 0.22) 32%,
+    transparent 68%
+  );
+  filter: blur(60px);
+  animation:
+    aurora-drift-1 14s ease-in-out infinite alternate,
+    aurora-breathe 7s ease-in-out infinite;
 }
 .aurora-orb-2 {
-  width: 44vw;
-  height: 44vw;
-  right: -12vw;
-  top: -10vw;
-  background: radial-gradient(circle at 60% 40%, rgba(0, 224, 255, 0.3), transparent 60%);
-  animation: aurora-drift-2 32s ease-in-out infinite alternate;
+  width: 30vw;
+  height: 30vw;
+  right: -6vw;
+  top: -6vw;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 224, 255, 0.42) 0%,
+    rgba(0, 224, 255, 0.16) 34%,
+    transparent 68%
+  );
+  filter: blur(55px);
+  animation:
+    aurora-drift-2 18s ease-in-out infinite alternate,
+    aurora-breathe 9s ease-in-out infinite 1.5s;
 }
 .aurora-orb-3 {
-  width: 62vw;
-  height: 62vw;
-  left: 18vw;
-  bottom: -38vw;
-  background: radial-gradient(circle at 50% 50%, rgba(15, 189, 107, 0.38), transparent 64%);
-  animation: aurora-drift-3 38s ease-in-out infinite alternate;
+  width: 42vw;
+  height: 42vw;
+  left: 28vw;
+  bottom: -24vw;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(15, 189, 107, 0.5) 0%,
+    rgba(15, 189, 107, 0.2) 34%,
+    transparent 70%
+  );
+  filter: blur(65px);
+  animation:
+    aurora-drift-3 16s ease-in-out infinite alternate,
+    aurora-breathe 8s ease-in-out infinite 3s;
 }
 @keyframes aurora-drift-1 {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
   to {
-    transform: translate(9vw, 7vh) scale(1.14);
+    transform: translate(10vw, 8vh) scale(1.18);
   }
 }
 @keyframes aurora-drift-2 {
+  from {
+    transform: translate(0, 0) scale(1.1);
+  }
   to {
-    transform: translate(-8vw, 9vh) scale(1.1);
+    transform: translate(-9vw, 10vh) scale(0.94);
   }
 }
 @keyframes aurora-drift-3 {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
   to {
-    transform: translate(-6vw, -7vh) scale(1.16);
+    transform: translate(-8vw, -8vh) scale(1.2);
+  }
+}
+@keyframes aurora-breathe {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
   }
 }
 
-/* Perspective grid fading in from the horizon */
+/* Perspective grid rising from the horizon, slowly rolling forward */
 .dex-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(19, 241, 135, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 241, 135, 0.08) 1px, transparent 1px);
+    linear-gradient(rgba(19, 241, 135, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19, 241, 135, 0.09) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse 90% 55% at 50% 115%, black 25%, transparent 72%);
   -webkit-mask-image: radial-gradient(ellipse 90% 55% at 50% 115%, black 25%, transparent 72%);
   transform: perspective(650px) rotateX(38deg) scale(2.4);
   transform-origin: bottom;
+  animation: grid-roll 3.2s linear infinite;
+}
+@keyframes grid-roll {
+  to {
+    background-position: 0 60px, 0 0;
+  }
+}
+
+/* Entrance rise for the main cards */
+@keyframes dex-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-rise {
+  animation: dex-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.route-row-enter {
+  animation: dex-rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Film grain so the glows don't look like flat vector blobs */

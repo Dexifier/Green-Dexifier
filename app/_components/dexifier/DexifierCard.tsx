@@ -80,7 +80,7 @@ const DexifierCard: React.FC = () => {
   return (
     <Card
       className={cn(
-        "w-full text-white rounded-[28px] border border-primary/25 bg-[#041008]/85 backdrop-blur-2xl neon-frame",
+        "w-full text-white rounded-[28px] border border-primary/25 bg-[#041008]/85 backdrop-blur-2xl neon-frame animate-rise",
         isMobile ? "p-0 border-none bg-transparent shadow-none backdrop-blur-none before:hidden" : "max-w-[560px] p-8"
       )}
     >
@@ -158,7 +158,7 @@ const DexifierCard: React.FC = () => {
 
           {/* Reverse Swap Button */}
           <Button
-            className="self-center mt-7 mb-1 h-[54px] w-[54px] rounded-full border-none bg-primary p-1 text-black shadow-neon transition-all duration-500 hover:rotate-180 hover:shadow-neon-lg hover:brightness-110"
+            className="self-center mt-7 mb-1 h-[54px] w-[54px] rounded-full border-none bg-primary p-1 text-black shadow-neon animate-pulse-glow transition-all duration-500 hover:rotate-180 hover:shadow-neon-lg hover:brightness-110"
             onClick={reverseTokenPair}
           >
             <ArrowDownUp size={24} strokeWidth={2.5} />
@@ -185,7 +185,7 @@ const DexifierCard: React.FC = () => {
           {!selectedRoute?.hasOwnProperty('outputAmount') ? (
             <Button
               variant="neon"
-              className="btn-sheen w-full h-16 text-xl font-extrabold uppercase tracking-widest"
+              className="btn-sheen w-full h-16 text-xl font-extrabold uppercase tracking-widest enabled:animate-pulse-glow"
               disabled={!selectedRoute || state === DEXIFIER_STATE.PENDING || (!!swapData && state < DEXIFIER_STATE.PROCESSING)}
               onClick={() => {
                 // After a swap ends (success/failure) offer a reset; during

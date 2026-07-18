@@ -42,8 +42,8 @@ const Blockchains: React.FC<BlockchainsProps> = ({ selectedBlockchain, setSelect
           >
             <div
               className={cn(
-                'px-1 py-2.5 flex items-center justify-center border rounded-3xl bg-transparent hover:bg-white/5 transition-colors duration-300 cursor-pointer',
-                selectedBlockchain?.displayName === blockchain.displayName ? "border-primary" : "border-separator" // Conditional border color for selected blockchain
+                'group px-1 py-2.5 flex items-center justify-center border rounded-3xl bg-transparent hover:bg-primary/10 hover:shadow-neon-sm hover:border-primary/60 hover:scale-[1.06] transition-all duration-300 cursor-pointer',
+                selectedBlockchain?.displayName === blockchain.displayName ? "border-primary shadow-neon-sm" : "border-white/15" // Conditional border color for selected blockchain
               )}
               onClick={() => {
                 rememberChain(blockchain.name); // Track usage for future ordering
@@ -66,7 +66,7 @@ const Blockchains: React.FC<BlockchainsProps> = ({ selectedBlockchain, setSelect
         selectedBlockchain={selectedBlockchain}
         setSelectedBlockchain={setSelectedBlockchain}
       >
-        <div className="px-1 py-2.5 flex items-center justify-center border rounded-3xl bg-transparent hover:bg-white/5 transition-colors duration-300 cursor-pointer border-separator">
+        <div className="px-1 py-2.5 flex items-center justify-center border rounded-3xl bg-transparent hover:bg-white/5 transition-colors duration-300 cursor-pointer border-white/10">
           <h3 className="text-sm text-center">View More</h3> {/* Text to show the View More option */}
         </div>
       </BlockchainModal>

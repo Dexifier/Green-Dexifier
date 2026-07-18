@@ -34,7 +34,7 @@ const SettingModal: React.FC<PropsWithChildren> = ({ children, ...props }) => {
     title: string | ReactNode,
     endingContent: ReactNode
   ) => (
-    <div className="py-4 flex items-center justify-between hover:bg-black/30 hover:border-primary border-b border-separator text-lg cursor-pointer transition-colors duration-300">
+    <div className="py-4 flex items-center justify-between hover:bg-black/30 hover:border-primary border-b border-white/10 text-lg cursor-pointer transition-colors duration-300">
       <div className="flex items-center gap-2.5">
         {image}
         <span>{title}</span>
@@ -46,7 +46,7 @@ const SettingModal: React.FC<PropsWithChildren> = ({ children, ...props }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-md bg-transparent max-h-[90vh] max-w-[90vw] p-4 md:p-6 bg-gradient-to-b from-black to-[#042214] border border-separator !rounded-3xl">
+      <DialogContent className="sm:max-w-md bg-transparent max-h-[90vh] max-w-[90vw] p-4 md:p-6 bg-[#041008]/95 backdrop-blur-2xl border border-primary/25 shadow-neon-lg !rounded-3xl">
         <DialogHeader className="flex flex-row justify-between">
           {/* Dialog header with title and close button */}
           <DialogTitle className="text-2xl">Settings</DialogTitle>
@@ -75,7 +75,7 @@ const SettingModal: React.FC<PropsWithChildren> = ({ children, ...props }) => {
           <div id="slippage" className="flex flex-wrap items-center justify-between my-4 gap-3">
             {PERCENTAGES.map((percentage, index) => (
               <Button key={index} variant="outline"
-                className={cn(settings.slippage === percentage ? "border-primary text-primary" : "border-separator text-white",
+                className={cn(settings.slippage === percentage ? "border-primary text-primary" : "border-white/10 text-white",
                   "border hover:bg-inherit hover:border-primary-dark hover:text-primary-dark h-[3.375rem] w-1/6 text-base rounded-[.5625rem]"
                 )}
                 onClick={() => {
@@ -90,7 +90,7 @@ const SettingModal: React.FC<PropsWithChildren> = ({ children, ...props }) => {
             ))}
             <Input
               type="number"
-              className={cn(PERCENTAGES.includes(settings.slippage) ? "border-separator text-white" : "border-primary text-primary",
+              className={cn(PERCENTAGES.includes(settings.slippage) ? "border-white/10 text-white" : "border-primary text-primary",
                 "text-center border hover:border-primary-dark focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent rounded-[.5625rem] w-1/4 h-[3.375rem] transition-colors duration-300")}
               value={settings.slippage}
               placeholder="custom"

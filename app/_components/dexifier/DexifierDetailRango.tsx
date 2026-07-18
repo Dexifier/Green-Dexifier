@@ -115,7 +115,7 @@ const DexifierDetailRango = () => {
   };
 
   return selectedRoute && (
-    <Card className="max-w-[650px] min-h-[540px] w-full h-full bg-modal/5 border border-[#AAA]/20 backdrop-blur-lg p-2 rounded-[2rem] shadow-lg text-white">
+    <Card className="max-w-[650px] min-h-[540px] w-full h-full bg-[#041008]/85 backdrop-blur-2xl p-2 rounded-[28px] border border-primary/25 neon-frame animate-rise text-white">
       <CardHeader className="flex flex-row justify-between items-center">
         <h1 className="text-2xl">Swap Details</h1>
         <button

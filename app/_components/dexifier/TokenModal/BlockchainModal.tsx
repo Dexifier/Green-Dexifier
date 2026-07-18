@@ -49,7 +49,7 @@ const BlockchainModal: React.FC<PropsWithChildren<BlockchainModalProps>> = ({ ch
       <DialogTrigger asChild>{children}</DialogTrigger>
 
       {/* Modal content */}
-      <DialogContent className="flex flex-col sm:max-w-md bg-transparent max-h-[90vh] max-w-[90vw] p-4 md:p-6 bg-gradient-to-b from-black to-[#042214] border border-separator !rounded-3xl">
+      <DialogContent className="flex flex-col sm:max-w-md bg-transparent max-h-[90vh] max-w-[90vw] p-4 md:p-6 bg-[#041008]/95 backdrop-blur-2xl border border-primary/25 shadow-neon-lg !rounded-3xl">
         <DialogHeader className="flex flex-row justify-between">
           <DialogTitle className="text-2xl">Blockchains</DialogTitle>
           <DialogClose>
@@ -69,7 +69,7 @@ const BlockchainModal: React.FC<PropsWithChildren<BlockchainModalProps>> = ({ ch
             return (
               <DialogClose
                 key={index}
-                className="w-full flex items-center justify-between border-b border-separator hover:opacity-80 p-2"
+                className="w-full flex items-center justify-between border-b border-white/10 hover:opacity-80 p-2"
                 onClick={() => {
                   rememberChain(blockchain.name); // Track usage for future ordering
                   setSelectedBlockchain(blockchain);
