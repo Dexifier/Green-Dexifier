@@ -23,6 +23,7 @@ import ConfirmModal from "./ConfirmModal";
 import TooltipTemplate from "../common/tooltip-template";
 import SettingModal from "./SettingModal";
 import { cn } from "@/lib/utils";
+import { formatCryptoAmount } from "@/app/utils";
 
 const DexifierCard: React.FC = () => {
   // Use custom hook to get connected wallet details
@@ -42,7 +43,9 @@ const DexifierCard: React.FC = () => {
     selectedRoute,
     swapData,
     isMobile,
+    state,
     setState,
+    initialize,
   } = useDexifier();
   const [tokenFromBalance, setTokenFromBalance] = useState<number>(0);
 
@@ -119,7 +122,7 @@ const DexifierCard: React.FC = () => {
                 <Label className="text-sm">
                   Balance:{" "}
                   {tokenFromBalance
-                    ? `${tokenFromBalance} ${tokenFrom.symbol}`
+                    ? `${formatCryptoAmount(tokenFromBalance)} ${tokenFrom.symbol}`
                     : "_"}
                 </Label>
                 {tokenFromBalance > 0 && (
@@ -202,12 +205,18 @@ const DexifierCard: React.FC = () => {
           {!selectedRoute?.hasOwnProperty('outputAmount') ? (
             <Button
               className={`bg-primary hover:bg-primary-dark text-black w-full md:max-w-[75%] lg:max-w-[67%] font-semibold h-[3.125rem] mx-auto text-xl disabled:cursor-not-allowed cursor-pointer transition duration-300 ease-out`}
-              disabled={!selectedRoute || !!swapData}
+              disabled={!selectedRoute || state === DEXIFIER_STATE.PENDING || (!!swapData && state < DEXIFIER_STATE.PROCESSING)}
               onClick={() => {
-                setState(DEXIFIER_STATE.WITHDRAWAL_ADDRESS)
+                // After a swap ends (success/failure) offer a reset; during
+                // processing allow cancelling back to a fresh state.
+                if (state >= DEXIFIER_STATE.PROCESSING) {
+                  initialize()
+                } else {
+                  setState(DEXIFIER_STATE.WITHDRAWAL_ADDRESS)
+                }
               }}
             >
-              Swap Now
+              {state === DEXIFIER_STATE.PROCESSING ? "Cancel" : state >= DEXIFIER_STATE.FAILED ? "Swap Again" : "Swap Now"}
             </Button>
           ) : !isWalletConnected ? (
             <WalletConnectModal>

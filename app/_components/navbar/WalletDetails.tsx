@@ -20,7 +20,7 @@ import { useWalletList, useWidget } from "@rango-dev/widget-embedded";
 import { X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MultiSelect } from "@/components/ui/multi-select";
-import { getAbbrAddress } from "@/app/utils";
+import { formatCryptoAmount, formatUsd, getAbbrAddress } from "@/app/utils";
 import TokenIcon from "../common/token-icon";
 import { TbRefresh } from "react-icons/tb";
 
@@ -103,19 +103,21 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
 
   useEffect(() => {
     setFilteredWallets(structuredClone(connectedWallets).filter(wallet => {
-      // Exclude wallets with zero balance if 'isHideEmptyWallet' is true
-      if (moreSettingsMemo.includes(MORE_SETTINGS.HIDE_EMPTY_WALLET) && !wallet.balances?.length) return false;
       // Exclude wallets with unselected chains and wallet types
       if (!selectedChainsMemo.includes(wallet.chain) || !selectedWalletTypesMemo.includes(wallet.walletType)) return false;
       // Filter wallets with search term
       if (!wallet.chain.toLowerCase().includes(search.toLowerCase())) return false;
-      // Exclude unsupported tokens in the wallet if 'isHideUnsupportedToken' is true
-      if (moreSettingsMemo.includes(MORE_SETTINGS.HIDE_UNSUPPORTED_TOKEN) && wallet.balances) {
-        // wallet.balances = wallet.balances.filter(balance => getTokenData(balance))
-      }
-      // Exclude tokens with small balance in the wallet if 'isHideSmallBalance' is true
+      // Exclude tokens with small balance in the wallet if 'isHideSmallBalance' is true.
+      // NOTE: this must run BEFORE the empty-wallet check — it can empty a
+      // wallet's token list, and such wallets must then count as empty.
       if (moreSettingsMemo.includes(MORE_SETTINGS.HIDE_SMALL_BALANCE) && wallet.balances) {
         wallet.balances = wallet.balances.filter((balance) => getTokenBalanceInUSD(balance) > 1)
+      }
+      // Exclude wallets with zero balance if 'isHideEmptyWallet' is true:
+      // no tokens left after filtering, or nothing of value.
+      if (moreSettingsMemo.includes(MORE_SETTINGS.HIDE_EMPTY_WALLET)) {
+        if (!wallet.balances?.length) return false;
+        if (getWalletBalanceInUSD([wallet]) === 0) return false;
       }
       return true;
     }).sort((a, b) => getWalletBalanceInUSD([b]) - getWalletBalanceInUSD([a])));
@@ -153,7 +155,7 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
       <SheetContent className="bg-gradient-to-b to-[#002f19] from-[#01150c] p-4 min-w-[450px] flex flex-col">
         <SheetHeader className="border-b border-separator">
           <SheetTitle className="w-full flex justify-center relative p-2">
-            <span className="text-xl text-primary">{getWalletBalanceInUSD(filteredWallets).toFixed(4)}$</span>
+            <span className="text-xl text-primary">{formatUsd(getWalletBalanceInUSD(filteredWallets))}$</span>
             <SheetClose className="absolute right-2">
               <X className="w-7 h-7 p-1 bg-primary rounded-full font-bold text-black hover:bg-primary-dark transition-colors duration-300" />
             </SheetClose>
@@ -284,7 +286,7 @@ const SubWallet: React.FC<any> = ({
               </Link>
             </TooltipTemplate>
           </div>
-          <span className="text-primary">{balanceInUSD && balanceInUSD.toFixed(3) + "$" || ""}</span>
+          <span className="text-primary">{balanceInUSD ? formatUsd(balanceInUSD) + "$" : ""}</span>
         </div>
       </button>
       <div className="p-2 text-[#e5e7ebc9]">
@@ -305,8 +307,8 @@ const SubWallet: React.FC<any> = ({
                 </div>
               </div>
               <div className="flex flex-col mr-3">
-                <span>{balance.amount}</span>
-                <span className="text-xs">{getTokenBalanceInUSD(balance).toFixed(2)} $</span>
+                <span>{formatCryptoAmount(parseFloat(balance.amount) || 0)}</span>
+                <span className="text-xs">{formatUsd(getTokenBalanceInUSD(balance))} $</span>
               </div>
             </div>
           )
