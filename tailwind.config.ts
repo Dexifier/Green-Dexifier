@@ -57,6 +57,7 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "pulse-glow-slow": "pulse-glow 8s ease-in-out infinite",
       },
       screens: {
         xs: "450px",

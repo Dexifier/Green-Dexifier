@@ -85,7 +85,7 @@ const MainNavbar = () => {
       className={cn(scrolled ? '' : 'bg-transparent', 'w-screen transition fixed top-0 z-50 duration-300')}
     >
       <div className={`max-w-[86rem] mx-auto px-2 sm:px-6 lg:px-8 pt-5 pb-4`}>
-        <div className="relative flex items-center justify-center md:justify-between rounded-full border border-white/10 bg-black/40 backdrop-blur-xl px-6 py-3">
+        <div className="relative flex items-center justify-center md:justify-between rounded-full border border-white/10 bg-black/25 backdrop-blur-xl px-6 py-3">
           {/* Logo */}
           <div className="absolute inset-0 flex items-center md:hidden">
             <button
@@ -152,7 +152,7 @@ const MainNavbar = () => {
             ))}
             {(!connectedWallets.length ?
               <WalletConnectModal>
-                <button className="flex text-[1.075rem] bg-primary rounded-full py-2 px-4 gap-2 items-center justify-center shadow-neon transition hover:shadow-neon-lg hover:brightness-110">
+                <button className="flex text-[1.075rem] bg-primary rounded-full py-2 px-4 gap-2 items-center justify-center shadow-neon animate-pulse-glow-slow transition hover:shadow-neon-lg hover:brightness-110">
                   <BiSolidWallet className="size-6 text-black" />
                   <span className="text-black font-semibold">Connect Wallet</span>
                 </button>
