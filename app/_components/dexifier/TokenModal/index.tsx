@@ -161,11 +161,13 @@ const TokenModal: React.FC<PropsWithChildren<TokenModalProps>> = ({ children, se
                                 </span>
                               </span>
                             </TooltipTemplate>
-                            <TooltipTemplate content={token.address}>
-                              <span className="text-[12px] opacity-40">
-                                {getAbbrAddress(token.address)} {/* Display abbreviated address */}
-                              </span>
-                            </TooltipTemplate>
+                            {token.address && (
+                              <TooltipTemplate content={token.address}>
+                                <span className="text-[12px] opacity-40">
+                                  {getAbbrAddress(token.address)} {/* Display abbreviated address */}
+                                </span>
+                              </TooltipTemplate>
+                            )}
                           </div>
                         </div>
                         <div className="flex gap-3 items-center">
