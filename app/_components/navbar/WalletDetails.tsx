@@ -17,7 +17,7 @@ import TooltipTemplate from "../common/tooltip-template";
 import Link from "next/link";
 import { ConnectedWallet, WalletInfoWithExtra } from "@rango-dev/widget-embedded";
 import { useWalletList, useWidget } from "@rango-dev/widget-embedded";
-import { X } from "lucide-react";
+import { ChevronDown, ExternalLink, X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { formatCryptoAmount, formatUsd, getAbbrAddress } from "@/app/utils";
@@ -161,7 +161,7 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
       <SheetContent className="bg-[#041008]/95 backdrop-blur-2xl border-l border-primary/25 p-4 min-w-[450px] flex flex-col">
         <SheetHeader className="border-b border-white/10">
           <SheetTitle className="w-full flex justify-center relative p-2">
-            <span className="text-xl text-primary">
+            <span className="text-2xl font-bold text-primary tnum text-glow">
               {balancePending ? "…" : `${formatUsd(getWalletBalanceInUSD(filteredWallets))}$`}
             </span>
             <SheetClose className="absolute right-2">
@@ -169,7 +169,7 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
             </SheetClose>
           </SheetTitle>
           <SheetDescription className="flex justify-between p-2 pt-0">
-            <span className="text-2xl font-bold text-white">Your Wallet</span>
+            <span className="font-display text-lg font-bold uppercase tracking-[0.15em] text-white/80">Your Wallet</span>
             <button onClick={handleRefresh}>
               <TbRefresh className="size-6 text-primary" />
             </button>
@@ -194,7 +194,7 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
             }}
             value={visibleWalletTypes}
             placeholder="No Wallet"
-            className="bg-primary text-black border-none hover:bg-primary-dark flex-1"
+            className="flex-1 bg-white/5 border border-white/15 text-white hover:bg-white/10"
             unit="wallet"
           />
           <MultiSelect
@@ -212,7 +212,7 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
               );
             }}
             placeholder="No Blockchain"
-            className="bg-primary text-black border-none hover:bg-primary-dark flex-1"
+            className="flex-1 bg-white/5 border border-white/15 text-white hover:bg-white/10"
             unit="chain"
           />
           <MultiSelect
@@ -227,7 +227,7 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
             }}
             value={moreSettings}
             placeholder="..."
-            className="bg-primary text-black border-none hover:bg-primary-dark flex-none h-10 w-10"
+            className="flex-none h-10 w-10 bg-white/5 border border-white/15 text-white hover:bg-white/10"
             config={{
               showSelectAll: false,
               showContent: false,
@@ -271,15 +271,12 @@ const SubWallet: React.FC<any> = ({
   const balanceInUSD = getWalletBalanceInUSD([wallet]);
   return (
     <div className="pr-2">
-      <button className="flex justify-between items-center text-sm border border-primary hover:opacity-80 p-3 rounded-lg mt-2 w-full bg-[#13f1871f]"
+      <button className="flex justify-between items-center text-sm mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.03] p-3 transition duration-300 hover:border-primary/40 hover:bg-primary/5"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex gap-2 text-lg font-bold items-center" >
-          <Image src={"/assets/icons/arrow.png"}
-            className={`transition-transform duration-500 ease-in-out ${!isOpen ? 'rotate-0' : 'rotate-180'}`}
-            width={20}
-            height={20}
-            alt={"arrow"}
+          <ChevronDown
+            className={`size-5 text-primary transition-transform duration-500 ease-in-out ${!isOpen ? 'rotate-0' : 'rotate-180'}`}
           />
           <TokenIcon
             token={{
@@ -292,21 +289,21 @@ const SubWallet: React.FC<any> = ({
         </div>
         <div className="flex flex-col">
           <div className="flex items-center gap-1">
-            <span>{getAbbrAddress(wallet.address)}</span>
+            <span className="tnum text-xs text-white/50">{getAbbrAddress(wallet.address)}</span>
             <ButtonCopyIcon text={wallet.address} />
             <TooltipTemplate content={"link to wallet"} className="px-2 py-1">
               <Link href={wallet.explorerUrl ?? '#'} target="_black">
-                <Image src={"/assets/icons/link.png"} width={18} height={18} alt="link" />
+                <ExternalLink className="size-4 text-white/50 hover:text-primary transition-colors" />
               </Link>
             </TooltipTemplate>
           </div>
-          <span className="text-primary">{balanceInUSD ? formatUsd(balanceInUSD) + "$" : ""}</span>
+          <span className="text-primary tnum font-semibold">{balanceInUSD ? formatUsd(balanceInUSD) + "$" : ""}</span>
         </div>
       </button>
       <div className="p-2 text-[#e5e7ebc9]">
         {wallet && wallet.balances && isOpen && (wallet.balances.length === 0 ? <div className="text-sm text-center "> No tokens found</div> : wallet.balances.map((balance: any, index: number) => {
           return (
-            <div key={index} className="flex justify-between items-center border-b border-b-[#13F18738] py-2">
+            <div key={index} className="flex justify-between items-center border-b border-white/5 py-2">
               <div className="flex items-center gap-2">
                 <TokenIcon
                   token={{
@@ -317,12 +314,12 @@ const SubWallet: React.FC<any> = ({
                 />
                 <div className="flex flex-col">
                   <span className="text-md text-[#FFFFFF]">{balance.symbol}</span>
-                  <span className="text-xs  text-[#717171] font-bold">{balance.chain}</span>
+                  <span className="text-xs text-white/40">{balance.chain}</span>
                 </div>
               </div>
               <div className="flex flex-col mr-3">
-                <span>{formatCryptoAmount(parseFloat(balance.amount) || 0)}</span>
-                <span className="text-xs">{formatUsd(getTokenBalanceInUSD(balance))} $</span>
+                <span className="tnum">{formatCryptoAmount(parseFloat(balance.amount) || 0)}</span>
+                <span className="text-xs tnum text-white/45">{formatUsd(getTokenBalanceInUSD(balance))} $</span>
               </div>
             </div>
           )
