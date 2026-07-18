@@ -62,21 +62,15 @@ interface WalletDetailsProps {
 const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
   const [search, setSearch] = useState<string>('');
   const [filteredWallets, setFilteredWallets] = useState<WalletWithBalances[]>([]);
-  const [selectedWalletTypes, setSelectedWalletTypes] = useState<WalletInfoWithExtra[]>([]);
-  const [selectedChains, setSelectedChains] = useState<BlockchainMeta[]>([]);
-  const [moreSettings, setMoreSettings] = useState<MORE_SETTINGS[]>([]);
-
-  const selectedWalletTypesMemo = useMemo(() => {
-    return selectedWalletTypes.map(walletType => walletType.type);
-  }, [selectedWalletTypes]);
-
-  const selectedChainsMemo = useMemo(() => {
-    return selectedChains.map(chain => chain.name);
-  }, [selectedChains]);
-
-  const moreSettingsMemo = useMemo(() => {
-    return moreSettings;
-  }, [moreSettings]);
+  // Selection is tracked as *deselected* sets: newly connected wallets and
+  // newly loaded chains are included by default, and only an explicit
+  // user action excludes them.
+  const [deselectedWalletTypes, setDeselectedWalletTypes] = useState<string[]>([]);
+  const [deselectedChains, setDeselectedChains] = useState<string[]>([]);
+  const [moreSettings, setMoreSettings] = useState<MORE_SETTINGS[]>([
+    MORE_SETTINGS.HIDE_SMALL_BALANCE,
+    MORE_SETTINGS.HIDE_UNSUPPORTED_TOKEN,
+  ]);
 
   const { meta, wallets } = useWidget();
   const { details: connectedWallets, refetch } = wallets;
@@ -85,6 +79,18 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
   const walletTypes = Array.from(new Set(connectedWallets.map(wallet => wallet.walletType)))
     .map(walletType => list.find(wallet => wallet.type === walletType))
     .filter((wallet): wallet is WalletInfoWithExtra => wallet !== undefined)
+
+  const availableWalletTypes = useMemo(() => walletTypes.map(w => w.type), [walletTypes]);
+  const availableChainNames = useMemo(() => blockchains.map(b => b.name), [blockchains]);
+
+  const visibleWalletTypes = useMemo(
+    () => availableWalletTypes.filter(t => !deselectedWalletTypes.includes(t)),
+    [availableWalletTypes, deselectedWalletTypes],
+  );
+  const visibleChainNames = useMemo(
+    () => availableChainNames.filter(n => !deselectedChains.includes(n)),
+    [availableChainNames, deselectedChains],
+  );
 
   const getTokenBalanceInUSD = (token: TokenBalance) => {
     return parseFloat(token.amount) * (token.usdPrice ?? 0);
@@ -103,19 +109,19 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
 
   useEffect(() => {
     setFilteredWallets(structuredClone(connectedWallets).filter(wallet => {
-      // Exclude wallets with unselected chains and wallet types
-      if (!selectedChainsMemo.includes(wallet.chain) || !selectedWalletTypesMemo.includes(wallet.walletType)) return false;
+      // Exclude wallets with deselected chains and wallet types
+      if (!visibleChainNames.includes(wallet.chain) || !visibleWalletTypes.includes(wallet.walletType)) return false;
       // Filter wallets with search term
       if (!wallet.chain.toLowerCase().includes(search.toLowerCase())) return false;
       // Exclude tokens with small balance in the wallet if 'isHideSmallBalance' is true.
       // NOTE: this must run BEFORE the empty-wallet check — it can empty a
       // wallet's token list, and such wallets must then count as empty.
-      if (moreSettingsMemo.includes(MORE_SETTINGS.HIDE_SMALL_BALANCE) && wallet.balances) {
+      if (moreSettings.includes(MORE_SETTINGS.HIDE_SMALL_BALANCE) && wallet.balances) {
         wallet.balances = wallet.balances.filter((balance) => getTokenBalanceInUSD(balance) > 1)
       }
       // Exclude wallets with zero balance if 'isHideEmptyWallet' is true:
       // no tokens left after filtering, or nothing of value.
-      if (moreSettingsMemo.includes(MORE_SETTINGS.HIDE_EMPTY_WALLET)) {
+      if (moreSettings.includes(MORE_SETTINGS.HIDE_EMPTY_WALLET)) {
         if (!wallet.balances?.length) return false;
         if (getWalletBalanceInUSD([wallet]) === 0) return false;
       }
@@ -124,9 +130,9 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
   }, [
     search,
     connectedWallets,
-    selectedWalletTypesMemo,
-    selectedChainsMemo,
-    moreSettingsMemo,
+    visibleWalletTypes,
+    visibleChainNames,
+    moreSettings,
   ]);
 
   const getWalletIcon = (wallet: ConnectedWallet) => {
@@ -141,11 +147,11 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
     refetch(connectedWallets)
   }
 
-  useEffect(() => {
-    setSelectedWalletTypes(walletTypes)
-    setSelectedChains(blockchains)
-    setMoreSettings([MORE_SETTINGS.HIDE_SMALL_BALANCE, MORE_SETTINGS.HIDE_UNSUPPORTED_TOKEN])
-  }, [])
+  // Balances stream in after the wallet appears — don't flash a partial
+  // "$0.00" total while any wallet's balances are still missing.
+  const balancePending = connectedWallets.some(
+    (w) => (w as WalletWithBalances).balances == null,
+  );
 
   return (
     <Sheet>
@@ -155,7 +161,9 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
       <SheetContent className="bg-gradient-to-b to-[#002f19] from-[#01150c] p-4 min-w-[450px] flex flex-col">
         <SheetHeader className="border-b border-separator">
           <SheetTitle className="w-full flex justify-center relative p-2">
-            <span className="text-xl text-primary">{formatUsd(getWalletBalanceInUSD(filteredWallets))}$</span>
+            <span className="text-xl text-primary">
+              {balancePending ? "…" : `${formatUsd(getWalletBalanceInUSD(filteredWallets))}$`}
+            </span>
             <SheetClose className="absolute right-2">
               <X className="w-7 h-7 p-1 bg-primary rounded-full font-bold text-black hover:bg-primary-dark transition-colors duration-300" />
             </SheetClose>
@@ -178,9 +186,13 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
             }))}
             title="Your Wallets"
             onRealValueChange={(values: WalletInfoWithExtra[]) => {
-              setSelectedWalletTypes(values)
+              // Store what the user unchecked — everything else stays visible,
+              // including wallets connected later.
+              setDeselectedWalletTypes(
+                availableWalletTypes.filter(t => !values.some(v => v.type === t))
+              );
             }}
-            defaultValue={selectedWalletTypesMemo}
+            value={visibleWalletTypes}
             placeholder="No Wallet"
             className="bg-primary text-black border-none hover:bg-primary-dark flex-1"
             unit="wallet"
@@ -192,10 +204,12 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
               icon: blockchain.logo,
               realValue: blockchain
             }))}
-            defaultValue={selectedChainsMemo}
+            value={visibleChainNames}
             title="Your Blockchains"
             onRealValueChange={(values: BlockchainMeta[]) => {
-              setSelectedChains(values);
+              setDeselectedChains(
+                availableChainNames.filter(n => !values.some(v => v.name === n))
+              );
             }}
             placeholder="No Blockchain"
             className="bg-primary text-black border-none hover:bg-primary-dark flex-1"
@@ -211,7 +225,7 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
             onRealValueChange={(values: MORE_SETTINGS[]) => {
               setMoreSettings(values);
             }}
-            defaultValue={moreSettingsMemo}
+            value={moreSettings}
             placeholder="..."
             className="bg-primary text-black border-none hover:bg-primary-dark flex-none h-10 w-10"
             config={{

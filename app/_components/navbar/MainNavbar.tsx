@@ -47,6 +47,14 @@ const MainNavbar = () => {
     return Number.isNaN(n) ? "0.00" : formatUsd(n);
   }, [totalBalance]);
 
+  // A connected wallet appears in `details` before its balances are
+  // fetched; in that gap `isLoading` is still false and totalBalance reads
+  // "0", which flashed "$0.00" before the loader kicked in. Treat
+  // "any connected wallet without balances yet" as loading too.
+  const balancePending =
+    isLoading ||
+    connectedWallets.some((w) => (w as { balances?: unknown[] | null }).balances == null);
+
   const mappedWallets = connectedWallets.filter((connectedWallets, index, self) =>
     index === self.findIndex((w) => (
       w.walletType === connectedWallets.walletType
@@ -152,8 +160,8 @@ const MainNavbar = () => {
               :
               <div className="flex text-black">
                 <WalletDetails>
-                  <button className={cn(isLoading ? '' : 'bg-[#13f187]', 'text-[1.075rem] min-h-[35px] border border-primary rounded-l-full p-2 items-center justify-center hover:bg-opacity-80')}>
-                    {isLoading ?
+                  <button className={cn(balancePending ? '' : 'bg-[#13f187]', 'text-[1.075rem] min-h-[35px] border border-primary rounded-l-full p-2 items-center justify-center hover:bg-opacity-80')}>
+                    {balancePending ?
                       <CustomLoader className="w-full" />
                       :
                       <div className="flex space-x-1">
