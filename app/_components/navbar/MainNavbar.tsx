@@ -85,7 +85,7 @@ const MainNavbar = () => {
       className={cn(scrolled ? '' : 'bg-transparent', 'w-screen transition fixed top-0 z-50 duration-300')}
     >
       <div className={`max-w-[86rem] mx-auto px-2 sm:px-6 lg:px-8 pt-5 pb-4`}>
-        <div className="relative flex items-center justify-center md:justify-between rounded-full border border-white/10 bg-black/10 backdrop-blur-xl px-6 py-3">
+        <div className="relative flex items-center justify-center md:justify-between rounded-full border border-white/10 bg-white/[0.06] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] px-6 py-3">
           {/* Logo */}
           <div className="absolute inset-0 flex items-center md:hidden">
             <button

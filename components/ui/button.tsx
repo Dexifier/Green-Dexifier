@@ -15,7 +15,7 @@ const buttonVariants = cva(
           "bg-slate-900 text-slate-50 hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90",
         primary:
           "w-full bg-primary hover:bg-primary-dark transition duration-300 text-black rounded-md font-semibold text-base xl:text-xl",
-        neon: "w-full bg-gradient-to-r from-primary to-accent text-black font-bold rounded-2xl shadow-neon hover:shadow-neon-lg hover:brightness-110 active:scale-[0.99] transition-all duration-300 disabled:bg-none disabled:bg-white/5 disabled:text-white/40 disabled:border disabled:border-white/10 disabled:shadow-none disabled:opacity-100",
+        neon: "w-full bg-gradient-to-r from-primary to-accent text-black font-bold rounded-2xl shadow-neon hover:shadow-neon-lg hover:brightness-110 active:scale-[0.99] transition-all [transition-duration:300ms] disabled:bg-none disabled:bg-white/5 disabled:text-white/40 disabled:border disabled:border-white/10 disabled:shadow-none disabled:opacity-100",
         secondary: `bg-white text-black font-bold text-base ${inter.className}`,
         destructive:
           "bg-red-500 text-slate-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-slate-50 dark:hover:bg-red-900/90",
