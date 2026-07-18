@@ -36,45 +36,12 @@ body {
 }
 
 /* ---- Animated aurora background ---- */
-/* Orbs: compact bright cores so they read as glowing blobs, not haze.
-   Two nested gradients: hot center + soft halo. */
+/* Single low orb: compact bright core so it reads as a glowing blob. */
 .aurora-orb {
   position: absolute;
   border-radius: 9999px;
   mix-blend-mode: screen;
   will-change: transform, opacity;
-}
-.aurora-orb-1 {
-  width: 38vw;
-  height: 38vw;
-  left: -8vw;
-  top: -12vw;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(19, 241, 135, 0.55) 0%,
-    rgba(19, 241, 135, 0.22) 32%,
-    transparent 68%
-  );
-  filter: blur(60px);
-  animation:
-    aurora-drift-1 14s ease-in-out infinite alternate,
-    aurora-breathe 7s ease-in-out infinite;
-}
-.aurora-orb-2 {
-  width: 30vw;
-  height: 30vw;
-  right: -6vw;
-  top: -6vw;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(0, 224, 255, 0.42) 0%,
-    rgba(0, 224, 255, 0.16) 34%,
-    transparent 68%
-  );
-  filter: blur(55px);
-  animation:
-    aurora-drift-2 18s ease-in-out infinite alternate,
-    aurora-breathe 9s ease-in-out infinite 1.5s;
 }
 .aurora-orb-3 {
   width: 42vw;
@@ -91,22 +58,6 @@ body {
   animation:
     aurora-drift-3 16s ease-in-out infinite alternate,
     aurora-breathe 8s ease-in-out infinite 3s;
-}
-@keyframes aurora-drift-1 {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-  to {
-    transform: translate(10vw, 8vh) scale(1.18);
-  }
-}
-@keyframes aurora-drift-2 {
-  from {
-    transform: translate(0, 0) scale(1.1);
-  }
-  to {
-    transform: translate(-9vw, 10vh) scale(0.94);
-  }
 }
 @keyframes aurora-drift-3 {
   from {
