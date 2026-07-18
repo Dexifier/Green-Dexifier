@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 //    with a light trail that fades after ~1-2s. Several rays are followers:
 //    they lean toward the pointer and orbit it while it's active.
 // 2. Fog — a low-res persistence canvas where ray heads stamp soft light
-//    that fades over ~9s. The pointer parts the fog like a flashlight.
+//    that fades over ~4s. The pointer parts the fog like a flashlight.
 // 3. Dust — tiny drifting, twinkling motes so the darkness has texture.
 // Everything is time-based (not frame-count-based) so it survives low fps.
 
@@ -81,7 +81,7 @@ const RAY_COLORS = ["19, 241, 135", "19, 241, 135", "0, 224, 160", "0, 224, 255"
 const DUST_COLORS = ["255, 255, 255", "255, 255, 255", "19, 241, 135", "0, 224, 255", "0, 224, 160"];
 
 const FOG_SCALE = 0.5; // fog canvas renders at half resolution (naturally soft)
-const FOG_ERASE_RADIUS = 190; // pointer flashlight radius (CSS px)
+const FOG_ERASE_RADIUS = 260; // pointer flashlight radius (CSS px)
 const POINTER_IDLE_MS = 2500; // disengage after this much pointer silence
 const TAU = Math.PI * 2;
 const rand = (min: number, max: number) => min + Math.random() * (max - min);
@@ -236,13 +236,13 @@ export default function EnergyRays() {
       pointer.sx += (pointer.x - pointer.sx) * pk;
       pointer.sy += (pointer.y - pointer.sy) * pk;
 
-      // --- fog: time-based fade (90% gone every ~9s at any frame rate) ---
+      // --- fog: time-based fade (90% gone every ~4s at any frame rate) ---
       fctx.globalCompositeOperation = "destination-out";
-      fctx.fillStyle = `rgba(0, 0, 0, ${Math.min(1, 1 - Math.pow(0.1, dt / 9000))})`;
+      fctx.fillStyle = `rgba(0, 0, 0, ${Math.min(1, 1 - Math.pow(0.1, dt / 4000))})`;
       fctx.fillRect(0, 0, w, h);
       // flashlight: the pointer parts the fog, rays refill it over time
       if (pointer.env > 0.001) {
-        const ea = Math.min(1, dt / 140) * pointer.env;
+        const ea = Math.min(1, dt / 90) * pointer.env;
         const eg = fctx.createRadialGradient(
           pointer.sx, pointer.sy, 0,
           pointer.sx, pointer.sy, FOG_ERASE_RADIUS
