@@ -5,9 +5,10 @@ import { useEffect, useRef } from "react";
 // Energy atmosphere, three systems on two canvases:
 // 1. Rays — glowing comet heads in three parallax depth layers (far: thin,
 //    dim, slow / near: thick, bright, fast) flying Lissajous paths, each
-//    with a light trail that fades after ~1-2s.
+//    with a light trail that fades after ~1-2s. Several rays are followers:
+//    they lean toward the pointer and orbit it while it's active.
 // 2. Fog — a low-res persistence canvas where ray heads stamp soft light
-//    that fades over ~9s, so the scene accumulates ambient color.
+//    that fades over ~9s. The pointer parts the fog like a flashlight.
 // 3. Dust — tiny drifting, twinkling motes so the darkness has texture.
 // Everything is time-based (not frame-count-based) so it survives low fps.
 
@@ -35,6 +36,10 @@ type Ray = {
   trailMs: number;
   glowR: number; // head glow radius factor
   fogR: number; // fog blot radius factor
+  pull: number; // pointer attraction strength (0 = pure wanderer)
+  orbitR: number; // orbit radius around the pointer (px)
+  orbitW: number; // orbit angular speed (rad/ms)
+  orbitP: number; // orbit phase
   points: TrailPoint[];
   fogAcc: number;
   lastX: number;
@@ -55,6 +60,8 @@ type Mote = {
 
 type LayerCfg = {
   count: number;
+  followers: number; // how many rays in this layer chase the pointer
+  pull: [number, number]; // attraction strength range
   width: [number, number];
   alpha: number;
   speed: number;
@@ -64,9 +71,9 @@ type LayerCfg = {
 };
 
 const LAYERS: LayerCfg[] = [
-  { count: 5, width: [0.8, 1.3], alpha: 0.35, speed: 0.65, trail: [1000, 1400], glowR: 5, fogR: 18 },
-  { count: 5, width: [1.5, 2.4], alpha: 0.8, speed: 1.0, trail: [1200, 1800], glowR: 7, fogR: 22 },
-  { count: 4, width: [2.6, 3.6], alpha: 1.1, speed: 1.35, trail: [1500, 2200], glowR: 9, fogR: 28 },
+  { count: 2, followers: 0, pull: [0, 0], width: [0.8, 1.3], alpha: 0.35, speed: 0.65, trail: [1000, 1400], glowR: 5, fogR: 18 },
+  { count: 3, followers: 3, pull: [0.2, 0.35], width: [1.5, 2.4], alpha: 0.8, speed: 1.0, trail: [1200, 1800], glowR: 7, fogR: 22 },
+  { count: 2, followers: 1, pull: [0.12, 0.18], width: [2.6, 3.6], alpha: 1.1, speed: 1.35, trail: [1500, 2200], glowR: 9, fogR: 28 },
 ];
 
 // green-biased brand palette (cycled per ray)
@@ -75,6 +82,8 @@ const RAY_COLORS = ["19, 241, 135", "19, 241, 135", "0, 224, 160", "0, 224, 255"
 const DUST_COLORS = ["255, 255, 255", "255, 255, 255", "19, 241, 135", "0, 224, 255", "0, 224, 160"];
 
 const FOG_SCALE = 0.5; // fog canvas renders at half resolution (naturally soft)
+const FOG_ERASE_RADIUS = 190; // pointer flashlight radius (CSS px)
+const POINTER_IDLE_MS = 2500; // disengage after this much pointer silence
 const TAU = Math.PI * 2;
 const rand = (min: number, max: number) => min + Math.random() * (max - min);
 
@@ -110,35 +119,60 @@ export default function EnergyRays() {
     resize();
     window.addEventListener("resize", resize);
 
+    // pointer state: raw target, smoothed position, engagement envelope
+    const pointer = {
+      x: w / 2,
+      y: h / 2,
+      sx: w / 2,
+      sy: h / 2,
+      env: 0,
+      lastMove: -1e9,
+    };
+    const onPointer = (e: PointerEvent) => {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.lastMove = performance.now();
+    };
+    window.addEventListener("pointermove", onPointer, { passive: true });
+    window.addEventListener("pointerdown", onPointer, { passive: true });
+
     const smallScreen = w < 768;
 
     const rays: Ray[] = LAYERS.flatMap((layer, li) => {
       const count = smallScreen ? Math.ceil(layer.count / 2) : layer.count;
-      return Array.from({ length: count }, (_, i) => ({
-        color: RAY_COLORS[(li * 5 + i) % RAY_COLORS.length],
-        ax1: rand(0.3, 0.42),
-        ax2: rand(0.06, 0.14),
-        ay1: rand(0.16, 0.26),
-        ay2: rand(0.05, 0.12),
-        fx1: rand(0.00012, 0.00022) * layer.speed,
-        fx2: rand(0.00035, 0.0006) * layer.speed,
-        fy1: rand(0.0001, 0.0002) * layer.speed,
-        fy2: rand(0.0003, 0.00055) * layer.speed,
-        px1: rand(0, TAU),
-        px2: rand(0, TAU),
-        py1: rand(0, TAU),
-        py2: rand(0, TAU),
-        yBase: rand(0.26, 0.52),
-        width: rand(layer.width[0], layer.width[1]),
-        alpha: layer.alpha,
-        trailMs: rand(layer.trail[0], layer.trail[1]),
-        glowR: layer.glowR,
-        fogR: layer.fogR,
-        points: [],
-        fogAcc: 0,
-        lastX: 0,
-        lastY: 0,
-      }));
+      const followers = Math.min(layer.followers, count);
+      return Array.from({ length: count }, (_, i) => {
+        const isFollower = i < followers;
+        return {
+          color: RAY_COLORS[(li * 5 + i) % RAY_COLORS.length],
+          ax1: rand(0.3, 0.42),
+          ax2: rand(0.06, 0.14),
+          ay1: rand(0.16, 0.26),
+          ay2: rand(0.05, 0.12),
+          fx1: rand(0.00012, 0.00022) * layer.speed,
+          fx2: rand(0.00035, 0.0006) * layer.speed,
+          fy1: rand(0.0001, 0.0002) * layer.speed,
+          fy2: rand(0.0003, 0.00055) * layer.speed,
+          px1: rand(0, TAU),
+          px2: rand(0, TAU),
+          py1: rand(0, TAU),
+          py2: rand(0, TAU),
+          yBase: rand(0.26, 0.52),
+          width: rand(layer.width[0], layer.width[1]),
+          alpha: layer.alpha,
+          trailMs: rand(layer.trail[0], layer.trail[1]),
+          glowR: layer.glowR,
+          fogR: layer.fogR,
+          pull: isFollower ? rand(layer.pull[0], layer.pull[1]) : 0,
+          orbitR: rand(50, 130),
+          orbitW: rand(0.0004, 0.0009) * (Math.random() < 0.5 ? -1 : 1),
+          orbitP: rand(0, TAU),
+          points: [],
+          fogAcc: 0,
+          lastX: 0,
+          lastY: 0,
+        };
+      });
     });
 
     const motes: Mote[] = Array.from({ length: smallScreen ? 60 : 130 }, (_, i) => ({
@@ -153,19 +187,30 @@ export default function EnergyRays() {
       twP: rand(0, TAU),
     }));
 
-    const head = (r: Ray, t: number): TrailPoint => ({
-      x:
+    const head = (r: Ray, t: number): TrailPoint => {
+      let x =
         w *
         (0.5 +
           r.ax1 * Math.sin(t * r.fx1 + r.px1) +
-          r.ax2 * Math.sin(t * r.fx2 + r.px2)),
-      y:
+          r.ax2 * Math.sin(t * r.fx2 + r.px2));
+      let y =
         h *
         (r.yBase +
           r.ay1 * Math.cos(t * r.fy1 + r.py1) +
-          r.ay2 * Math.sin(t * r.fy2 + r.py2)),
-      t,
-    });
+          r.ay2 * Math.sin(t * r.fy2 + r.py2));
+      // followers lean toward the pointer and circle it; the engagement
+      // envelope eases the blend in/out so there are no jumps
+      if (r.pull > 0 && pointer.env > 0.001) {
+        const osc = 0.8 + 0.4 * Math.sin(t * 0.0005 + r.px1);
+        const f = Math.min(0.6, r.pull * osc) * pointer.env;
+        const ang = t * r.orbitW + r.orbitP;
+        const tx = pointer.sx + Math.cos(ang) * r.orbitR;
+        const ty = pointer.sy + Math.sin(ang) * r.orbitR;
+        x += (tx - x) * f;
+        y += (ty - y) * f;
+      }
+      return { x, y, t };
+    };
 
     const stampFog = (r: Ray, x: number, y: number) => {
       const radius = r.width * r.fogR;
@@ -185,10 +230,31 @@ export default function EnergyRays() {
       const dt = now - last;
       last = now;
 
+      // pointer engagement + smoothing (time-based)
+      const engaged = now - pointer.lastMove < POINTER_IDLE_MS ? 1 : 0;
+      pointer.env += (engaged - pointer.env) * Math.min(1, dt / 400);
+      const pk = Math.min(1, dt / 120);
+      pointer.sx += (pointer.x - pointer.sx) * pk;
+      pointer.sy += (pointer.y - pointer.sy) * pk;
+
       // --- fog: time-based fade (90% gone every ~9s at any frame rate) ---
       fctx.globalCompositeOperation = "destination-out";
       fctx.fillStyle = `rgba(0, 0, 0, ${Math.min(1, 1 - Math.pow(0.1, dt / 9000))})`;
       fctx.fillRect(0, 0, w, h);
+      // flashlight: the pointer parts the fog, rays refill it over time
+      if (pointer.env > 0.001) {
+        const ea = Math.min(1, dt / 140) * pointer.env;
+        const eg = fctx.createRadialGradient(
+          pointer.sx, pointer.sy, 0,
+          pointer.sx, pointer.sy, FOG_ERASE_RADIUS
+        );
+        eg.addColorStop(0, `rgba(0, 0, 0, ${ea.toFixed(3)})`);
+        eg.addColorStop(1, "rgba(0, 0, 0, 0)");
+        fctx.fillStyle = eg;
+        fctx.beginPath();
+        fctx.arc(pointer.sx, pointer.sy, FOG_ERASE_RADIUS, 0, TAU);
+        fctx.fill();
+      }
       fctx.globalCompositeOperation = "lighter";
 
       // --- sharp canvas ---
@@ -276,6 +342,8 @@ export default function EnergyRays() {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", onPointer);
+      window.removeEventListener("pointerdown", onPointer);
     };
   }, []);
 
