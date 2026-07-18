@@ -5,6 +5,7 @@ import {
   MAP_BLOCKCHAIN_RANGO_2_EXOLIX,
 } from "../app/utils/exolix";
 import { CHAINFLIP_BLOCKCHAIN_NAME_MAP } from "../app/utils/chainflip";
+import { formatCryptoAmount, formatUsd } from "../app/utils";
 
 describe("getExolixflipBlockchainName", () => {
   it("maps known Rango blockchain names to Exolix network names", () => {
@@ -38,5 +39,21 @@ describe("CHAINFLIP_BLOCKCHAIN_NAME_MAP", () => {
     expect(CHAINFLIP_BLOCKCHAIN_NAME_MAP["btc"]).toBe("BTC");
     expect(CHAINFLIP_BLOCKCHAIN_NAME_MAP["SOLANA"]).toBe("sol");
     expect(CHAINFLIP_BLOCKCHAIN_NAME_MAP["sol"]).toBe("SOLANA");
+  });
+});
+
+describe("formatUsd", () => {
+  it("formats to grouped 2-decimal USD", () => {
+    expect(formatUsd(10738.148921583781)).toBe("10,738.15");
+    expect(formatUsd(0)).toBe("0.00");
+    expect(formatUsd(10795.7226)).toBe("10,795.72");
+  });
+});
+
+describe("formatCryptoAmount", () => {
+  it("keeps small crypto amounts visible instead of rounding to 0.00", () => {
+    expect(formatCryptoAmount(0.00115841)).toBe("0.00115841");
+    expect(formatCryptoAmount(1)).toBe("1");
+    expect(formatCryptoAmount(3.46879213300089)).toBe("3.4687921");
   });
 });
