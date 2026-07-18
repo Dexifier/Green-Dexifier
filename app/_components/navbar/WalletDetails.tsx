@@ -21,7 +21,6 @@ import { X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { getAbbrAddress } from "@/app/utils";
-import { TokenBalance } from "@rango-dev/widget-embedded/dist/store/wallets";
 import TokenIcon from "../common/token-icon";
 import { TbRefresh } from "react-icons/tb";
 
@@ -37,13 +36,32 @@ const SETTINGS = [
   MORE_SETTINGS.HIDE_UNSUPPORTED_TOKEN,
 ]
 
+// The widget no longer exports its balance type publicly; this mirrors the
+// shape returned in `useWidget().wallets.details[].balances`.
+type TokenBalance = {
+  chain: string;
+  symbol: string;
+  ticker?: string;
+  address: string | null;
+  rawAmount?: string;
+  decimal?: number | null;
+  amount: string;
+  isSupported?: boolean;
+  logo?: string | null;
+  usdPrice: number | null;
+};
+
+type WalletWithBalances = ConnectedWallet & {
+  balances?: TokenBalance[] | null;
+};
+
 interface WalletDetailsProps {
   children: ReactNode;
 }
 
 const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
   const [search, setSearch] = useState<string>('');
-  const [filteredWallets, setFilteredWallets] = useState<ConnectedWallet[]>([]);
+  const [filteredWallets, setFilteredWallets] = useState<WalletWithBalances[]>([]);
   const [selectedWalletTypes, setSelectedWalletTypes] = useState<WalletInfoWithExtra[]>([]);
   const [selectedChains, setSelectedChains] = useState<BlockchainMeta[]>([]);
   const [moreSettings, setMoreSettings] = useState<MORE_SETTINGS[]>([]);
@@ -72,7 +90,7 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
     return parseFloat(token.amount) * (token.usdPrice ?? 0);
   }
 
-  const getWalletBalanceInUSD = (wallets: ConnectedWallet[]) => {
+  const getWalletBalanceInUSD = (wallets: WalletWithBalances[]) => {
     const walletBalanceInUSD = wallets.map(wallet => {
       if (!wallet.balances) return 0;
       return wallet.balances?.map(balance => {
@@ -118,7 +136,7 @@ const WalletDetails: React.FC<WalletDetailsProps> = ({ children }) => {
   }
 
   const handleRefresh = () => {
-    refetch(connectedWallets, tokens)
+    refetch(connectedWallets)
   }
 
   useEffect(() => {
@@ -227,8 +245,8 @@ const SubWallet: React.FC<any> = ({
   getWalletIcon,
   getTokenIcon
 }: {
-  wallet: ConnectedWallet,
-  getWalletBalanceInUSD: (wallets: ConnectedWallet[]) => number,
+  wallet: WalletWithBalances,
+  getWalletBalanceInUSD: (wallets: WalletWithBalances[]) => number,
   getTokenBalanceInUSD: (token: TokenBalance) => number,
   getWalletIcon: (wallet: ConnectedWallet) => string,
   getTokenIcon: (wallets: TokenBalance) => string,

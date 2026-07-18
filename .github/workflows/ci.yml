@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A newer run supersedes a stale one on the same ref (also frees runners
+# from hung builds without needing Actions:write to cancel manually).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # npm 10.8.x (bundled with Node 20) crashes with "Exit handler never
+      # called!" on this dependency tree; latest npm fixes it.
+      - run: npm install -g npm@latest
+
+      - run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
+      # The Rango widget tree is memory-hungry; give V8 a 6 GB ceiling on the
+      # 7 GB runner so it fails fast instead of GC-thrashing indefinitely.
+      - name: Build
+        run: npm run build
+        timeout-minutes: 30
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
+          DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
+          EXOLIX_API_KEY: dummy
+          CHAINFLIP_API_KEY: dummy
+          NEXT_PUBLIC_RANGO_API_KEY_BASIC: dummy
+          NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: dummy

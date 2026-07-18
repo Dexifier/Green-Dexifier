@@ -1,31 +1,17 @@
 import "./globals.css";
 import React from "react";
 import MainNavbar from "./_components/navbar/MainNavbar";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { ToastContainer } from "react-toastify";
-import dynamic from "next/dynamic";
 import "react-toastify/dist/ReactToastify.css";
-import GoogleAnalytics from "./GoogleAnalytics";
-
-// Dynamically import RangoProvider for client-side rendering
-const RangoProvider = dynamic(() => import("./providers/RangoProvider"), {
-  ssr: false, // Ensures this component renders only on the client side
-});
-
-// Dynamically import DexifierProvider for client-side rendering
-const DexifierProvider = dynamic(() => import("./providers/DexifierProvider"), {
-  ssr: false, // Ensures this component renders only on the client side
-});
-
-// Dynamically import NotificationProvider for client-side rendering
-const NotificationProvider = dynamic(() => import("./providers/NotificationProvider"), {
-  ssr: false, // Ensures this component renders only on the client side
-});
+import Analytics from "./Analytics";
+import ProvidersWrapper from "./_components/providers-wrapper";
 
 const inter = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.dexifier.com"),
   title: "Dexifier",
   description:
     "Trade crypto securely on Dexifier, the best decentralized exchange for fast, low-fee, and anonymous transactions. No sign-ups, just seamless trading.",
@@ -42,20 +28,21 @@ export const metadata: Metadata = {
       { url: "/logo.png", sizes: "180x180", type: "image/png" },
     ],
   },
-  themeColor: "#ffffff",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: "Dexifier",
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
   verification: {
     google: 'AZAQ3ajFzkdwX4XX-agcNjf6mIRASqRdeAWvxzgFsv8',
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -66,17 +53,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <GoogleAnalytics />
+        <Analytics />
       </head>
       <body id="root" className={inter.className}>
-        <RangoProvider>
-          <DexifierProvider>
-            <NotificationProvider>
-              <MainNavbar />
-              {children}
-            </NotificationProvider>
-          </DexifierProvider>
-        </RangoProvider>
+        <ProvidersWrapper>
+          <MainNavbar />
+          {children}
+        </ProvidersWrapper>
         <ToastContainer />
       </body>
     </html>

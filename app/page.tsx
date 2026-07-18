@@ -3,7 +3,7 @@
 import { DEXIFIER_STATE, useDexifier } from "./providers/DexifierProvider";
 import DexifierCard from "./_components/dexifier/DexifierCard";
 import RouteCard from "./_components/dexifier/RouteCard";
-import DexifierDetailRango from "./_components/dexifier/DexifierDetail(Rango)";
+import DexifierDetailRango from "./_components/dexifier/DexifierDetailRango";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";

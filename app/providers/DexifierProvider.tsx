@@ -5,21 +5,25 @@
 // make the state accessible through the React Context API. Additionally, a custom hook
 // (useDexifier) is provided for easier consumption of the context in components.
 
-import { createContext, useContext, ReactNode, SetStateAction, Dispatch, useState, useEffect, useMemo, useRef, RefObject } from "react";
+import { createContext, useContext, ReactNode, SetStateAction, Dispatch, useState, useEffect, useMemo, useRef } from "react";
 import { BlockchainMeta, ConfirmRouteResponse, MultiRouteRequest, MultiRouteResponse, MultiRouteSimulationResult, Token as RangoToken, Transaction, TransactionType } from "rango-types/mainApi"
 import { Settings } from "../types/rango";
-import { Asset } from "@chainflip/sdk/swap";
 import { ChainflipSwapResponse, ChainflipQuote, ChainflipError, ChainflipSwapStatus } from "../types/chainflip";
-import { axiosExolix } from "@/lib/axios";
 import { DCurrency, DNetwork, ExTxInfo, RateRequest, RateResponse, TxRequest } from "../types/exolix";
 import { ConnectedWallet, useWallets, useWidget } from "@rango-dev/widget-embedded";
 import { debounce } from "lodash";
 import { CHAINFLIP_BLOCKCHAIN_NAME_MAP } from "../utils/chainflip";
-import { rangoSDK } from "@/lib/utils";
-import { createTransaction, getTxInfo } from "../api/exolix";
 import { ethers } from 'ethers';
-import { createQuotes, createSwap as createChainflipSwap, getSwapStatus } from "../api/chainflip";
-import axios, { AxiosError } from "axios";
+import {
+  createChainflipSwap,
+  createExolixTransaction,
+  getChainflipQuotes,
+  getChainflipSwapStatus,
+  getExolixRate,
+  getExolixTxInfo,
+  getRangoRoutes,
+} from "@/lib/api-client";
+import axios from "axios";
 import { getExolixflipBlockchainName, MAP_BLOCKCHAIN_RANGO_2_EXOLIX } from "../utils/exolix";
 import { Blockchain, Token } from "../types/dexifier";
 
@@ -110,7 +114,7 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
   const [swapStatus, setSwapStatus] = useState<ChainflipSwapStatus | ExTxInfo>();
   const [currencies, setCurrencies] = useState<DCurrency[]>([]);
   const [networks, setNetworks] = useState<DNetwork[]>([]);
-  const confirmIntervalRef = useRef<NodeJS.Timeout>();
+  const confirmIntervalRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const { getSigners } = useWallets();
   const isMobile = useMemo(() => {
     const userAgent = navigator.userAgent;
@@ -194,10 +198,9 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
     if (!tokenFrom.blockchain || !tokenTo.blockchain) return [];
     try {
       if (tokenFrom.blockchain in CHAINFLIP_BLOCKCHAIN_NAME_MAP && tokenTo.blockchain in CHAINFLIP_BLOCKCHAIN_NAME_MAP) {
-        // Use the createQuotes function from api/chainflip.ts
-        const chainflipQuotes = await createQuotes({
-          sourceAsset: `${tokenFrom.symbol.toLowerCase()}.${CHAINFLIP_BLOCKCHAIN_NAME_MAP[tokenFrom.blockchain]}` as Asset,
-          destinationAsset: `${tokenTo.symbol.toLowerCase()}.${CHAINFLIP_BLOCKCHAIN_NAME_MAP[tokenTo.blockchain]}` as Asset,
+        const chainflipQuotes = await getChainflipQuotes({
+          sourceAsset: `${tokenFrom.symbol.toLowerCase()}.${CHAINFLIP_BLOCKCHAIN_NAME_MAP[tokenFrom.blockchain]}`,
+          destinationAsset: `${tokenTo.symbol.toLowerCase()}.${CHAINFLIP_BLOCKCHAIN_NAME_MAP[tokenTo.blockchain]}`,
           amount: amount,
           commissionBps: 15,
         });
@@ -214,9 +217,7 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
         amount: amount,
         rateType: 'float',
       }
-      const { data: exolixRateResponse }: { data: RateResponse } = await axiosExolix.get('/rate', {
-        params: exolixRateRequest
-      })
+      const exolixRateResponse: RateResponse = await getExolixRate(exolixRateRequest)
       allRoutes.push(exolixRateResponse)
     } catch (error) { }
     if (!isMobile) try {
@@ -236,7 +237,7 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
         swapperGroups: settings.swappers.map(swapper => swapper.swapperGroup),
         swappersGroupsExclude: false,
       }
-      const rangoMultiRouteResponse: MultiRouteResponse = await rangoSDK.getAllRoutes(rangoMultiRouteRequest)
+      const rangoMultiRouteResponse: MultiRouteResponse = await getRangoRoutes(rangoMultiRouteRequest)
       const rangoMultiRouteSimulationResults: MultiRouteSimulationResult[] = rangoMultiRouteResponse.results.sort((a, b) => a.swaps.length - b.swaps.length);
       allRoutes.push(...rangoMultiRouteSimulationResults)
     } catch (error) { }
@@ -269,9 +270,8 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
         setSwapData(depositAddressResponse);
       } catch (error) {
         setState(DEXIFIER_STATE.WITHDRAWAL_ADDRESS);
-        if (error instanceof AxiosError) {
-          throw new Error((error.response?.data as ChainflipError).detail || '')
-        }
+        const detail = (error as { data?: ChainflipError })?.data?.detail;
+        if (detail) throw new Error(detail);
         throw error;
       }
     }
@@ -286,13 +286,12 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
         rateType: "float",
       };
       try {
-        const txResponse = await createTransaction(txRequest);
+        const txResponse = await createExolixTransaction(txRequest);
         setSwapData(txResponse);
-      } catch (error: any) {
+      } catch (error) {
         setState(DEXIFIER_STATE.WITHDRAWAL_ADDRESS);
-        if (error.response?.data?.error) {
-          throw new Error(error.response.data.error as string);
-        }
+        const apiError = (error as { data?: { error?: string } })?.data?.error;
+        if (apiError) throw new Error(apiError);
         throw error;
       }
     }
@@ -344,6 +343,7 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
         isApprovalTx: true,
         data: data,
         value: tokenContractAddress ? null : amountInWei.toString(),
+        prerequisites: [],
         nonce: null,
         gasLimit: null,
         gasPrice: null,
@@ -370,24 +370,19 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
       if ('channelId' in swapData) {
         confirmIntervalRef.current = setInterval(async () => {
           try {
-            // const statusData = await chainflipSDK.getStatusV2({
-            //   id: swapData.depositChannelId
-            // });
-            const statusData = await getSwapStatus(swapData.id);
+            const statusData = await getChainflipSwapStatus(swapData.id);
             setSwapStatus(statusData);
             if (statusData.state === "COMPLETED" || statusData.state === "FAILED") {
               stopConfirming();
             }
-          } catch (error) {
-            if (error instanceof AxiosError) {
-              return error.response?.data as ChainflipError;
-            }
+          } catch {
+            // Keep polling — transient errors should not kill the status loop
           }
         }, 10000); // Poll every 10 seconds (adjust as needed)
       }
       if ('amountTo' in swapData) {
         confirmIntervalRef.current = setInterval(async () => {
-          const txInfo = await getTxInfo(swapData.id);
+          const txInfo = await getExolixTxInfo(swapData.id);
           setSwapStatus(txInfo);
           if (txInfo.status === "success" || txInfo.status === "overdue" || txInfo.status === "refunded") {
             stopConfirming();
@@ -426,6 +421,28 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
       setNetworks(result.data as DNetwork[])
     });
   }, [])
+
+  // Prefill the swap pair from URL query params, e.g.
+  // /?from=BTC&fromChain=BTC&to=ETH&toChain=ETH (used by the /swap/[pair]
+  // landing pages to deep-link into a ready-made swap).
+  useEffect(() => {
+    if (typeof window === "undefined" || !coins.length) return;
+    if (tokenFrom || tokenTo) return; // never override a user's selection
+    const q = new URLSearchParams(window.location.search);
+    const find = (symbol: string | null, chain: string | null) =>
+      symbol
+        ? coins.find(
+            (c) =>
+              c.symbol.toLowerCase() === symbol.toLowerCase() &&
+              (!chain || c.blockchain?.toLowerCase() === chain.toLowerCase()),
+          )
+        : undefined;
+    const prefillFrom = find(q.get("from"), q.get("fromChain"));
+    const prefillTo = find(q.get("to"), q.get("toChain"));
+    if (prefillFrom) setTokenFrom(prefillFrom);
+    if (prefillTo) setTokenTo(prefillTo);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coins])
 
   return (
     <DexifierContext.Provider

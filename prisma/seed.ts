@@ -1,16 +1,29 @@
+import "dotenv/config";
+import axios from "axios";
+import { PrismaClient } from "../generated/prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { CurrencyResponse } from "../app/types/exolix";
-import { axiosExolix } from "../lib/axios";
-import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
+});
+
+const exolix = axios.create({
+  baseURL: process.env.EXOLIX_API_URL ?? "https://exolix.com/api/v2",
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    Authorization: process.env.EXOLIX_API_KEY ?? "",
+  },
+});
 
 async function getCurrencies(): Promise<CurrencyResponse> {
   try {
-    const { data } = await axiosExolix.get("/currencies?page=1&size=100&withNetworks=true");
+    const { data } = await exolix.get("/currencies?page=1&size=100&withNetworks=true");
     const { count, data: initialData } = data;
     const totalPages = Math.ceil(count / 100);
     const pagePromises = Array.from({ length: totalPages - 1 }, (_, pageIndex) =>
-      axiosExolix.get(`/currencies?page=${pageIndex + 2}&size=100&withNetworks=true`)
+      exolix.get(`/currencies?page=${pageIndex + 2}&size=100&withNetworks=true`)
     );
     const pageResponses = await Promise.all(pagePromises);
     const allCurrenciesData = pageResponses.reduce((acc, response) => {
@@ -44,10 +57,10 @@ getCurrencies().then(async (res: CurrencyResponse) => {
         data: {
           ...currencyData,
           network: {
-            connect: { id: network.id }, // Connect to an existing network with id 13
+            connect: { id: network.id }, // Connect to an existing network
           },
         },
       });
     }
   }
-})
+});

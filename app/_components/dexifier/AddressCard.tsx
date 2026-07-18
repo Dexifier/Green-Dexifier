@@ -26,9 +26,6 @@ import {
 import { ChainflipError, ChainflipSwapStatus } from "@/app/types/chainflip";
 import { ExTxInfo, TxRequest } from "@/app/types/exolix";
 import { toastError } from "@/lib/utils";
-import { createTransaction } from "@/app/api/exolix";
-import { createSwap } from "@/app/api/chainflip";
-import { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
 
 const AddressesCard = () => {
