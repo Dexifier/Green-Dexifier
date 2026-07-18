@@ -38,7 +38,7 @@ export default function SwapPage() {
           "flex justify-center",
           isMobile
             ? "h-full flex-col gap-8"
-            : "flex-row flex-wrap gap-8 h-[560px] items-stretch min-h-screen content-center -mt-10"
+            : "flex-row flex-wrap gap-8 items-stretch min-h-screen content-center px-4 pt-28 pb-16"
         )}
       >
         <DexifierCard />
