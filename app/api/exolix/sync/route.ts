@@ -21,6 +21,10 @@ type ExolixNetwork = {
   blockExplorer?: string | null;
   depositMinAmount?: number | null;
   memoNeeded?: boolean;
+  memoName?: string | null;
+  memoRegex?: string | null;
+  precision?: number;
+  contract?: string | null;
 };
 
 type ExolixCurrency = {
@@ -82,6 +86,10 @@ async function handler(request: NextRequest) {
           blockExplorer: n.blockExplorer ?? null,
           depositMinAmount: n.depositMinAmount ?? null,
           memoNeeded: n.memoNeeded ?? false,
+          memoName: n.memoName ?? null,
+          memoRegex: n.memoRegex ?? null,
+          precision: n.precision ?? 0,
+          contract: n.contract ?? null,
         });
       }
     }
