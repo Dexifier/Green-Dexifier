@@ -24,6 +24,7 @@ import TooltipTemplate from "../common/tooltip-template";
 import SettingModal from "./SettingModal";
 import { cn } from "@/lib/utils";
 import { formatCryptoAmount } from "@/app/utils";
+import { ArrowDownUp } from "lucide-react";
 
 const DexifierCard: React.FC = () => {
   // Use custom hook to get connected wallet details
@@ -79,8 +80,8 @@ const DexifierCard: React.FC = () => {
   return (
     <Card
       className={cn(
-        "w-full border border-[#AAA]/20 backdrop-blur-lg rounded-[2rem] shadow-lg text-white",
-        isMobile ? "p-0 bg-primary/10" : "max-w-[650px] p-6 h-full bg-modal/5"
+        "w-full rounded-3xl text-white glass-card shadow-card",
+        isMobile ? "p-0" : "max-w-[650px] p-6 h-full"
       )}
     >
       {!isMobile && (
@@ -114,43 +115,30 @@ const DexifierCard: React.FC = () => {
         <div className="w-full flex flex-col justify-evenly gap-2">
           {/* Token From Section */}
           <div className="flex justify-between items-end">
-            <Label htmlFor="tokenFrom" className="text-lg">
+            <Label htmlFor="tokenFrom" className="text-sm font-medium uppercase tracking-wider text-white/50">
               {isMobile ? "You send" : "From"}
             </Label>
             {isWalletConnected && tokenFrom && (
-              <div>
-                <Label className="text-sm">
+              <div className="flex flex-col items-end gap-1">
+                <Label className="text-xs text-white/50 tnum">
                   Balance:{" "}
                   {tokenFromBalance
                     ? `${formatCryptoAmount(tokenFromBalance)} ${tokenFrom.symbol}`
                     : "_"}
                 </Label>
                 {tokenFromBalance > 0 && (
-                  <div className="flex gap-1 justify-end text-primary">
-                    <button
-                      className="hover:text-primary-dark text-sm"
-                      onClick={() =>
-                        setAmountFrom((tokenFromBalance * 0.25).toString())
-                      }
-                    >
-                      25%
-                    </button>
-                    <span>|</span>
-                    <button
-                      className="hover:text-primary-dark text-sm"
-                      onClick={() =>
-                        setAmountFrom((tokenFromBalance * 0.5).toString())
-                      }
-                    >
-                      50%
-                    </button>
-                    <span>|</span>
-                    <button
-                      className="hover:text-primary-dark text-sm"
-                      onClick={() => setAmountFrom(tokenFromBalance.toString())}
-                    >
-                      Max
-                    </button>
+                  <div className="flex gap-1 justify-end">
+                    {[25, 50, 100].map((pct) => (
+                      <button
+                        key={pct}
+                        className="rounded-md bg-primary/10 px-1.5 py-0.5 text-xs font-semibold text-primary transition hover:bg-primary/25"
+                        onClick={() =>
+                          setAmountFrom(((tokenFromBalance * pct) / 100).toString())
+                        }
+                      >
+                        {pct === 100 ? "MAX" : `${pct}%`}
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>
@@ -159,8 +147,8 @@ const DexifierCard: React.FC = () => {
           <TokenInput
             type="number"
             id="tokenFrom"
-            placeholder="Please enter 1-42000000"
-            className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:outline-0 focus-visible:ring-offset-0 placeholder:text-white/50 pr-8"
+            placeholder="0.0"
+            className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:outline-0 focus-visible:ring-offset-0 placeholder:text-white/30 pr-8 text-3xl md:text-4xl font-semibold tnum h-auto py-1"
             value={amountFrom}
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
               // e.target.value = parseFloat(e.target.value).toString();
@@ -174,25 +162,20 @@ const DexifierCard: React.FC = () => {
           {/* Reverse Swap Button */}
           <Button
             variant="outline"
-            className="bg-transparent self-center border-separator mt-7 mb-1 rounded-full h-[54px] w-[54px] p-1 hover:bg-primary-dark"
+            className="self-center mt-7 mb-1 h-[54px] w-[54px] rounded-full border border-primary/40 bg-black/40 p-1 text-primary transition-all duration-500 hover:rotate-180 hover:border-primary hover:shadow-neon"
             onClick={reverseTokenPair}
           >
-            <Image
-              src={"/assets/icons/swap.png"}
-              alt="Swap Icon"
-              height={28}
-              width={28}
-            />
+            <ArrowDownUp size={24} />
           </Button>
 
           {/* Token To Section */}
-          <Label htmlFor="tokenTo" className="text-lg">
+          <Label htmlFor="tokenTo" className="text-sm font-medium uppercase tracking-wider text-white/50">
             {isMobile ? "You get" : "To"}
           </Label>
           <TokenInput
             type="number"
             id="tokenTo"
-            className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:outline-0 focus-visible:ring-offset-0"
+            className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:outline-0 focus-visible:ring-offset-0 text-3xl md:text-4xl font-semibold tnum h-auto py-1"
             disabled
             token={tokenTo}
             setToken={setTokenTo}
@@ -205,7 +188,8 @@ const DexifierCard: React.FC = () => {
           {/* Footer Section: Handles the swap confirmation or wallet connection */}
           {!selectedRoute?.hasOwnProperty('outputAmount') ? (
             <Button
-              className={`bg-primary hover:bg-primary-dark text-black w-full md:max-w-[75%] lg:max-w-[67%] font-semibold h-[3.125rem] mx-auto text-xl disabled:cursor-not-allowed cursor-pointer transition duration-300 ease-out`}
+              variant="neon"
+              className="w-full md:max-w-[75%] lg:max-w-[67%] h-14 mx-auto text-xl"
               disabled={!selectedRoute || state === DEXIFIER_STATE.PENDING || (!!swapData && state < DEXIFIER_STATE.PROCESSING)}
               onClick={() => {
                 // After a swap ends (success/failure) offer a reset; during
@@ -222,8 +206,8 @@ const DexifierCard: React.FC = () => {
           ) : !isWalletConnected ? (
             <WalletConnectModal>
               <Button
-                className="h-[50px] w-3/4 lg:w-[67%] mx-auto"
-                variant="primary"
+                className="h-14 w-3/4 lg:w-[67%] mx-auto"
+                variant="neon"
               >
                 Connect Wallet
               </Button>
@@ -231,7 +215,8 @@ const DexifierCard: React.FC = () => {
           ) : (
             <ConfirmModal>
               <Button
-                className={`bg-primary hover:bg-primary-dark text-black w-full md:max-w-[75%] lg:max-w-[67%] font-semibold h-[3.125rem] mx-auto text-xl disabled:cursor-not-allowed cursor-pointer transition duration-300 ease-out`}
+                variant="neon"
+                className="w-full md:max-w-[75%] lg:max-w-[67%] h-14 mx-auto text-xl"
                 disabled={!selectedRoute || !!swapData}
               >
                 Swap Now

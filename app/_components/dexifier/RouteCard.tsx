@@ -62,8 +62,23 @@ const RouteCard = () => {
     </div>
   );
 
+  // Provider badge (top-right of a route row), with an optional BEST chip
+  // for the top route under the current sort.
+  const badgeTemplate = (label: string, isBest?: boolean) => (
+    <div className="absolute top-0 right-2 flex gap-2">
+      {isBest && (
+        <span className="rounded-full bg-primary px-2 py-0.5 text-[11px] font-bold text-black shadow-neon-sm">
+          BEST
+        </span>
+      )}
+      <span className="rounded-full border border-primary/40 bg-black/40 px-2 py-0.5 text-[11px] font-semibold text-primary">
+        {label}
+      </span>
+    </div>
+  );
+
   // Function to render each route with relevant information
-  const rangoRoute = (route: MultiRouteSimulationResult) => {
+  const rangoRoute = (route: MultiRouteSimulationResult, isBest?: boolean) => {
     return (
       <div className={`relative w-full flex overflow-x-auto`}>
         {route.swaps.map((singleNode: SwapResult, index: number) => {
@@ -148,15 +163,13 @@ const RouteCard = () => {
             </div>
           );
         })}
-        <div className="absolute top-0 right-2 px-2 py-1 rounded-md text-sm font-bold text-primary-dark border border-primary-dark">
-          {"Browser"}
-        </div>
+        {badgeTemplate("Browser", isBest)}
       </div>
     );
   };
 
   // Function to render each quote with relevant information
-  const chainflipRoute = (route: ChainflipQuote) => {
+  const chainflipRoute = (route: ChainflipQuote, isBest?: boolean) => {
     const [ingressAsset, ingressChain] = route.ingressAsset.split('.')
     const [egressAsset, egressChain] = route.egressAsset.split('.')
     // Translate Chainflip chain slugs (sol/btc/eth/arb/dot) to the Rango chain
@@ -218,14 +231,12 @@ const RouteCard = () => {
             )}
           </div>
         </div>
-        <div className="absolute top-0 right-2 px-2 py-1 rounded-md text-sm font-bold text-primary-dark border border-primary-dark">
-          {"Wallet-less"}
-        </div>
+        {badgeTemplate("Wallet-less", isBest)}
       </div>
     );
   };
 
-  const exolixRoute = (route: RateResponse) => {
+  const exolixRoute = (route: RateResponse, isBest?: boolean) => {
     if (tokenFrom && tokenTo) {
       const blockchainFrom: Blockchain | undefined = chains.find(
         (blockchain: Blockchain) =>
@@ -274,9 +285,7 @@ const RouteCard = () => {
               )}
             </div>
           </div>
-          <div className="absolute top-0 right-2 px-2 py-1 rounded-md text-sm font-bold text-primary-dark border border-primary-dark">
-            {"Wallet-less"}
-          </div>
+          {badgeTemplate("Wallet-less", isBest)}
         </div>
       );
     }
@@ -400,8 +409,8 @@ const RouteCard = () => {
   return (
     <Card
       className={cn(
-        "h-full flex flex-col w-full border-[#AAA]/20 backdrop-blur-lg p-6 rounded-[2rem] shadow-lg text-white",
-        isMobile ? "bg-primary/10 p-5" : "max-w-[650px] bg-modal/5 p-6 border"
+        "h-full flex flex-col w-full glass-card shadow-card p-6 rounded-3xl text-white",
+        isMobile ? "p-5" : "max-w-[650px] p-6"
       )}
     >
       <CardHeader className="md:p-4 py-4 px-0">
@@ -417,7 +426,7 @@ const RouteCard = () => {
                 value={filter}
                 id={filter}
                 key={filter}
-                className="rounded-full border border-primary px-2 py-1 bg-primary/5 text-nowrap transition duration-300 ease-out hover:bg-transparent text-white text-xs data-[state=checked]:bg-primary data-[state=checked]:text-black"
+                className="rounded-full border border-white/15 px-3 py-1 text-nowrap text-xs text-white/70 transition duration-300 hover:border-primary/50 hover:text-white data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:font-semibold data-[state=checked]:text-black data-[state=checked]:shadow-neon-sm"
               >
                 {filter}
               </RadioGroupPrimitive.Item>
@@ -465,7 +474,7 @@ const RouteCard = () => {
                 onValueChange={(value) =>
                   setSelectedRoute(sortedRoutes[parseInt(value)])
                 }
-                className="w-full h-full"
+                className="w-full h-full space-y-2"
               >
                 {sortedRoutes.map((route, index) => {
                   return (
@@ -481,14 +490,14 @@ const RouteCard = () => {
                         value={index.toString()}
                         id={index.toString()}
                         key={index}
-                        className="w-full rounded-lg border border-white/20 data-[state=checked]:border-primary p-4 bg-primary/5 bg-opacity-50 transition duration-300 ease-out hover:bg-transparent"
+                        className="w-full rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition duration-300 hover:border-primary/40 hover:bg-primary/5 data-[state=checked]:border-primary data-[state=checked]:bg-primary/10 data-[state=checked]:shadow-neon-sm"
                       >
                         {'outputAmount' in route ? (
-                          rangoRoute(route)
+                          rangoRoute(route, index === 0)
                         ) : 'egressAmount' in route ? (
-                          chainflipRoute(route)
+                          chainflipRoute(route, index === 0)
                         ) : 'toAmount' in route ? (
-                          exolixRoute(route)
+                          exolixRoute(route, index === 0)
                         ) : (
                           <></>
                         )}
