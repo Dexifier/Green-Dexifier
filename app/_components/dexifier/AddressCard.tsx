@@ -26,7 +26,7 @@ import {
 import { ChainflipError, ChainflipSwapStatus } from "@/app/types/chainflip";
 import { ExTxInfo, TxRequest } from "@/app/types/exolix";
 import { toastError } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 
 const AddressesCard = () => {
   const {
@@ -262,7 +262,7 @@ const AddressesCard = () => {
   };
 
   return (
-    <Card className="flex flex-col max-w-[650px] md:min-h-[540px] w-full h-full bg-[#041008]/85 md:backdrop-blur-2xl md:p-6 rounded-[28px] border border-primary/25 md:neon-frame animate-rise text-white">
+    <Card className="flex flex-col max-w-[650px] md:min-h-[540px] w-full h-full bg-white/[0.07] backdrop-blur-2xl backdrop-saturate-150 md:p-6 rounded-[28px] border border-primary/25 md:neon-frame animate-rise text-white">
       <CardHeader className="md:p-4 md:pt-0 px-4 pt-6">
         <CardTitle className="md:text-2xl text-lg font-display font-bold uppercase tracking-[0.15em] text-glow">
           {swapStatus ? (
@@ -274,9 +274,9 @@ const AddressesCard = () => {
           )}
         </CardTitle>
       </CardHeader>
-      <Separator className="bg-[#AAA]/20 md:block hidden" />
+      <Separator className="bg-gradient-to-r from-transparent via-primary/40 to-transparent md:block hidden" />
       <CardContent className="flex flex-col md:px-6 md:pb-0 p-4 overflow-y-auto overflow-x-hidden flex-1">
-        <div className="flex w-full md:justify-center items-center gap-3 md:my-4 mb-6 md:text-lg text-sm font-bold md:bg-transparent bg-primary/30 rounded-lg px-3 py-2">
+        <div className="flex w-full md:justify-center items-center gap-3 md:my-4 mb-6 md:text-lg text-sm font-bold tnum bg-white/5 border border-white/10 rounded-2xl px-3 py-2">
           {tokenFrom && (
             <>
               <TokenIcon
@@ -295,20 +295,7 @@ const AddressesCard = () => {
               </div>
             </>
           )}
-          <Image
-            src={"/assets/icons/circleArrow.png"}
-            width={0}
-            height={0}
-            alt="circleAddress"
-            className="md:block hidden size-8"
-          />
-          <Image
-            src={"/assets/icons/circleArrow.svg"}
-            width={0}
-            height={0}
-            alt="circleAddress"
-            className="md:hidden size-5"
-          />
+          <ArrowRight className="text-primary md:size-7 size-5 shrink-0" />
           {tokenTo && (
             <>
               <TokenIcon
@@ -331,7 +318,7 @@ const AddressesCard = () => {
         <div>
           <Label
             htmlFor="withdrawal"
-            className="md:text-lg text-sm md:capitalize uppercase md:text-white text-primary"
+            className="text-sm font-medium uppercase tracking-wider text-white/50"
           >
             Recipient{" "}
             <span className="text-primary">
@@ -341,8 +328,8 @@ const AddressesCard = () => {
           </Label>
           <div
             id="withdrawal"
-            className={`${withdrawalAddress ? "border-[#695F5F]" : "border-primary"
-              } md:border flex items-center justify-between rounded-lg md:p-3 p-2 shadow-md max-h-[3.3125rem] my-3 md:bg-[#000]/30 bg-primary/30 backdrop-blur-lg`}
+            className={`${withdrawalAddress ? "border-white/10" : "border-primary/60"
+              } flex items-center justify-between rounded-2xl border p-3 max-h-[3.3125rem] my-3 bg-black/40 transition duration-300 hover:border-white/20 focus-within:border-primary/60 focus-within:shadow-neon-sm`}
           >
             <Input
               type="text"
@@ -353,7 +340,7 @@ const AddressesCard = () => {
               disabled={!!swapStatus}
             />
             <Button
-              className="border border-primary text-primary rounded-lg p-1 md:text-base text-xs h-full bg-transparent md:lowercase uppercase"
+              className="rounded-xl bg-primary/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary hover:bg-primary/25 border-none h-full"
               disabled={!!swapStatus}
               onClick={() => pasteFromClipboard(setWithdrawalAddress)}
             >
@@ -362,14 +349,14 @@ const AddressesCard = () => {
           </div>
 
           {!withdrawalAddress && (
-            <span className="text-primary md:block hidden mb-6">
+            <span className="text-primary/70 text-xs md:block hidden mb-6">
               Enter the Recipient Address first !
             </span>
           )}
 
           <Label
             htmlFor="refund"
-            className="md:text-lg text-sm md:capitalize uppercase md:text-white text-primary"
+            className="text-sm font-medium uppercase tracking-wider text-white/50"
           >
             Refund{" "}
             <span className="text-primary">
@@ -379,8 +366,8 @@ const AddressesCard = () => {
           </Label>
           <div
             id="refund"
-            className={`${refundAddress ? "border-[#695F5F]" : "border-primary"
-              } md:border flex items-center justify-between rounded-lg md:p-3 p-2 shadow-md max-h-[3.3125rem] my-3 md:bg-[#000]/30 bg-primary/30 backdrop-blur-lg`}
+            className={`${refundAddress ? "border-white/10" : "border-primary/60"
+              } flex items-center justify-between rounded-2xl border p-3 max-h-[3.3125rem] my-3 bg-black/40 transition duration-300 hover:border-white/20 focus-within:border-primary/60 focus-within:shadow-neon-sm`}
           >
             <Input
               type="text"
@@ -391,7 +378,7 @@ const AddressesCard = () => {
               disabled={!!swapStatus}
             />
             <Button
-              className="border border-primary text-primary rounded-lg p-1 md:text-base text-xs h-full bg-transparent md:lowercase uppercase"
+              className="rounded-xl bg-primary/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary hover:bg-primary/25 border-none h-full"
               disabled={!!swapStatus}
               onClick={() => pasteFromClipboard(setRefundAddress)}
             >
@@ -400,7 +387,7 @@ const AddressesCard = () => {
           </div>
 
           {!refundAddress && (
-            <span className="text-primary md:block hidden">
+            <span className="text-primary/70 text-xs md:block hidden">
               Enter the Refund Address!
             </span>
           )}
@@ -417,10 +404,10 @@ const AddressesCard = () => {
                       className="md:block hidden"
                     />
                   </div>
-                  <span className="text-primary uppercase md:w-auto w-32">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-white/45 md:w-auto w-32">
                     Created Time : &nbsp;
                   </span>
-                  <span>
+                  <span className="tnum text-white/80">
                     {formatReadableDate(new Date(status.createdAt || 0))}
                   </span>
                 </div>
@@ -434,10 +421,10 @@ const AddressesCard = () => {
                       className="md:block hidden"
                     />
                   </div>
-                  <span className="text-primary uppercase md:w-auto w-32">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-white/45 md:w-auto w-32">
                     Transaction ID : &nbsp;
                   </span>
-                  <span className="pr-2">{status.id}</span>
+                  <span className="pr-2 tnum text-white/80">{status.id}</span>
                   <ButtonCopyIcon text={status.id} />
                 </div>
                 <div className="flex md:items-center">
@@ -450,10 +437,10 @@ const AddressesCard = () => {
                       className="md:block hidden"
                     />
                   </div>
-                  <span className="text-primary uppercase md:w-auto w-32">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-white/45 md:w-auto w-32">
                     Status : &nbsp;
                   </span>
-                  <span>{status.status}</span>
+                  <span className="text-white/80">{status.status}</span>
                 </div>
               </div>
             </div>
@@ -461,7 +448,7 @@ const AddressesCard = () => {
         </div>
         <div className="my-2">
           {/* {txData && <div>
-            <Label htmlFor="deposit" className="md:text-lg text-sm md:capitalize uppercase md:text-white text-primary">Deposit <span className="text-primary">{tokenFrom?.blockchain} <span className="md:hidden">{'('}</span>{tokenFrom?.symbol}<span className="md:hidden">{')'}</span></span> address</Label>
+            <Label htmlFor="deposit" className="text-sm font-medium uppercase tracking-wider text-white/50">Deposit <span className="text-primary">{tokenFrom?.blockchain} <span className="md:hidden">{'('}</span>{tokenFrom?.symbol}<span className="md:hidden">{')'}</span></span> address</Label>
             <div id="deposit" className={`${txData.depositAddress ? "border-primary/40" : "border-[#695F5F]"} border flex items-center justify-between rounded-lg md:p-3 p-2 shadow-md max-h-[3.3125rem] md:my-3 mt-1 mb-3 bg-transparent`}>
               <Input
                 type='text'
@@ -480,7 +467,7 @@ const AddressesCard = () => {
             <div>
               <Label
                 htmlFor="deposit"
-                className="md:text-lg text-sm md:capitalize uppercase md:text-white text-primary"
+                className="text-sm font-medium uppercase tracking-wider text-white/50"
               >
                 Deposit{" "}
                 <span className="text-primary">
@@ -494,9 +481,9 @@ const AddressesCard = () => {
               <div
                 id="deposit"
                 className={`${status.depositAddress
-                  ? "border-primary/40"
-                  : "border-[#695F5F]"
-                  } border flex items-center justify-between rounded-lg md:p-3 p-2 shadow-md max-h-[3.3125rem] md:my-3 mt-1 mb-3 bg-transparent`}
+                  ? "border-primary/60 shadow-neon-sm"
+                  : "border-white/10"
+                  } flex items-center justify-between rounded-2xl border p-3 max-h-[3.3125rem] md:my-3 mt-1 mb-3 bg-black/40 transition duration-300`}
               >
                 <Input
                   type="text"
@@ -529,8 +516,8 @@ const AddressesCard = () => {
         <CardFooter className={`${isMobile && 'hidden'}`}>
           <Button
             disabled={state === DEXIFIER_STATE.PENDING || !withdrawalAddress}
-            className={`w-full md:max-w-[50%] lg:max-w-[33%] font-semibold h-10 mx-auto text-xl disabled:cursor-not-allowed cursor-pointer transition duration-300 ease-out`}
-            variant={"outline"}
+            className={`btn-sheen w-full h-14 text-xl font-extrabold uppercase tracking-widest mx-auto`}
+            variant={"neon"}
             onClick={async () => {
               try {
                 await createSwap();

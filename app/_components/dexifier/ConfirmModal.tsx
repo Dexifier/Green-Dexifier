@@ -262,21 +262,21 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
       <DialogContent className="w-[30rem] bg-transparent max-h-[90vh] max-w-[90vw] p-6 bg-[#041008]/95 backdrop-blur-2xl border border-primary/25 shadow-neon-lg !rounded-3xl">
         <DialogHeader>
           <div className="flex flex-row justify-between p-2">
-            <DialogTitle className="text-2xl">Confirm</DialogTitle>
+            <DialogTitle className="font-display text-xl font-bold uppercase tracking-[0.15em] text-glow">Confirm</DialogTitle>
             <DialogClose>
               <X className="w-7 h-7 p-1 bg-primary rounded-full font-bold text-black hover:bg-primary-dark transition-colors duration-300" />
             </DialogClose>
           </div>
-          <Separator className="bg-separator" />
+          <Separator className="bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
           <DialogDescription className="flex items-center justify-around">
             {swapInfo && (
               <div className="text-sm font-bold text-center py-2">
                 Confirm Swap &nbsp;
-                <span className="text-[#bbbbbb] text-lg">
+                <span className="text-primary text-lg tnum">
                   {swapInfo.from.amount.toFixed(2)} &nbsp;
                 </span>
                 {swapInfo.from.symbol} [{swapInfo.from.blockchain}] to &nbsp;
-                <span className="text-[#bbbbbb] text-lg">
+                <span className="text-primary text-lg tnum">
                   {" "}
                   {swapInfo.to.amount.toFixed(2)} &nbsp;
                 </span>
@@ -302,7 +302,7 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
                       <div className="rounded-full size-6 bg-primary font-bold grid place-content-center text-black">
                         <div>{index + 1}</div>
                       </div>
-                      <span className="text-base">Your {chain} wallet</span>
+                      <span className="text-sm font-semibold uppercase tracking-wider text-white/60">Your {chain} wallet</span>
                     </Label>
                     {/* RadioGroup for selecting the wallet */}
                     <RadioGroup
@@ -346,7 +346,7 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
                             value={wallet.walletType}
                             id={wallet.walletType}
                             key={index}
-                            className="w-24 h-28 rounded-lg border data-[state=checked]:bg-primary/30 hover:border-gray-500"
+                            className="w-24 h-28 rounded-2xl border border-white/10 bg-white/5 transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 hover:shadow-neon-sm hover:-translate-y-0.5 data-[state=checked]:border-primary data-[state=checked]:bg-primary/10 data-[state=checked]:shadow-neon-sm"
                           >
                             <div className="flex justify-center">
                               <TokenIcon
@@ -364,7 +364,7 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
                               {wallet.walletType}
                             </span>{" "}
                             {/* Display wallet type */}
-                            <span className="flex items-center justify-center text-xs">
+                            <span className="flex items-center justify-center text-[11px] tnum text-white/50">
                               <span>{getAbbrAddress(wallet.address)}</span>{" "}
                               {/* Display abbreviated wallet address */}
                               <div className="size-4 place-items-center">
@@ -377,7 +377,7 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
                       )}
                       {/* Modal to connect more wallets */}
                       <WalletConnectModal chain={chain}>
-                        <div className="w-24 h-28 rounded-lg border flex text-center items-center hover:border-gray-500 cursor-pointer">
+                        <div className="w-24 h-28 rounded-2xl border border-white/10 bg-white/5 flex text-center items-center justify-center text-sm text-white/50 cursor-pointer transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 hover:-translate-y-0.5">
                           More wallet...
                         </div>
                       </WalletConnectModal>
@@ -390,9 +390,9 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
         </div>
         {/* <div className="text-error font-bold text-xs text-center tracking-wide">{confirmHasError(confirmData).message}</div> */}
         <Button
-          variant={isInitializingSwap ? "outline" : "primary"}
+          variant="neon"
           onClick={confirmSwap}
-          className="mx-auto h-12 w-48"
+          className="btn-sheen w-full h-14 text-lg font-extrabold uppercase tracking-widest"
           disabled={
             isInitializingSwap ||
             !walletFrom ||
