@@ -24,7 +24,7 @@ import {
   getRangoRoutes,
 } from "@/lib/api-client";
 import axios from "axios";
-import { getExolixflipBlockchainName, MAP_BLOCKCHAIN_RANGO_2_EXOLIX } from "../utils/exolix";
+import { MAP_BLOCKCHAIN_RANGO_2_EXOLIX, resolveExolixNetwork } from "../utils/exolix";
 import { Blockchain, Token } from "../types/dexifier";
 
 // Define the type for the context
@@ -213,9 +213,9 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
     try {
       const exolixRateRequest: RateRequest = {
         coinFrom: tokenFrom.symbol,
-        networkFrom: getExolixflipBlockchainName(tokenFrom.blockchain),
+        networkFrom: resolveExolixNetwork(tokenFrom.blockchain, networks),
         coinTo: tokenTo.symbol,
-        networkTo: getExolixflipBlockchainName(tokenTo.blockchain),
+        networkTo: resolveExolixNetwork(tokenTo.blockchain, networks),
         amount: amount,
         rateType: 'float',
       }
@@ -280,9 +280,9 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
     if ('toAmount' in selectedRoute) {
       const txRequest: TxRequest = {
         coinFrom: tokenFrom.symbol,
-        networkFrom: tokenFrom.blockchain,
+        networkFrom: resolveExolixNetwork(tokenFrom.blockchain, networks) ?? tokenFrom.blockchain,
         coinTo: tokenTo.symbol,
-        networkTo: tokenTo.blockchain,
+        networkTo: resolveExolixNetwork(tokenTo.blockchain, networks) ?? tokenTo.blockchain,
         amount: parseFloat(amountFrom),
         withdrawalAddress: withdrawalAddress,
         rateType: "float",

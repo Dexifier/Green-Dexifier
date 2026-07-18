@@ -160,12 +160,13 @@ const DexifierCard: React.FC = () => {
             type="number"
             id="tokenFrom"
             placeholder="Please enter 1-42000000"
-            className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:outline-0 focus-visible:ring-offset-0 placeholder:text-white/50"
+            className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:outline-0 focus-visible:ring-offset-0 placeholder:text-white/50 pr-8"
             value={amountFrom}
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
               // e.target.value = parseFloat(e.target.value).toString();
               setAmountFrom(e.target.value);
             }}
+            onClear={() => setAmountFrom("")}
             token={tokenFrom}
             setToken={setTokenFrom}
           />
@@ -195,7 +196,7 @@ const DexifierCard: React.FC = () => {
             disabled
             token={tokenTo}
             setToken={setTokenTo}
-            value={Number(amountTo).toFixed(2)}
+            value={Number(amountTo) ? formatCryptoAmount(Number(amountTo)) : "0"}
           />
         </div>
       </CardContent>
