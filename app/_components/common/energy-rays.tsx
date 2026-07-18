@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 //    with a light trail that fades after ~1-2s. Several rays are followers:
 //    they lean toward the pointer and orbit it while it's active.
 // 2. Fog — a low-res persistence canvas where ray heads stamp soft light
-//    that fades over ~4s. The pointer parts the fog like a flashlight.
+//    that fades over ~2.5s. The pointer parts the fog like a flashlight.
 // 3. Dust — tiny drifting, twinkling motes so the darkness has texture.
 // Everything is time-based (not frame-count-based) so it survives low fps.
 
@@ -236,13 +236,13 @@ export default function EnergyRays() {
       pointer.sx += (pointer.x - pointer.sx) * pk;
       pointer.sy += (pointer.y - pointer.sy) * pk;
 
-      // --- fog: time-based fade (90% gone every ~4s at any frame rate) ---
+      // --- fog: time-based fade (90% gone every ~2.5s at any frame rate) ---
       fctx.globalCompositeOperation = "destination-out";
-      fctx.fillStyle = `rgba(0, 0, 0, ${Math.min(1, 1 - Math.pow(0.1, dt / 4000))})`;
+      fctx.fillStyle = `rgba(0, 0, 0, ${Math.min(1, 1 - Math.pow(0.1, dt / 2500))})`;
       fctx.fillRect(0, 0, w, h);
       // flashlight: the pointer parts the fog, rays refill it over time
       if (pointer.env > 0.001) {
-        const ea = Math.min(1, dt / 90) * pointer.env;
+        const ea = Math.min(1, dt / 25) * pointer.env;
         const eg = fctx.createRadialGradient(
           pointer.sx, pointer.sy, 0,
           pointer.sx, pointer.sy, FOG_ERASE_RADIUS

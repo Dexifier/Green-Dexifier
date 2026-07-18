@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useDexifier } from "@/app/providers/DexifierProvider";
 import { useNotification } from "@/app/providers/NotificationProvider";
+import { useWidget } from "@rango-dev/widget-embedded";
 import { formatCryptoAmount } from "@/app/utils";
 import { ArrowRight, Check, Loader2, TriangleAlert, X } from "lucide-react";
 
@@ -53,18 +54,25 @@ const DexifierDetailRango = () => {
     : undefined;
   const pendingSwap = selectedSwap?.swap; // Get the selected swap from the pending swaps
 
+  // Refresh balances app-wide (navbar, card, wallet details) once a swap
+  // reaches a terminal state, and notify success/failure correctly.
+  const { wallets } = useWidget();
+  const { details: connectedWallets, refetch: refetchBalances } = wallets;
+
   useEffect(() => {
-    if (pendingSwap?.status === "failed") {
-      const tokenFrom = pendingSwap.simulationResult.swaps[0].from;
-      const tokenTo = pendingSwap.simulationResult.swaps[-1].to;
-      const amountFrom = Number(pendingSwap.inputAmount).toFixed(2);
-      const amountTo = Number(pendingSwap.simulationResult.outputAmount).toFixed(2);
-      notify('Swap success!', {
-        body: `${tokenFrom.blockchain} ${amountFrom} ${tokenFrom.symbol} -> ${tokenTo.blockchain} ${amountTo} ${tokenTo.symbol}`,
-        icon: '/assets/logo.png',
-      })
-    }
-  }, [pendingSwap])
+    if (!pendingSwap) return;
+    if (pendingSwap.status !== "success" && pendingSwap.status !== "failed") return;
+    if (connectedWallets.length) refetchBalances(connectedWallets);
+    const steps = pendingSwap.simulationResult.swaps;
+    const tokenFrom = steps[0]?.from;
+    const tokenTo = steps[steps.length - 1]?.to;
+    const amountFrom = formatCryptoAmount(Number(pendingSwap.inputAmount));
+    const amountTo = formatCryptoAmount(Number(pendingSwap.simulationResult.outputAmount));
+    notify(pendingSwap.status === "success" ? 'Swap completed!' : 'Swap failed', {
+      body: `${tokenFrom?.blockchain} ${amountFrom} ${tokenFrom?.symbol} -> ${tokenTo?.blockchain} ${amountTo} ${tokenTo?.symbol}`,
+      icon: '/assets/logo.png',
+    })
+  }, [pendingSwap?.status])
 
   // Handle canceling the swap
   const onCancel = () => {
