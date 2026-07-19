@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Search from "../common/search";
 import { PropsWithChildren, useMemo, useState } from "react";
-import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { ResponsiveContent, useResponsiveModal } from "../common/responsive-modal";
 import { X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { useStatefulConnect, useWalletList, WalletInfoWithExtra } from "@rango-dev/widget-embedded";
@@ -23,6 +23,7 @@ interface WalletConnectModalProps {
 }
 
 const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> = (props) => {
+  const { Root, Trigger, Close, Header, Title } = useResponsiveModal();
   const [search, setSearch] = useState<string>(""); // State for search input
   const { list } = useWalletList({ chain: props.chain }); // Fetch wallet list filtered by chain (if provided)
   // Hub-based wallets (MetaMask, Phantom, …) require explicit namespaces when
@@ -73,17 +74,17 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
   }
 
   return (
-    <Dialog>
+    <Root>
       {/* Trigger dialog via children */}
-      <DialogTrigger asChild>{props.children}</DialogTrigger>
-      <DialogContent className="sm:max-w-md bg-transparent max-h-[90vh] max-w-[90vw] p-4 md:p-6 bg-[#041008]/95 backdrop-blur-2xl border border-primary/25 shadow-neon-lg !rounded-3xl">
+      <Trigger asChild>{props.children}</Trigger>
+      <ResponsiveContent className="sm:max-w-md md:max-h-[90vh] md:max-w-[90vw] p-4 md:p-6 md:bg-[#041008]/95 md:backdrop-blur-2xl md:border md:border-primary/25 md:shadow-neon-lg md:!rounded-3xl">
         {/* Dialog header with title and close button */}
-        <DialogHeader className="flex flex-row justify-between">
-          <DialogTitle className="font-display text-xl font-bold uppercase tracking-[0.15em]">Connect <span className="text-primary">{props.chain}</span> Wallets</DialogTitle>
-          <DialogClose>
+        <Header className="flex flex-row justify-between">
+          <Title className="font-display text-xl font-bold uppercase tracking-[0.15em]">Connect <span className="text-primary">{props.chain}</span> Wallets</Title>
+          <Close>
             <X className="w-7 h-7 p-1 bg-primary rounded-full font-bold text-black hover:bg-primary-dark transition-colors duration-300" />
-          </DialogClose>
-        </DialogHeader>
+          </Close>
+        </Header>
         <Separator className="bg-gradient-to-r from-transparent via-primary/40 to-transparent" /> {/* Separator between header and content */}
         {/* Search component for filtering wallets */}
         <Search value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -102,8 +103,8 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
             </button>
           ))}
         </div>
-      </DialogContent>
-    </Dialog>
+      </ResponsiveContent>
+    </Root>
   )
 }
 

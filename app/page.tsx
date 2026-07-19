@@ -85,9 +85,9 @@ export default function SwapPage() {
         )}
       </section>
       {isMobile && (
-        <div className="flex-1 py-12">
+        <div className="sticky bottom-0 z-40 -mx-8 mt-auto px-8 pb-6 pt-10 bg-gradient-to-t from-[#020805] via-[#020805]/90 to-transparent">
           <Button
-            className="w-full h-12"
+            className="btn-sheen w-full h-14 rounded-2xl text-lg font-extrabold uppercase tracking-widest"
             variant={state === DEXIFIER_STATE.PENDING ? 'outline' : 'neon'}
             disabled={!selectedRoute || state === DEXIFIER_STATE.PENDING}
             onClick={() => {

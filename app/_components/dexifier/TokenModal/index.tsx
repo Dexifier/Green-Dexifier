@@ -5,13 +5,9 @@ import React, { Dispatch, PropsWithChildren, SetStateAction, useCallback, useEff
 import { Check, X } from "lucide-react";
 import { isEqual } from "lodash";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  ResponsiveContent,
+  useResponsiveModal,
+} from "../../common/responsive-modal";
 import TooltipTemplate from "../../common/tooltip-template";
 import Search from "../../common/search";
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -46,6 +42,7 @@ const TokenModal: React.FC<PropsWithChildren<TokenModalProps>> = ({ children, se
   // const { tokens } = meta; // Extract tokens from the metadata
   const { details: connectedWallets } = wallets;
   const { coins } = useDexifier();
+  const { Root, Trigger, Close, Header, Title } = useResponsiveModal();
 
   // Effect to filter tokens based on the selected blockchain
   useEffect(() => {
@@ -96,17 +93,17 @@ const TokenModal: React.FC<PropsWithChildren<TokenModalProps>> = ({ children, se
   }
 
   return (
-    <Dialog>
+    <Root>
       {/* Trigger to open the dialog */}
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="flex flex-col sm:max-w-md max-h-[90vh] max-w-[90vw] p-4 md:p-6 bg-[#041008]/95 backdrop-blur-2xl border border-primary/25 shadow-neon-lg !rounded-3xl">
-        <DialogHeader className="flex flex-row justify-between">
+      <Trigger asChild>{children}</Trigger>
+      <ResponsiveContent className="flex flex-col sm:max-w-md md:max-h-[90vh] md:max-w-[90vw] p-4 md:p-6 md:bg-[#041008]/95 md:backdrop-blur-2xl md:border md:border-primary/25 md:shadow-neon-lg md:!rounded-3xl">
+        <Header className="flex flex-row justify-between">
           {/* Dialog header with title and close button */}
-          <DialogTitle className="font-display text-xl font-bold uppercase tracking-[0.15em] text-glow">Swap Source</DialogTitle>
-          <DialogClose>
+          <Title className="font-display text-xl font-bold uppercase tracking-[0.15em] text-glow">Swap Source</Title>
+          <Close>
             <X className="w-7 h-7 p-1 bg-primary rounded-full font-bold text-black hover:bg-primary-dark transition-colors duration-300" />
-          </DialogClose>
-        </DialogHeader>
+          </Close>
+        </Header>
         <Separator className="bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
         <Label className="text-sm font-medium uppercase tracking-wider text-white/50">Select Blockchain</Label>
         {/* Display blockchain options */}
@@ -133,7 +130,7 @@ const TokenModal: React.FC<PropsWithChildren<TokenModalProps>> = ({ children, se
                   const tokenAmount = getTokenAmount(token);
                   const tokenAmountInUSD = getTokenAmount(token, true);
                   return (
-                    <DialogClose
+                    <Close
                       className={cn("p-2 border rounded-2xl w-full cursor-pointer bg-transparent hover:bg-primary/5 hover:border-primary/50 transition-all duration-300",
                         isSelected ? "border-primary shadow-neon-sm bg-primary/10" : "border-white/10"
                       )}
@@ -186,15 +183,15 @@ const TokenModal: React.FC<PropsWithChildren<TokenModalProps>> = ({ children, se
                           </div>
                         </div>
                       </div>
-                    </DialogClose>
+                    </Close>
                   )
                 })}
               </InfiniteScroll>
             </div>
           </>
         }
-      </DialogContent>
-    </Dialog>
+      </ResponsiveContent>
+    </Root>
   );
 };
 
