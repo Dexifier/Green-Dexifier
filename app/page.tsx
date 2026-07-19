@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import AddressesCard from "./_components/dexifier/AddressCard";
 import AmbientBackground from "./_components/common/ambient-background";
+import SwapSuccessOverlay from "./_components/common/swap-success-overlay";
 import { Loader2 } from "lucide-react";
 
 export default function SwapPage() {
@@ -33,6 +34,7 @@ export default function SwapPage() {
       )}
     >
       <AmbientBackground />
+      <SwapSuccessOverlay />
       <section
         className={cn(
           "flex justify-center",
