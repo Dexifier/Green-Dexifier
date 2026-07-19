@@ -12,15 +12,8 @@ import CustomLoader from "../common/loader";
 import { confirmRangoRoute } from "@/lib/api-client";
 import { toastError } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { ResponsiveContent, useResponsiveModal } from "../common/responsive-modal";
+import { DialogDescription } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import {
   ConnectedWallet,
@@ -75,6 +68,7 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
     setState,
     isMobile,
   } = useDexifier();
+  const { Root, Trigger, Close, Header, Title } = useResponsiveModal();
   const [isInitializingSwap, initializeSwap] = useTransition();
 
   // State hooks for managing the modal, wallets, and withdrawal address input
@@ -252,21 +246,21 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
   };
 
   return (
-    <Dialog
+    <Root
       open={open}
-      onOpenChange={(open) => {
+      onOpenChange={(open: boolean) => {
         // setConfirmData(undefined);  // Clear confirmation data when modal is closed
         setOpen(open);
       }}
     >
-      <DialogTrigger asChild>{props.children}</DialogTrigger>
-      <DialogContent className="w-[30rem] bg-transparent max-h-[90vh] max-w-[90vw] p-6 bg-[#041008]/95 backdrop-blur-2xl border border-primary/25 shadow-neon-lg !rounded-3xl">
-        <DialogHeader>
+      <Trigger asChild>{props.children}</Trigger>
+      <ResponsiveContent className="md:w-[30rem] md:max-h-[90vh] md:max-w-[90vw] p-6 md:bg-[#041008]/95 md:backdrop-blur-2xl md:border md:border-primary/25 md:shadow-neon-lg md:!rounded-3xl">
+        <Header>
           <div className="flex flex-row justify-between p-2">
-            <DialogTitle className="font-display text-xl font-bold uppercase tracking-[0.15em] text-glow">Confirm</DialogTitle>
-            <DialogClose>
+            <Title className="font-display text-xl font-bold uppercase tracking-[0.15em] text-glow">Confirm</Title>
+            <Close>
               <X className="w-7 h-7 p-1 bg-primary rounded-full font-bold text-black hover:bg-primary-dark transition-colors duration-300" />
-            </DialogClose>
+            </Close>
           </div>
           <Separator className="bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
           <DialogDescription className="flex items-center justify-around">
@@ -291,7 +285,7 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
               <Image src={"/assets/icons/reset-icon.png"} width={20} height={20} alt="refresh" />
             </button> */}
           </DialogDescription>
-        </DialogHeader>
+        </Header>
         <div className="h-[40vh] overflow-y-auto pe-1">
           <div className="space-y-4">
             {Array.from(
@@ -408,8 +402,8 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
             "Confirm"
           )}
         </Button>
-      </DialogContent>
-    </Dialog>
+      </ResponsiveContent>
+    </Root>
   );
 };
 

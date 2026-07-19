@@ -339,7 +339,7 @@ const RouteCard = () => {
                 value={filter}
                 id={filter}
                 key={filter}
-                className="rounded-full border border-white/15 px-3 py-1 text-nowrap text-xs text-white/70 transition duration-300 hover:border-primary/50 hover:text-white data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:font-semibold data-[state=checked]:text-black data-[state=checked]:shadow-neon-sm"
+                className="rounded-full border border-white/15 px-3 py-1 max-sm:min-h-11 max-sm:px-5 max-sm:text-sm text-nowrap text-xs text-white/70 transition duration-300 hover:border-primary/50 hover:text-white data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:font-semibold data-[state=checked]:text-black data-[state=checked]:shadow-neon-sm"
               >
                 {filter}
               </RadioGroupPrimitive.Item>
