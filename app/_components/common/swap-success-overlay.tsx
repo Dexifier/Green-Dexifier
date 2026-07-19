@@ -36,6 +36,7 @@ const playFallbackChime = () => {
     const Ctx = window.AudioContext || (window as any).webkitAudioContext;
     if (!Ctx) return;
     const ctx = new Ctx();
+    ctx.resume().catch(() => {});
     const now = ctx.currentTime;
     // rising sparkle arpeggio
     [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
