@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import ButtonCopyIcon from "../common/coyp-button-icon";
@@ -28,6 +28,7 @@ import { ChainflipError, ChainflipSwapStatus } from "@/app/types/chainflip";
 import { ExTxInfo, TxRequest } from "@/app/types/exolix";
 import { toastError } from "@/lib/utils";
 import { ArrowRight, Info, Loader2 } from "lucide-react";
+import { SWAP_SUCCESS_EVENT } from "../common/swap-success-overlay";
 
 const AddressesCard = () => {
   const {
@@ -76,6 +77,18 @@ const AddressesCard = () => {
       }
     }
   }, [swapStatus]);
+
+  // Celebrate when a wallet-less swap reaches a terminal success state (once per swap)
+  const celebratedRef = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    if (!status) return;
+    const terminalSuccess = status.status === "COMPLETED" || status.status === "success";
+    if (!terminalSuccess) return;
+    const key = String(status.id ?? "unknown");
+    if (celebratedRef.current === key) return;
+    celebratedRef.current = key;
+    window.dispatchEvent(new CustomEvent(SWAP_SUCCESS_EVENT));
+  }, [status?.status]);
 
   async function pasteFromClipboard(setFunc: React.Dispatch<React.SetStateAction<string>>) {
     try {

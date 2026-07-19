@@ -20,6 +20,7 @@ import { useNotification } from "@/app/providers/NotificationProvider";
 import { useWidget } from "@rango-dev/widget-embedded";
 import { formatCryptoAmount } from "@/app/utils";
 import { ArrowRight, Check, Loader2, TriangleAlert, X } from "lucide-react";
+import { SWAP_SUCCESS_EVENT } from "../common/swap-success-overlay";
 
 interface SwapTokenProps {
   swapData: SwapResult, // Data related to the token being swapped
@@ -63,6 +64,9 @@ const DexifierDetailRango = () => {
     if (!pendingSwap) return;
     if (pendingSwap.status !== "success" && pendingSwap.status !== "failed") return;
     if (connectedWallets.length) refetchBalances(connectedWallets);
+    if (pendingSwap.status === "success") {
+      window.dispatchEvent(new CustomEvent(SWAP_SUCCESS_EVENT));
+    }
     const steps = pendingSwap.simulationResult.swaps;
     const tokenFrom = steps[0]?.from;
     const tokenTo = steps[steps.length - 1]?.to;
