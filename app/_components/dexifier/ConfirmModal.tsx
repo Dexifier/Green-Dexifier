@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
 import {
+  Fragment,
   PropsWithChildren,
   useEffect,
   useMemo,
@@ -270,17 +271,20 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
           <Separator className="bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
           <DialogDescription className="flex items-center justify-around">
             {swapInfo && (
-              <div className="text-sm font-bold text-center py-2">
-                Confirm Swap &nbsp;
-                <span className="text-primary text-lg tnum">
-                  {swapInfo.from.amount.toFixed(2)} &nbsp;
-                </span>
-                {swapInfo.from.symbol} [{swapInfo.from.blockchain}] to &nbsp;
-                <span className="text-primary text-lg tnum">
-                  {" "}
-                  {swapInfo.to.amount.toFixed(2)} &nbsp;
-                </span>
-                {swapInfo.to.symbol} [{swapInfo.to.blockchain}]
+              <div className="text-center py-2">
+                <div className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+                  Confirm Swap
+                </div>
+                <div className="mt-1 text-sm text-white/80">
+                  <span className="text-primary text-lg tnum font-semibold">
+                    {swapInfo.from.amount.toFixed(2)}
+                  </span>{" "}
+                  {swapInfo.from.symbol} [{swapInfo.from.blockchain}] →{" "}
+                  <span className="text-primary text-lg tnum font-semibold">
+                    {swapInfo.to.amount.toFixed(2)}
+                  </span>{" "}
+                  {swapInfo.to.symbol} [{swapInfo.to.blockchain}]
+                </div>
               </div>
             )}
             {/* <button className="w-[30px] px-1" onClick={confirmWallet}>
@@ -290,13 +294,19 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
         </DialogHeader>
         <div className="h-[40vh] overflow-y-auto pe-1">
           <div className="space-y-4">
-            {[swapInfo?.from.blockchain, swapInfo?.to.blockchain].map(
-              (chain, index) => {
+            {Array.from(
+              new Set(
+                [swapInfo?.from.blockchain, swapInfo?.to.blockchain].filter(
+                  (c): c is string => Boolean(c)
+                )
+              )
+            ).map((chain, index, chains) => {
+                const shared = chains.length === 1; // same-chain swap: one section picks both wallets
                 const availableWallets = connectedWallets.filter(
                   (wallet) => wallet.chain === chain
                 );
                 return (
-                  <>
+                  <Fragment key={chain}>
                     {/* Label for the wallet section */}
                     <Label htmlFor={chain} className="flex items-center gap-2">
                       <div className="rounded-full size-6 bg-primary font-bold grid place-content-center text-black">
@@ -318,24 +328,16 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
                           : walletFrom?.walletType
                       }
                       onValueChange={(value) => {
-                        if (index) {
-                          const walletT = connectedWallets.find(
-                            (wallet) =>
-                              wallet.walletType === value &&
-                              wallet.chain === chain
-                          );
-                          walletT
-                            ? setWalletTo(walletT)
-                            : setWalletTo(withdrawalAddress);
+                        const found = connectedWallets.find(
+                          (wallet) =>
+                            wallet.walletType === value &&
+                            wallet.chain === chain
+                        );
+                        if (index === 0) {
+                          setWalletFrom(found ?? value);
+                          if (shared) setWalletTo(found ?? withdrawalAddress);
                         } else {
-                          const walletF = connectedWallets.find(
-                            (wallet) =>
-                              wallet.walletType === value &&
-                              wallet.chain === chain
-                          );
-                          walletF
-                            ? setWalletFrom(walletF)
-                            : setWalletFrom(value);
+                          setWalletTo(found ?? withdrawalAddress);
                         }
                       }} // Update the selected wallet when a new wallet type is chosen
                     >
@@ -360,7 +362,7 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
                                 }}
                               />
                             </div>
-                            <span className="capitalize">
+                            <span className="capitalize font-display font-semibold">
                               {wallet.walletType}
                             </span>{" "}
                             {/* Display wallet type */}
@@ -382,7 +384,7 @@ const ConfirmModal: React.FC<PropsWithChildren> = (props) => {
                         </div>
                       </WalletConnectModal>
                     </RadioGroup>
-                  </>
+                  </Fragment>
                 );
               }
             )}

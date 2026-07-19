@@ -7,6 +7,7 @@ import ButtonCopyIcon from "../common/coyp-button-icon";
 import StatusBar from "../common/status-bar";
 import CustomLoader from "../common/loader";
 import QrCodeGenerator from "../common/qr-generator";
+import TooltipTemplate from "../common/tooltip-template";
 import {
   Card,
   CardContent,
@@ -26,7 +27,7 @@ import {
 import { ChainflipError, ChainflipSwapStatus } from "@/app/types/chainflip";
 import { ExTxInfo, TxRequest } from "@/app/types/exolix";
 import { toastError } from "@/lib/utils";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, Info, Loader2 } from "lucide-react";
 
 const AddressesCard = () => {
   const {
@@ -123,7 +124,7 @@ const AddressesCard = () => {
         return (
           <div className="flex flex-col items-center text-primary">
             <CustomLoader />
-            <span className="md:text-primary text-white">
+            <span className="text-white">
               Waiting to receive funds
             </span>
           </div>
@@ -177,7 +178,7 @@ const AddressesCard = () => {
         return (
           <>
             <CustomLoader />
-            <span className="md:text-primary text-white">
+            <span className="text-white">
               Waiting to receive funds
             </span>
           </>
@@ -185,7 +186,30 @@ const AddressesCard = () => {
     }
   };
 
-  const renderChainflipStatus = (state: string) => {
+  // Human-readable labels for provider status codes
+const humanStatus = (raw?: string): string => {
+  if (!raw) return "\u2014";
+  const map: Record<string, string> = {
+    wait: "Waiting for deposit",
+    confirmation: "Confirming",
+    confirmed: "Confirmed",
+    exchanging: "Exchanging",
+    sending: "Sending",
+    success: "Completed",
+    failed: "Failed",
+    refunded: "Refunded",
+    overdue: "Expired",
+    RECEIVING: "Waiting for deposit",
+    SWAPPING: "Swapping",
+    SENDING: "Sending",
+    SENT: "Sent",
+    COMPLETED: "Completed",
+    FAILED: "Failed",
+  };
+  return map[raw] ?? raw.charAt(0).toUpperCase() + raw.slice(1).toLowerCase();
+};
+
+const renderChainflipStatus = (state: string) => {
     const chainflipStatus = swapStatus as ChainflipSwapStatus;
     switch (state) {
       case "RECEIVING":
@@ -253,7 +277,7 @@ const AddressesCard = () => {
         return (
           <>
             <CustomLoader />
-            <span className="md:text-primary text-white">
+            <span className="text-white">
               Waiting to receive funds
             </span>
           </>
@@ -325,6 +349,9 @@ const AddressesCard = () => {
               {tokenTo?.blockchain} {tokenTo?.symbol}
             </span>{" "}
             address
+            <TooltipTemplate content="Enter the address that will RECEIVE the funds.">
+              <Info className="ms-1.5 inline size-3.5 -translate-y-px cursor-help text-white/40 transition-colors hover:text-primary" />
+            </TooltipTemplate>
           </Label>
           <div
             id="withdrawal"
@@ -335,7 +362,7 @@ const AddressesCard = () => {
               type="text"
               value={withdrawalAddress}
               onChange={(e) => setWithdrawalAddress(e.target.value)}
-              placeholder="Enter recipient address"
+              placeholder="Enter receiving address"
               className="md:text-base text-xs placeholder:text-white/50 md:px-3 px-1 bg-transparent border-none focus-visible:ring-0 focus-visible:ring-offset-0"
               disabled={!!swapStatus}
             />
@@ -348,11 +375,6 @@ const AddressesCard = () => {
             </Button>
           </div>
 
-          {!withdrawalAddress && (
-            <span className="text-primary/70 text-xs md:block hidden mb-6">
-              Enter the Recipient Address first !
-            </span>
-          )}
 
           <Label
             htmlFor="refund"
@@ -363,6 +385,9 @@ const AddressesCard = () => {
               {tokenFrom?.blockchain} {tokenFrom?.symbol}
             </span>{" "}
             address
+            <TooltipTemplate content="Enter the address that we will send the funds to in case of swap failure.">
+              <Info className="ms-1.5 inline size-3.5 -translate-y-px cursor-help text-white/40 transition-colors hover:text-primary" />
+            </TooltipTemplate>
           </Label>
           <div
             id="refund"
@@ -386,62 +411,30 @@ const AddressesCard = () => {
             </Button>
           </div>
 
-          {!refundAddress && (
-            <span className="text-primary/70 text-xs md:block hidden">
-              Enter the Refund Address!
-            </span>
-          )}
           {status && (
-            <div className="flex md:justify-center mb-3 md:text-lg text-xs md:my-0 my-3">
-              <div className="flex flex-col gap-2">
-                <div className="flex md:items-center">
-                  <div>
-                    <Image
-                      src={"/assets/icons/clock.png"}
-                      width={20}
-                      height={20}
-                      alt="clock"
-                      className="md:block hidden"
-                    />
-                  </div>
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-white/45 md:w-auto w-32">
-                    Created Time : &nbsp;
-                  </span>
-                  <span className="tnum text-white/80">
-                    {formatReadableDate(new Date(status.createdAt || 0))}
-                  </span>
-                </div>
-                <div className="flex md:items-center">
-                  <div>
-                    <Image
-                      src={"/assets/icons/id.png"}
-                      width={20}
-                      height={20}
-                      alt="id"
-                      className="md:block hidden"
-                    />
-                  </div>
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-white/45 md:w-auto w-32">
-                    Transaction ID : &nbsp;
-                  </span>
-                  <span className="pr-2 tnum text-white/80">{status.id}</span>
+            <div className="w-full max-w-md md:mx-auto mb-4 mt-1 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] divide-y divide-white/5">
+              <div className="flex items-center justify-between gap-4 px-4 py-2.5">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
+                  Created
+                </span>
+                <span className="tnum text-sm text-white/85 text-right">
+                  {formatReadableDate(new Date(status.createdAt || 0))}
+                </span>
+              </div>
+              <div className="flex items-center justify-between gap-4 px-4 py-2.5">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
+                  Transaction ID
+                </span>
+                <span className="flex items-center gap-1.5 min-w-0">
+                  <span className="tnum text-sm text-white/85 truncate">{status.id}</span>
                   <ButtonCopyIcon text={status.id} />
-                </div>
-                <div className="flex md:items-center">
-                  <div>
-                    <Image
-                      src={"/assets/icons/state.png"}
-                      width={23}
-                      height={23}
-                      alt="state"
-                      className="md:block hidden"
-                    />
-                  </div>
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-white/45 md:w-auto w-32">
-                    Status : &nbsp;
-                  </span>
-                  <span className="text-white/80">{status.status}</span>
-                </div>
+                </span>
+              </div>
+              <div className="flex items-center justify-between gap-4 px-4 py-2.5">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
+                  Status
+                </span>
+                <span className="text-sm text-white/85">{humanStatus(status.status)}</span>
               </div>
             </div>
           )}
@@ -458,7 +451,7 @@ const AddressesCard = () => {
               />
               {txData.depositAddress && <><QrCodeGenerator text={txData.depositAddress} /> <ButtonCopyIcon text={txData.depositAddress} /></>}
             </div>
-            {txData.status === "wait" ? <div className="flex flex-col items-center text-primary"><CustomLoader /><span className="md:text-primary text-white">Waiting to receive funds</span></div> :
+            {txData.status === "wait" ? <div className="flex flex-col items-center text-primary"><CustomLoader /><span className="text-white">Waiting to receive funds</span></div> :
               txData.status === "success" ? <div className="flex flex-col items-center text-primary"><StatusBar steps={steps} currentStep={currentStep} /><span>Transaction is completed and funds are received</span></div> :
                 txData.status === "overdue" ? <div className="flex justify-center"><span >Transation is overdue</span></div> :
                   <StatusBar steps={steps} currentStep={currentStep} />}
