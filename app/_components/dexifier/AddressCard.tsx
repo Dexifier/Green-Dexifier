@@ -300,7 +300,7 @@ const renderChainflipStatus = (state: string) => {
       </CardHeader>
       <Separator className="bg-gradient-to-r from-transparent via-primary/40 to-transparent md:block hidden" />
       <CardContent className="flex flex-col md:px-6 md:pb-0 p-4 overflow-y-auto overflow-x-hidden flex-1">
-        <div className="flex w-full md:justify-center items-center gap-3 md:my-4 mb-6 md:text-lg text-sm font-bold tnum bg-white/5 border border-white/10 rounded-2xl px-3 py-2">
+        <div className="flex w-full md:justify-center items-center justify-center flex-wrap gap-x-3 gap-y-1.5 md:my-4 mb-6 md:text-lg text-sm font-bold tnum bg-white/5 border border-white/10 rounded-2xl px-3 py-2">
           {tokenFrom && (
             <>
               <TokenIcon
@@ -310,7 +310,7 @@ const renderChainflipStatus = (state: string) => {
                   className: "md:size-12 size-[27px]",
                 }}
               />
-              <div className="flex items-center gap-1 md:gap-2 ">
+              <div className="flex items-center gap-1 md:gap-2 min-w-0">
                 <span>{Number(amountFrom).toFixed(2)}</span>
                 <span>{tokenFrom.symbol}</span>
                 <span className="text-opacity-80 md:block hidden">
@@ -329,7 +329,7 @@ const renderChainflipStatus = (state: string) => {
                   className: "md:size-12 size-[27px]",
                 }}
               />
-              <div className="flex items-center gap-1 md:gap-2">
+              <div className="flex items-center gap-1 md:gap-2 min-w-0">
                 <span>{Number(amountTo).toFixed(2)}</span>
                 <span>{tokenTo.symbol}</span>
                 <span className="text-opacity-80 md:block hidden">

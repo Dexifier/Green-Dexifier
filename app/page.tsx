@@ -70,7 +70,7 @@ export default function SwapPage() {
                   stiffness: 800,
                   mass: 1,
                 }}
-                className="h-full"
+                className="h-full min-w-0 w-full"
               >
                 <RouteCard />
               </motion.div>

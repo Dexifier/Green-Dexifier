@@ -77,7 +77,7 @@ const RouteCard = () => {
     <div className="relative w-full flex items-center gap-3.5">
       {providerStack(row.logos)}
       <div className="flex flex-col min-w-0 gap-0.5">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 min-w-0">
           <span className="font-semibold truncate">{row.title}</span>
           {row.isBest && (
             <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-black shadow-neon-sm">
@@ -375,7 +375,7 @@ const RouteCard = () => {
                 onValueChange={(value) =>
                   setSelectedRoute(sortedRoutes[parseInt(value)])
                 }
-                className="w-full h-full space-y-2"
+                className="w-full h-full space-y-2 [&>*]:min-w-0"
               >
                 {sortedRoutes.map((route, index) => {
                   const row: RowData | null =
