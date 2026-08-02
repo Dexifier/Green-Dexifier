@@ -1,12 +1,19 @@
 import Image from "next/image";
 import Search from "../common/search";
-import { PropsWithChildren, useMemo, useState } from "react";
+import { PropsWithChildren, useEffect, useMemo, useRef, useState } from "react";
 import { ResponsiveContent, useResponsiveModal } from "../common/responsive-modal";
-import { X } from "lucide-react";
+import { TriangleAlert, X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { useStatefulConnect, useWalletList, WalletInfoWithExtra } from "@rango-dev/widget-embedded";
 import { WalletState } from "@rango-dev/ui";
 import type { Namespace } from "@hub3js/namespaces";
+import { preflightWalletUnlock, withTimeout } from "@/app/utils/wallet-preflight";
+
+// If a wallet stays in "connecting" this long after we asked it to connect,
+// the extension never answered — reset it instead of spinning forever.
+const CONNECT_WATCHDOG_MS = 60_000;
+// Each namespace connect (e.g. MetaMask Solana) must not hang the others.
+const NAMESPACE_TIMEOUT_MS = 45_000;
 
 // Text colors for different wallet states
 const TextColorSet: Record<WalletState, string> = {
@@ -25,10 +32,51 @@ interface WalletConnectModalProps {
 const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> = (props) => {
   const { Root, Trigger, Close, Header, Title } = useResponsiveModal();
   const [search, setSearch] = useState<string>(""); // State for search input
+  const [hint, setHint] = useState<string | null>(null); // Visible feedback when a wallet fails to respond
   const { list } = useWalletList({ chain: props.chain }); // Fetch wallet list filtered by chain (if provided)
   // Hub-based wallets (MetaMask, Phantom, …) require explicit namespaces when
   // connecting — useStatefulConnect handles that flow for us.
   const { handleConnect, handleDisconnect } = useStatefulConnect();
+
+  const listRef = useRef(list);
+  useEffect(() => { listRef.current = list; }, [list]);
+  const watchdogsRef = useRef(new Map<string, ReturnType<typeof setTimeout>>());
+  const hintTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  const showHint = (message: string) => {
+    setHint(message);
+    clearTimeout(hintTimerRef.current);
+    hintTimerRef.current = setTimeout(() => setHint(null), 8000);
+  };
+
+  // Clear the watchdog as soon as the wallet leaves the CONNECTING state.
+  useEffect(() => {
+    list.forEach((wallet) => {
+      const timer = watchdogsRef.current.get(wallet.type);
+      if (timer && wallet.state !== WalletState.CONNECTING) {
+        clearTimeout(timer);
+        watchdogsRef.current.delete(wallet.type);
+      }
+    });
+  }, [list]);
+  useEffect(() => () => {
+    watchdogsRef.current.forEach(clearTimeout);
+    clearTimeout(hintTimerRef.current);
+  }, []);
+
+  // A connect attempt that never resolves must not spin on "connecting"
+  // forever — reset the wallet and tell the user what to do.
+  const armWatchdog = (walletInfo: WalletInfoWithExtra) => {
+    clearTimeout(watchdogsRef.current.get(walletInfo.type));
+    watchdogsRef.current.set(walletInfo.type, setTimeout(() => {
+      watchdogsRef.current.delete(walletInfo.type);
+      const current = listRef.current.find((w) => w.type === walletInfo.type);
+      if (current?.state === WalletState.CONNECTING) {
+        handleDisconnect(walletInfo).catch(() => {});
+        showHint(`${walletInfo.title} is not responding. Open the extension, unlock it, and try again.`);
+      }
+    }, CONNECT_WATCHDOG_MS));
+  };
 
   // Memoize the filtered wallet list based on the search input
   const filteredWalletList = useMemo(() => {
@@ -49,15 +97,30 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
       await handleDisconnect(walletInfo).catch(console.error);
       return;
     }
-    // Disconnected / partially connected: connect. Single-namespace hub
-    // wallets (MetaMask, Phantom, …) connect directly through handleConnect.
-    const result = await handleConnect(walletInfo).catch(console.error);
+    // Disconnected / partially connected: connect. First fire the wallet's
+    // own unlock prompt (MetaMask / Phantom / TronLink) so a locked wallet
+    // pops open instead of parking in "connecting" forever. If the user
+    // declines or nothing answers, we stop before Rango's state machine
+    // ever enters "connecting".
+    try {
+      await preflightWalletUnlock(walletInfo.type);
+    } catch (error) {
+      console.debug(`Preflight unlock failed for ${walletInfo.type}:`, error);
+      showHint(`${walletInfo.title} is locked or didn't respond. Unlock it and try again.`);
+      return;
+    }
+    armWatchdog(walletInfo);
+    const result = await handleConnect(walletInfo).catch((error) => {
+      console.error(error);
+      showHint(`Could not connect ${walletInfo.title}. Please try again.`);
+      return undefined;
+    });
     if (!result) return;
     // Multi-namespace wallets (e.g. MetaMask advertising EVM + Solana) need an
     // explicit namespace selection. This is a multi-chain app, so connect to
     // every namespace the wallet offers — one at a time, so a namespace that
     // isn't actually usable (e.g. MetaMask Solana without the Snap) doesn't
-    // abort the others.
+    // abort the others. A hung namespace must not block the rest.
     if (result.status === "Detached" || result.status === "namespace") {
       const namespaces =
         (walletInfo as WalletInfoWithExtra & {
@@ -66,7 +129,11 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
           ?.find((p) => p.name === "namespaces")
           ?.value?.data?.map((d) => d.value) ?? [];
       for (const namespace of namespaces) {
-        await handleConnect(walletInfo, { forceConnectToNamespaces: [namespace] }).catch((error) =>
+        await withTimeout(
+          handleConnect(walletInfo, { forceConnectToNamespaces: [namespace] }),
+          NAMESPACE_TIMEOUT_MS,
+          String(namespace),
+        ).catch((error) =>
           console.debug(`Namespace ${String(namespace)} not connected:`, error),
         );
       }
@@ -86,6 +153,13 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
           </Close>
         </Header>
         <Separator className="bg-gradient-to-r from-transparent via-primary/40 to-transparent" /> {/* Separator between header and content */}
+        {/* Feedback when a wallet doesn't answer (locked, popup dismissed, …) */}
+        {hint && (
+          <div className="mb-3 flex items-center gap-2.5 rounded-xl border border-amber-400/30 bg-amber-400/10 px-3 py-2.5 text-left">
+            <TriangleAlert className="size-4 shrink-0 text-amber-300" />
+            <span className="text-xs leading-snug text-amber-100/90">{hint}</span>
+          </div>
+        )}
         {/* Search component for filtering wallets */}
         <Search value={search} onChange={(e) => setSearch(e.target.value)} />
         <div className="max-h-[60vh] flex flex-wrap justify-center overflow-auto gap-2 pr-1">
