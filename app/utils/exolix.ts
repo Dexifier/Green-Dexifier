@@ -22,6 +22,9 @@ export const MAP_BLOCKCHAIN_RANGO_2_EXOLIX: Record<string, string> = {
   "OSMOSIS": "OSMO",
   "SOLANA": "SOL",
   "POLYGON": "MATIC",
+  // Exolix calls the HyperEVM network "HYPE" — merge it into Rango's
+  // HYPEREVM so it doesn't appear as a duplicate chain cell.
+  "HYPEREVM": "HYPE",
   // "BTC": "BTC",
   // "ETH": "ETH",
   // "BSC": "BSC",

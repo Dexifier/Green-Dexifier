@@ -96,3 +96,85 @@ export function dedupeTokens(rangoTokens: RangoToken[], exolixCoins: ExolixCoinI
     return token;
   });
 }
+
+/* ------------------------------------------------------------------------ */
+/* Token ordering + recency for the token selector                           */
+/* ------------------------------------------------------------------------ */
+
+// Stable identity for a token row: chain + symbol + contract ("native" for
+// the chain's own coin — its address is null).
+export function tokenKey(token: Pick<Token, "blockchain" | "symbol" | "address">): string {
+  return `${token.blockchain}:${token.symbol}:${token.address ?? "native"}`;
+}
+
+/**
+ * Balance-aware token ordering:
+ *   1. recently used tokens that still have a balance (absolute priority,
+ *      most recent first)
+ *   2. every other token with a balance, richest first
+ *   3. popular tokens (the chain's native coin first)
+ *   4. everything else in its original order
+ * balanceUsdOf returns the wallet balance (USD) for a token (0 = none).
+ */
+export function orderTokens(
+  tokens: Token[],
+  balanceUsdOf: (token: Token) => number,
+  recentKeys: string[] = [],
+): Token[] {
+  const keyOf = tokenKey;
+  const withMeta = tokens.map((token, index) => ({
+    token,
+    index,
+    usd: balanceUsdOf(token),
+    recentRank: recentKeys.indexOf(keyOf(token)),
+  }));
+
+  const recentWithBalance = withMeta
+    .filter((e) => e.recentRank !== -1 && e.usd > 0)
+    .sort((a, b) => a.recentRank - b.recentRank);
+  const placed = new Set(recentWithBalance.map((e) => keyOf(e.token)));
+
+  const withBalance = withMeta
+    .filter((e) => e.usd > 0 && !placed.has(keyOf(e.token)))
+    .sort((a, b) => b.usd - a.usd);
+  withBalance.forEach((e) => placed.add(keyOf(e.token)));
+
+  const base = withMeta.filter((e) => !placed.has(keyOf(e.token)));
+  const popular = base
+    .filter((e) => e.token.isPopular)
+    .sort((a, b) => {
+      const aNative = a.token.address == null ? 0 : 1;
+      const bNative = b.token.address == null ? 0 : 1;
+      return aNative !== bNative ? aNative - bNative : a.index - b.index;
+    });
+  const rest = base.filter((e) => !e.token.isPopular);
+
+  return [...recentWithBalance, ...withBalance, ...popular, ...rest].map((e) => e.token);
+}
+
+/* ---------------------------- recent tokens ----------------------------- */
+
+export const RECENT_TOKENS_KEY = "dexifier:recentTokens";
+export const MAX_RECENT_TOKENS = 5;
+
+export function getRecentTokens(): string[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = window.localStorage.getItem(RECENT_TOKENS_KEY);
+    const parsed: unknown = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+export function rememberToken(token: Pick<Token, "blockchain" | "symbol" | "address">): void {
+  if (typeof window === "undefined") return;
+  try {
+    const key = tokenKey(token);
+    const next = [key, ...getRecentTokens().filter((k) => k !== key)].slice(0, MAX_RECENT_TOKENS);
+    window.localStorage.setItem(RECENT_TOKENS_KEY, JSON.stringify(next));
+  } catch {
+    /* storage unavailable — recency is best-effort */
+  }
+}

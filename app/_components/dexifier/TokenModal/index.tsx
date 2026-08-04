@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 import { Blockchain, Token } from "@/app/types/dexifier";
 import { useDexifier } from "@/app/providers/DexifierProvider";
 import { MAP_BLOCKCHAIN_RANGO_2_EXOLIX } from "@/app/utils/exolix";
+import { getRecentTokens, orderTokens, rememberToken } from "@/app/utils/tokens";
 
 const PAGE_SIZE = 50; // Number of tokens to load per page for infinite scrolling
 
@@ -47,24 +48,13 @@ const TokenModal: React.FC<PropsWithChildren<TokenModalProps>> = ({ children, se
   // Effect to filter tokens based on the selected blockchain
   useEffect(() => {
     if (selectedBlockchain) {
-      setBlockChainTokens(coins.filter((coin: Token) => coin.blockchain === selectedBlockchain.name || coin.blockchain === MAP_BLOCKCHAIN_RANGO_2_EXOLIX[selectedBlockchain.name])
-        .sort((a, b) => {
-          // First, sort by popularity (popular coins come first)
-          if (b.isPopular !== a.isPopular) {
-            return b.isPopular ? 1 : -1;
-          }
-
-          // If both are popular, sort by address (null addresses come first)
-          if (a.isPopular && b.isPopular) {
-            if (a.address === null && b.address !== null) return -1; // a comes first
-            if (a.address !== null && b.address === null) return 1;  // b comes first
-          }
-
-          // If both are not popular or have the same address status, maintain the original order
-          return 0;
-        })); // Sort tokens by popularity
+      const chainTokens = coins.filter((coin: Token) => coin.blockchain === selectedBlockchain.name || coin.blockchain === MAP_BLOCKCHAIN_RANGO_2_EXOLIX[selectedBlockchain.name]);
+      // Balance-aware: recently used tokens with balance first (absolute
+      // priority), then tokens with balance (richest first), then popular.
+      // The modal mounts with the dialog, so getRecentTokens() reads fresh.
+      setBlockChainTokens(orderTokens(chainTokens, (token) => getTokenAmount(token, true), getRecentTokens()));
     }
-  }, [coins, selectedBlockchain]);
+  }, [coins, selectedBlockchain, connectedWallets]);
 
   // Effect to filter tokens based on the search query
   useEffect(() => {
@@ -134,7 +124,7 @@ const TokenModal: React.FC<PropsWithChildren<TokenModalProps>> = ({ children, se
                       className={cn("p-2 border rounded-2xl w-full cursor-pointer bg-transparent hover:bg-primary/5 hover:border-primary/50 transition-all duration-300",
                         isSelected ? "border-primary shadow-neon-sm bg-primary/10" : "border-white/10"
                       )}
-                      onClick={() => setToken(token)} // Update selected token
+                      onClick={() => { rememberToken(token); setToken(token); }} // Remember + update selected token
                       key={index}
                     >
                       <div className="flex justify-between items-center">
