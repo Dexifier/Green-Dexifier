@@ -132,6 +132,7 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
       shortName: blockchain.shortName,
       logo: blockchain.logo,
       color: blockchain.color,
+      type: blockchain.type,
     }))
     const nt = networks?.map(network => ({
       id: network.id + 100000000,

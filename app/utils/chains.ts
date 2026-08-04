@@ -42,7 +42,12 @@ export const LOCAL_CHAIN_LOGOS: Record<string, string> = {
   XMR: "/assets/chains/XMR.png",
 };
 
-export function orderChains(chains: Blockchain[], recent: string[] = []): Blockchain[] {
+// balanceUsd: chain name -> total wallet balance in USD (0/undefined = no balance)
+export function orderChains(
+  chains: Blockchain[],
+  recent: string[] = [],
+  balanceUsd: Record<string, number> = {},
+): Blockchain[] {
   const rank = new Map<string, number>();
   recent.forEach((name, i) => {
     if (!rank.has(name)) rank.set(name, i);
@@ -52,11 +57,42 @@ export function orderChains(chains: Blockchain[], recent: string[] = []): Blockc
     if (!rank.has(name)) rank.set(name, popBase + i);
   });
   const rest = popBase + POPULAR_CHAINS.length;
-  return [...chains].sort((a, b) => {
+  const baseOrder = [...chains].sort((a, b) => {
     const ra = rank.get(a.name) ?? rest;
     const rb = rank.get(b.name) ?? rest;
     return ra !== rb ? ra - rb : a.displayName.localeCompare(b.displayName);
   });
+
+  // Balance-aware priority:
+  //   1. the most recently used chain, if it has a balance (absolute priority)
+  //   2. every other chain with a balance, richest first
+  //   3. everything else in the base order (recent -> popular -> alphabetical)
+  const hasBalance = (chain: Blockchain) => (balanceUsd[chain.name] ?? 0) > 0;
+  const lastUsedWithBalance = recent.length
+    ? baseOrder.filter((c) => c.name === recent[0] && hasBalance(c))
+    : [];
+  const withBalance = baseOrder
+    .filter((c) => hasBalance(c) && !lastUsedWithBalance.includes(c))
+    .sort((a, b) => (balanceUsd[b.name] ?? 0) - (balanceUsd[a.name] ?? 0));
+  const placed = new Set([...lastUsedWithBalance, ...withBalance].map((c) => c.name));
+  return [...lastUsedWithBalance, ...withBalance, ...baseOrder.filter((c) => !placed.has(c.name))];
+}
+
+// Sum wallet balances per chain (USD). Duck-typed — works with the Rango
+// widget's WalletDetail shape without importing its types.
+export type WalletBalancesLike =
+  | { balances?: { chain: string; amount: string; usdPrice?: number | null }[] | null }[]
+  | undefined;
+
+export function getChainBalancesUsd(wallets: WalletBalancesLike): Record<string, number> {
+  const totals: Record<string, number> = {};
+  (wallets ?? []).forEach((wallet) => {
+    wallet.balances?.forEach((balance) => {
+      const usd = (parseFloat(balance.amount) || 0) * (balance.usdPrice ?? 0);
+      if (usd > 0) totals[balance.chain] = (totals[balance.chain] ?? 0) + usd;
+    });
+  });
+  return totals;
 }
 
 export const RECENT_CHAINS_KEY = "dexifier:recentChains";

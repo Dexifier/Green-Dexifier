@@ -20,7 +20,8 @@ import Search from "@/app/_components/common/search";
 import TokenIcon from "../../common/token-icon";
 import { Blockchain } from "@/app/types/dexifier";
 import { useDexifier } from "@/app/providers/DexifierProvider";
-import { getRecentChains, LOCAL_CHAIN_LOGOS, orderChains, rememberChain } from "@/app/utils/chains";
+import { getChainBalancesUsd, getRecentChains, LOCAL_CHAIN_LOGOS, orderChains, rememberChain } from "@/app/utils/chains";
+import { useWidget } from "@rango-dev/widget-embedded";
 
 // Define props for the BlockchainModal component
 interface BlockchainModalProps {
@@ -30,6 +31,7 @@ interface BlockchainModalProps {
 
 const BlockchainModal: React.FC<PropsWithChildren<BlockchainModalProps>> = ({ children, selectedBlockchain, setSelectedBlockchain }) => {
   const { chains } = useDexifier();
+  const { wallets } = useWidget();
 
   const [search, setSearch] = useState<string>(''); // Search query state
   const [filteredBlockchains, setFilteredBlockchains] = useState<Blockchain[]>([]); // Filtered list of blockchains
@@ -38,10 +40,10 @@ const BlockchainModal: React.FC<PropsWithChildren<BlockchainModalProps>> = ({ ch
   // Ordered by recent use, then curated popularity, then alphabetically.
   // The modal mounts with the dialog, so getRecentChains() reads fresh values.
   useEffect(() => {
-    setFilteredBlockchains(orderChains(chains, getRecentChains()).filter((blockchain: Blockchain) =>
+    setFilteredBlockchains(orderChains(chains, getRecentChains(), getChainBalancesUsd(wallets.details)).filter((blockchain: Blockchain) =>
       blockchain.name.toLowerCase().includes(search.toLowerCase()) || blockchain.displayName.toLowerCase().includes(search.toLowerCase()) || blockchain.shortName?.toLowerCase().includes(search.toLowerCase())
     ))
-  }, [search, chains])
+  }, [search, chains, wallets.details])
 
   return (
     <Dialog>

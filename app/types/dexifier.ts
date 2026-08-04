@@ -5,6 +5,7 @@ export type Blockchain = {
   shortName: string | null,
   logo: string | null,
   color?: string,
+  type?: string, // "EVM" | "COSMOS" | "UTXO" | ... from Rango meta (Exolix networks: undefined)
 }
 
 export type Token = {
