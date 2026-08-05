@@ -3,39 +3,21 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { formatUsd } from "@/app/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useWalletList, useWidget } from "@rango-dev/widget-embedded";
 import CustomLoader from "../common/loader";
 import WalletConnectModal from "../dexifier/WalletConnectModal";
 import WalletDetails from "./WalletDetails";
 import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
 import TokenIcon from "../common/token-icon";
 import { BiSolidWallet } from "react-icons/bi";
+import { FaTelegramPlane } from "react-icons/fa";
+import { Plus } from "lucide-react";
 
-// All navigation details
-const NAVIGATIONS = [
-  {
-    text: "Support",
-    path: "/support",
-  },
-  {
-    text: "Docs",
-    path: "https://docs.dexifier.com/",
-    target: "_blank",
-  },
-  {
-    text: "About Us",
-    path: "/about",
-  },
-];
+// Support lives in the Dexifier Telegram channel.
+const SUPPORT_URL = "https://web.telegram.org/a/#-1002129981016";
 
 const MainNavbar = () => {
-  const pathname = usePathname();
-
-  const [isOpen, setIsOpen] = useState(false);
-
   const { details: connectedWallets, totalBalance, isLoading } = useWidget().wallets;
   const { list } = useWalletList({})
 
@@ -79,144 +61,105 @@ const MainNavbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+
   return (
     <header
-      className={cn(scrolled ? '' : 'bg-transparent', 'w-screen transition fixed top-0 z-50 duration-300')}
+      className={cn(
+        "fixed top-0 z-50 w-full transition-all duration-500",
+        scrolled ? "pt-2 sm:pt-3" : "pt-3 sm:pt-5",
+      )}
     >
-      <div className={`max-w-[86rem] mx-auto px-2 sm:px-6 lg:px-8 pt-5 pb-4`}>
-        <div className="relative flex items-center justify-center md:justify-between rounded-full border border-white/10 bg-white/[0.06] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] px-6 py-3">
+      <div className="mx-auto max-w-[86rem] px-2 sm:px-6 lg:px-8">
+        <nav
+          className={cn(
+            // neon-frame = the rotating conic edge the swap cards wear
+            "nav-shell neon-frame relative flex items-center justify-between gap-2 rounded-full border border-primary/25 bg-[#020805]/80 py-2 pl-4 pr-2 backdrop-blur-xl backdrop-saturate-150 transition-all duration-500 sm:pl-6 sm:pr-2.5",
+            scrolled && "is-scrolled",
+          )}
+        >
           {/* Logo */}
-          <div className="absolute inset-0 flex items-center md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-              aria-expanded={isOpen}
-            >
-              <span className="sr-only">Open main menu</span>
-              {/* Hamburger Icon */}
-              <svg
-                className={`${isOpen ? "hidden" : "block"} h-8 w-8`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="white"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={3}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-              {/* Close Icon */}
-              <svg
-                className={`${isOpen ? "block" : "hidden"} h-8 w-8`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="white"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={3}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          {/* Logo (hidden on small screens) */}
-          <Link href="/">
+          <Link href="/" aria-label="Dexifier home" className="group relative shrink-0 py-1">
             <Image
-              className="md:w-[220px] w-[180px]"
+              priority
+              className="w-[128px] transition-all duration-300 group-hover:brightness-110 group-hover:drop-shadow-[0_0_16px_rgba(19,241,135,0.5)] sm:w-[170px] lg:w-[195px]"
               src="/assets/logo.png"
-              alt="Logo"
+              alt="Dexifier — swap everything"
               width={285}
               height={64}
             />
           </Link>
-          {/* Navigations */}
-          <div className={`hidden md:flex items-center space-x-6`}>
-            {NAVIGATIONS.map((link, index) => (
-              <Link
-                key={index}
-                href={link.path}
-                target={link.target}
-                className={cn(pathname === link.path ? 'text-primary' : 'text-white/80', 'px-1 py-2 text-sm font-semibold uppercase tracking-widest transition-colors duration-300 hover:text-primary')}
-              >
-                {link.text}
-              </Link>
-            ))}
+
+          {/* Actions */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5">
+            {/* Support — Telegram channel */}
+            <a
+              href={SUPPORT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Get support on Telegram"
+              className="group flex h-10 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 text-[11px] font-extrabold uppercase tracking-[0.18em] text-white/65 transition-all duration-300 hover:border-primary/50 hover:bg-primary/[0.08] hover:text-primary hover:shadow-neon-sm sm:px-4"
+            >
+              <span className="relative flex size-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-70" />
+                <span className="relative inline-flex size-1.5 rounded-full bg-primary" />
+              </span>
+              <FaTelegramPlane className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <span className="hidden sm:inline">Support</span>
+            </a>
+
+            {/* Wallet */}
             {(!connectedWallets.length ?
               <WalletConnectModal>
-                <button className="flex text-[1.075rem] bg-primary rounded-full py-2 px-4 gap-2 items-center justify-center shadow-neon animate-pulse-glow-slow transition hover:shadow-neon-lg hover:brightness-110">
-                  <BiSolidWallet className="size-6 text-black" />
-                  <span className="text-black font-semibold">Connect Wallet</span>
+                <button className="btn-sheen flex h-10 items-center gap-2 rounded-full bg-primary px-4 text-[11px] font-extrabold uppercase tracking-[0.18em] text-black shadow-neon transition-all duration-300 hover:-translate-y-px hover:shadow-neon-lg hover:brightness-110 active:translate-y-0 active:scale-95 sm:h-11 sm:px-5 sm:text-xs">
+                  <BiSolidWallet className="size-4 sm:size-5" />
+                  <span className="sm:hidden">Connect</span>
+                  <span className="hidden sm:inline">Connect Wallet</span>
                 </button>
               </WalletConnectModal>
               :
-              <div className="flex text-black">
+              <div className="flex items-stretch overflow-hidden rounded-full border border-primary/35 bg-white/[0.04] shadow-neon-sm">
                 <WalletDetails>
-                  <button className={cn(balancePending ? '' : 'bg-[#13f187]', 'text-[1.075rem] min-h-[35px] border border-primary rounded-l-full p-2 items-center justify-center hover:bg-opacity-80')}>
+                  <button className="flex h-10 min-w-[86px] items-center justify-center gap-2 pl-2.5 pr-2 transition-colors duration-300 hover:bg-white/[0.06] sm:h-11 sm:pl-3 sm:pr-2.5">
                     {balancePending ?
-                      <CustomLoader className="w-full" />
+                      <CustomLoader className="w-14" />
                       :
-                      <div className="flex space-x-1">
-                        <div className="flex -space-x-5">
+                      <>
+                        <div className="flex -space-x-3">
                           {mappedWallets && mappedWallets.map((wallet, index) => (
                             <TokenIcon
                               key={index}
                               token={{
                                 image: wallet.image!,
                                 alt: wallet.title,
-                                className: "size-8",
+                                className: "size-6 ring-2 ring-[#04110a] sm:size-7",
                               }}
                             />
                           ))}
                         </div>
-                        <span className="flex items-center">{formattedTotalBalance} $</span>
-                      </div>
+                        <span className="text-xs font-extrabold tracking-wide text-primary sm:text-sm">
+                          {formattedTotalBalance}
+                          <span className="ml-0.5 text-primary/50">$</span>
+                        </span>
+                      </>
                     }
                   </button>
                 </WalletDetails>
-                <Separator orientation="vertical" className="bg-transparent" />
+                <div className="my-auto h-5 w-px bg-primary/25" />
                 <WalletConnectModal>
-                  <button className="rounded-r-full bg-primary p-2 pe-3 hover:bg-opacity-80">Add wallets</button>
+                  <button
+                    aria-label="Add wallets"
+                    className="flex h-10 items-center gap-1 bg-primary/[0.12] px-3 text-primary transition-colors duration-300 hover:bg-primary hover:text-black sm:h-11 sm:px-4"
+                  >
+                    <Plus className="size-4" strokeWidth={3} />
+                    <span className="hidden text-[11px] font-extrabold uppercase tracking-[0.18em] lg:inline">Add</span>
+                  </button>
                 </WalletConnectModal>
               </div>
             )}
           </div>
-        </div>
+        </nav>
       </div>
-
-      {/* Mobile dropdown animation */}
-      <div
-        className={`${isOpen ? "block" : "hidden"
-          } md:hidden absolute top-[6rem] inset-x-0 bg-modal backdrop-filter backdrop-blur-sm z-10`}
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="main-menu"
-      >
-        <div className="flex flex-col space-y-2">
-          {NAVIGATIONS.map((link, index) => (
-            <Link
-              key={index}
-              href={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`${pathname === link.path
-                ? "text-primary font-bold"
-                : "hover:bg-blue-50 hover:text-blue-500 text-white"
-                } block px-3 py-2 rounded-md text-[22px] font-medium`}
-            >
-              {link.text}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </header >
+    </header>
   );
 };
 
