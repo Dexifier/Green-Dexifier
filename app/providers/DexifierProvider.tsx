@@ -6,27 +6,29 @@
 // (useDexifier) is provided for easier consumption of the context in components.
 
 import { createContext, useContext, ReactNode, SetStateAction, Dispatch, useState, useEffect, useMemo, useRef } from "react";
-import { BlockchainMeta, ConfirmRouteResponse, MultiRouteRequest, MultiRouteResponse, MultiRouteSimulationResult, Transaction, TransactionType } from "rango-types/mainApi"
+import { BlockchainMeta, ConfirmRouteResponse, Transaction, TransactionType } from "rango-types/mainApi"
 import { Settings } from "../types/rango";
-import { ChainflipSwapResponse, ChainflipQuote, ChainflipError, ChainflipSwapStatus } from "../types/chainflip";
-import { DCurrency, DNetwork, ExTxInfo, RateRequest, RateResponse, TxRequest } from "../types/exolix";
+import { ChainflipSwapResponse, ChainflipError, ChainflipSwapStatus } from "../types/chainflip";
+import { DCurrency, DNetwork, ExTxInfo, TxRequest } from "../types/exolix";
 import { ConnectedWallet, useWallets, useWidget } from "@rango-dev/widget-embedded";
 import { debounce } from "lodash";
-import { CHAINFLIP_BLOCKCHAIN_NAME_MAP } from "../utils/chainflip";
 import { ethers } from 'ethers';
 import {
   createChainflipSwap,
   createExolixTransaction,
-  getChainflipQuotes,
   getChainflipSwapStatus,
-  getExolixRate,
   getExolixTxInfo,
-  getRangoRoutes,
 } from "@/lib/api-client";
 import axios from "axios";
 import { MAP_BLOCKCHAIN_RANGO_2_EXOLIX, resolveExolixNetwork } from "../utils/exolix";
 import { dedupeTokens } from "../utils/tokens";
+import { fetchAllRoutes } from "../utils/routes";
+import type { DexifierRoute } from "../utils/routes";
 import { Blockchain, Token } from "../types/dexifier";
+
+// Re-exported so existing consumers can keep importing the route union from
+// this module while the type itself lives with the fetch logic.
+export type { DexifierRoute };
 
 // Define the type for the context
 interface DexifierContextType {
@@ -96,8 +98,6 @@ export enum DEXIFIER_STATE {
   FAILED = 8,
   SUCCESS = 9,
 }
-
-export type DexifierRoute = MultiRouteSimulationResult | ChainflipQuote | RateResponse
 
 const DexifierProvider = ({ children }: { children: ReactNode }) => {
   const [tokenFrom, setTokenFrom] = useState<Token>();
@@ -177,58 +177,18 @@ const DexifierProvider = ({ children }: { children: ReactNode }) => {
     setSwapStatus(undefined)
   }
 
-  const getRoutes = async (tokenFrom: Token, tokenTo: Token, amount: string): Promise<DexifierRoute[]> => {
-    const allRoutes: DexifierRoute[] = []
-    if (!tokenFrom.blockchain || !tokenTo.blockchain) return [];
-    try {
-      if (tokenFrom.blockchain in CHAINFLIP_BLOCKCHAIN_NAME_MAP && tokenTo.blockchain in CHAINFLIP_BLOCKCHAIN_NAME_MAP) {
-        const chainflipQuotes = await getChainflipQuotes({
-          sourceAsset: `${tokenFrom.symbol.toLowerCase()}.${CHAINFLIP_BLOCKCHAIN_NAME_MAP[tokenFrom.blockchain]}`,
-          destinationAsset: `${tokenTo.symbol.toLowerCase()}.${CHAINFLIP_BLOCKCHAIN_NAME_MAP[tokenTo.blockchain]}`,
-          amount: amount,
-          commissionBps: 15,
-        });
-
-        // Query every provider and show all routes side by side — never
-        // return early just because Chainflip answered.
-        allRoutes.push(...chainflipQuotes)
-      }
-    } catch (error) { }
-    try {
-      const exolixRateRequest: RateRequest = {
-        coinFrom: tokenFrom.symbol,
-        networkFrom: resolveExolixNetwork(tokenFrom.blockchain, networks),
-        coinTo: tokenTo.symbol,
-        networkTo: resolveExolixNetwork(tokenTo.blockchain, networks),
-        amount: amount,
-        rateType: 'float',
-      }
-      const exolixRateResponse: RateResponse = await getExolixRate(exolixRateRequest)
-      allRoutes.push(exolixRateResponse)
-    } catch (error) { }
-    if (!isMobile) try {
-      const rangoMultiRouteRequest: MultiRouteRequest = {
-        amount: amount,
-        from: {
-          address: tokenFrom.address,
-          blockchain: tokenFrom.blockchain,
-          symbol: tokenFrom.symbol,
-        },
-        to: {
-          address: tokenTo.address,
-          blockchain: tokenTo.blockchain,
-          symbol: tokenTo.symbol,
-        },
-        slippage: settings.slippage.toString(),
-        swapperGroups: settings.swappers.map(swapper => swapper.swapperGroup),
-        swappersGroupsExclude: false,
-      }
-      const rangoMultiRouteResponse: MultiRouteResponse = await getRangoRoutes(rangoMultiRouteRequest)
-      const rangoMultiRouteSimulationResults: MultiRouteSimulationResult[] = rangoMultiRouteResponse.results.sort((a, b) => a.swaps.length - b.swaps.length);
-      allRoutes.push(...rangoMultiRouteSimulationResults)
-    } catch (error) { }
-    return allRoutes
-  }
+  // All providers are queried in parallel (see utils/routes) — a hung
+  // provider times out on its own instead of delaying the whole panel.
+  const getRoutes = (tokenFrom: Token, tokenTo: Token, amount: string): Promise<DexifierRoute[]> =>
+    fetchAllRoutes({
+      tokenFrom,
+      tokenTo,
+      amount,
+      networks,
+      includeRango: !isMobile,
+      slippage: settings.slippage.toString(),
+      swapperGroups: settings.swappers.map(swapper => swapper.swapperGroup),
+    });
 
   const createSwap = async () => {
     if (!withdrawalAddress || !tokenFrom || !tokenTo || !amountFrom || !selectedRoute)
