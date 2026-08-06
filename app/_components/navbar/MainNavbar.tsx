@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useWalletList, useWidget } from "@rango-dev/widget-embedded";
 import CustomLoader from "../common/loader";
+import { useDexifier } from "../../providers/DexifierProvider";
 import WalletConnectModal from "../dexifier/WalletConnectModal";
 import WalletDetails from "./WalletDetails";
 import { cn } from "@/lib/utils";
@@ -18,6 +19,9 @@ import { Plus } from "lucide-react";
 const SUPPORT_URL = "https://web.telegram.org/a/#-1002129981016";
 
 const MainNavbar = () => {
+  // Mobile = wallet-less swaps only (Exolix/Chainflip deposit flow), so the
+  // wallet connection affordances stay out of the bar entirely.
+  const { isMobile } = useDexifier();
   const { details: connectedWallets, totalBalance, isLoading } = useWidget().wallets;
   const { list } = useWalletList({})
 
@@ -107,8 +111,8 @@ const MainNavbar = () => {
               <span className="hidden sm:inline">Support</span>
             </a>
 
-            {/* Wallet */}
-            {(!connectedWallets.length ?
+            {/* Wallet (desktop only — mobile swaps are wallet-less) */}
+            {!isMobile && (!connectedWallets.length ?
               <WalletConnectModal>
                 <button className="btn-sheen flex h-10 items-center gap-2 rounded-full bg-primary px-4 text-[11px] font-extrabold uppercase tracking-[0.18em] text-black shadow-neon transition-all duration-300 hover:-translate-y-px hover:shadow-neon-lg hover:brightness-110 active:translate-y-0 active:scale-95 sm:h-11 sm:px-5 sm:text-xs">
                   <BiSolidWallet className="size-4 sm:size-5" />
