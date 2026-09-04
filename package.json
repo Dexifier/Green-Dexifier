@@ -16,6 +16,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@hub3js/core": "^0.62.0",
     "@hub3js/namespaces": "^0.4.0",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
