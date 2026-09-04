@@ -7,7 +7,7 @@ import type {
   WalletRequiredAssets,
 } from 'rango-types/mainApi';
 import { ConnectedWallet, PendingSwap, PendingSwapStep } from '@rango-dev/widget-embedded';
-import type { WalletType } from '@rango-dev/wallets-shared';
+import type { LegacyWalletType as WalletType } from '@rango-dev/wallets-core/legacy';
 import { PreferenceType } from 'rango-types/mainApi';
 import BigNumber from 'bignumber.js';
 import { PendingSwapNetworkStatus } from 'rango-types';
