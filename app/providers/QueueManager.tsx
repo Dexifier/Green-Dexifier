@@ -1,7 +1,7 @@
 'use client'
 
 import type { SwapQueueContext, TargetNamespace } from '@rango-dev/queue-manager-rango-preset';
-import type { Network, WalletType } from '@rango-dev/wallets-shared';
+import type { LegacyNetwork as Network, LegacyWalletType as WalletType } from '@rango-dev/wallets-core/legacy';
 import type { PropsWithChildren } from 'react';
 
 import {
@@ -10,7 +10,7 @@ import {
 } from '@rango-dev/queue-manager-rango-preset';
 import { Provider as ManagerProvider } from '@rango-dev/queue-manager-react';
 import { useWallets } from '@rango-dev/wallets-react';
-import { convertEvmBlockchainMetaToEvmChainInfo } from '@rango-dev/wallets-shared';
+import { convertEvmBlockchainMetaToEvmChainInfo } from '@rango-dev/internal-blockchains';
 import { BlockchainMeta, isEvmBlockchain } from 'rango-types';
 import React, { useMemo } from 'react';
 import { useWidget } from '@rango-dev/widget-embedded';
