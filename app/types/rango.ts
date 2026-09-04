@@ -1,4 +1,4 @@
-import { WalletType } from "@rango-dev/wallets-shared";
+import type { LegacyWalletType as WalletType } from "@rango-dev/wallets-core/legacy";
 import { SwapperMeta } from "rango-types/mainApi";
 
 export enum ConfirmMessage {
