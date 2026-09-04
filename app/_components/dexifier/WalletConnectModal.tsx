@@ -8,6 +8,7 @@ import { useStatefulConnect, useWalletList, WalletInfoWithExtra } from "@rango-d
 import { WalletState } from "@rango-dev/ui";
 import type { Namespace } from "@hub3js/namespaces";
 import { preflightWalletUnlock, withTimeout } from "@/app/utils/wallet-preflight";
+import { connectNamespacesFor } from "@/app/utils/wallet-namespaces";
 
 // If a wallet stays in "connecting" this long after we asked it to connect,
 // the extension never answered — reset it instead of spinning forever.
@@ -122,19 +123,23 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
     // isn't actually usable (e.g. MetaMask Solana without the Snap) doesn't
     // abort the others. A hung namespace must not block the rest.
     if (result.status === "Detached" || result.status === "namespace") {
-      const namespaces =
+      const advertised =
         (walletInfo as WalletInfoWithExtra & {
           properties?: { name: string; value?: { data?: { value: Namespace }[] } }[];
         }).properties
           ?.find((p) => p.name === "namespaces")
           ?.value?.data?.map((d) => d.value) ?? [];
+      // Some wallets advertise namespaces Rango can't actually connect —
+      // MetaMask's Solana namespace hangs the whole connect. Filter first.
+      const namespaces = connectNamespacesFor(walletInfo.type, advertised);
       for (const namespace of namespaces) {
-        await withTimeout(
-          handleConnect(walletInfo, { forceConnectToNamespaces: [namespace] }),
-          NAMESPACE_TIMEOUT_MS,
-          String(namespace),
-        ).catch((error) =>
-          console.debug(`Namespace ${String(namespace)} not connected:`, error),
+        const attempt = handleConnect(walletInfo, { forceConnectToNamespaces: [namespace] });
+        // Belt-and-braces: Rango's namespace connect can reject on internal
+        // paths; keep it from ever surfacing as an unhandled rejection.
+        attempt.catch(() => {});
+        await withTimeout(attempt, NAMESPACE_TIMEOUT_MS, String(namespace)).catch(
+          (error) =>
+            console.debug(`Namespace ${String(namespace)} not connected:`, error),
         );
       }
     }
