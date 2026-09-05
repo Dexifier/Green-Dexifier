@@ -19,10 +19,25 @@ export const PREFLIGHT_TIMEOUT_MS = 60_000;
 
 export class WalletPreflightError extends Error {}
 
-// Thrown when a wallet is positively known to be LOCKED before we fire any
-// interactive request — the caller can tell the user to unlock first instead
-// of waiting out a timeout.
-export class WalletLockedError extends WalletPreflightError {}
+// Thrown when the wallet reports a request is already pending for this origin
+// (MetaMask RPC error -32002 "already pending / already processing"). That
+// means a previous connect attempt wedged inside the wallet: its unlock popup
+// was closed or its confirmation screen vanished, and every new interactive
+// request now hangs or rejects until the user clears the pending request in
+// the wallet UI. The dapp cannot clear it — the caller must tell the user.
+export class WalletStuckRequestError extends WalletPreflightError {}
+
+// MetaMask's unlock-popup window is easy to miss; give up on a silent attempt
+// faster than the generic fuse so guidance reaches the user sooner.
+export const METAMASK_PREFLIGHT_TIMEOUT_MS = 25_000;
+
+// MetaMask 13 swallows interactive requests fired while locked (the promise
+// never settles after unlock) and `_metamask.isUnlocked()` cannot be trusted —
+// it answers true while the wallet still demands unlock (verified against the
+// real 13.47 extension). What we CAN trust is its explicit -32002 rejection.
+const isStuckRequestRejection = (error: any): boolean =>
+  error?.code === -32002 ||
+  /already pending|already processing/i.test(String(error?.message ?? error ?? ""));
 
 export const withTimeout = <T>(
   promise: Promise<T>,
@@ -112,30 +127,6 @@ export const withMetaMaskProviderOverride = async <T>(
   }
 };
 
-// MetaMask 13 drops a pending eth_requestAccounts when the user unlocks from
-// the popup that the request itself opened: the promise never settles and no
-// approval screen ever appears, so a connect attempted while locked hangs
-// until timeout (verified against the real MetaMask 13.47 extension).
-// Detect the locked state NON-interactively first — `_metamask.isUnlocked()`
-// has shipped on MetaMask's inpage provider since v8 and answers instantly
-// even while locked — and refuse to fire the droppable interactive request.
-// Returns false whenever the lock state can't be determined (unknown state
-// must never block a connect attempt).
-export const isMetaMaskLocked = async (): Promise<boolean> => {
-  const provider = findMetaMaskProvider();
-  const isUnlocked = provider?._metamask?.isUnlocked;
-  if (typeof isUnlocked !== "function") return false;
-  try {
-    return !(await withTimeout(
-      isUnlocked.call(provider._metamask),
-      5_000,
-      "MetaMask lock check",
-    ));
-  } catch {
-    return false;
-  }
-};
-
 const w = (path: string): any => {
   if (typeof window === "undefined") return null;
   return path.split(".").reduce((obj: any, key) => obj?.[key], window as any) ?? null;
@@ -189,22 +180,32 @@ const getTronLinkProvider = (): any => w("tronLink");
  * by Rango directly, still guarded by the connect modal's watchdog.
  */
 export const preflightWalletUnlock = async (walletType: string): Promise<void> => {
-  // MetaMask: a locked MetaMask swallows interactive requests (see above), so
-  // refuse early with a dedicated error instead of stalling for 60s.
-  if (walletType === "metamask" && (await isMetaMaskLocked())) {
-    throw new WalletLockedError("MetaMask is locked");
-  }
-
   // EVM family: one shared unlock request
   const evmLookup = EVM_INJECTIONS[walletType];
   if (evmLookup) {
     const provider = evmLookup();
     if (provider?.request) {
-      await withTimeout(
-        provider.request({ method: "eth_requestAccounts" }),
-        PREFLIGHT_TIMEOUT_MS,
-        walletType,
-      );
+      // MetaMask gets a shorter fuse: when locked it opens an easy-to-miss
+      // full-window unlock prompt and then silently drops the request, so a
+      // 60s wait only delays the guidance the user needs.
+      const timeoutMs =
+        walletType === "metamask" ? METAMASK_PREFLIGHT_TIMEOUT_MS : PREFLIGHT_TIMEOUT_MS;
+      try {
+        await withTimeout(
+          provider.request({ method: "eth_requestAccounts" }),
+          timeoutMs,
+          walletType,
+        );
+      } catch (error) {
+        // A previous attempt wedged inside the wallet — surface that
+        // precisely; only the user can clear it in the wallet UI.
+        if (isStuckRequestRejection(error)) {
+          throw new WalletStuckRequestError(
+            `${walletType} has a connection request stuck pending`,
+          );
+        }
+        throw error;
+      }
     }
     return;
   }

@@ -1,10 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   findMetaMaskProvider,
-  isMetaMaskLocked,
   preflightWalletUnlock,
-  WalletLockedError,
   WalletPreflightError,
+  WalletStuckRequestError,
   withMetaMaskProviderOverride,
   withTimeout,
 } from "@/app/utils/wallet-preflight";
@@ -168,48 +167,47 @@ describe("MetaMask impostor handling", () => {
   });
 });
 
-describe("MetaMask locked-state guard", () => {
-  // MetaMask 13 drops a pending eth_requestAccounts when the user unlocks
-  // from the popup that request opened — the promise never settles. The
-  // preflight must therefore refuse BEFORE firing any interactive request
-  // when MetaMask is positively known to be locked.
-  it("throws WalletLockedError without firing any request when locked", async () => {
-    const request = vi.fn().mockResolvedValue(["0xabc"]);
-    const isUnlocked = vi.fn().mockResolvedValue(false);
-    win.window = { ethereum: { isMetaMask: true, request, _metamask: { isUnlocked } } };
-    await expect(preflightWalletUnlock("metamask")).rejects.toBeInstanceOf(WalletLockedError);
-    expect(request).not.toHaveBeenCalled();
-  });
-
-  it("proceeds to eth_requestAccounts when unlocked", async () => {
-    const request = vi.fn().mockResolvedValue(["0xabc"]);
-    const isUnlocked = vi.fn().mockResolvedValue(true);
-    win.window = { ethereum: { isMetaMask: true, request, _metamask: { isUnlocked } } };
-    await preflightWalletUnlock("metamask");
-    expect(request).toHaveBeenCalledWith({ method: "eth_requestAccounts" });
-  });
-
-  it("proceeds when the provider has no _metamask lock API", async () => {
-    const request = vi.fn().mockResolvedValue(["0xabc"]);
+describe("stuck-request detection (MetaMask -32002)", () => {
+  // When a connect attempt wedges inside MetaMask (unlock popup closed or
+  // confirmation screen lost), the wallet rejects every later interactive
+  // request with -32002 "already pending" until the user clears it in the
+  // wallet UI. The preflight must surface that as a dedicated error.
+  it("maps an instant -32002 rejection to WalletStuckRequestError", async () => {
+    const err = Object.assign(new Error("Request of type 'wallet_requestPermissions' already pending for origin"), { code: -32002 });
+    const request = vi.fn().mockRejectedValue(err);
     win.window = { ethereum: { isMetaMask: true, request } };
-    await expect(preflightWalletUnlock("metamask")).resolves.toBeUndefined();
-    expect(request).toHaveBeenCalledOnce();
+    await expect(preflightWalletUnlock("metamask")).rejects.toBeInstanceOf(WalletStuckRequestError);
   });
 
-  it("proceeds when the lock check itself fails (unknown must not block)", async () => {
-    const request = vi.fn().mockResolvedValue(["0xabc"]);
-    const isUnlocked = vi.fn().mockRejectedValue(new Error("broken"));
-    win.window = { ethereum: { isMetaMask: true, request, _metamask: { isUnlocked } } };
-    await expect(preflightWalletUnlock("metamask")).resolves.toBeUndefined();
-    expect(request).toHaveBeenCalledOnce();
+  it("matches 'already processing' wording without an error code", async () => {
+    const request = vi.fn().mockRejectedValue(new Error("Already processing eth_requestAccounts. Please wait."));
+    win.window = { ethereum: { isMetaMask: true, request } };
+    await expect(preflightWalletUnlock("metamask")).rejects.toBeInstanceOf(WalletStuckRequestError);
   });
 
-  it("isMetaMaskLocked reads the real MetaMask out of a .providers array", async () => {
-    const mmIsUnlocked = vi.fn().mockResolvedValue(false);
-    const phantomEvm = { isPhantom: true, isMetaMask: true, _metamask: { isUnlocked: vi.fn().mockResolvedValue(true) } };
-    const realMM = { isMetaMask: true, _metamask: { isUnlocked: mmIsUnlocked } };
-    win.window = { ethereum: { ...phantomEvm, providers: [phantomEvm, realMM] } };
-    await expect(isMetaMaskLocked()).resolves.toBe(true);
-    expect(mmIsUnlocked).toHaveBeenCalledOnce();
+  it("detects stuck requests for other EVM wallets too (rabby)", async () => {
+    const err = Object.assign(new Error("request already pending"), { code: -32002 });
+    const request = vi.fn().mockRejectedValue(err);
+    win.window = { ethereum: { isRabby: true, request } };
+    await expect(preflightWalletUnlock("rabby")).rejects.toBeInstanceOf(WalletStuckRequestError);
+  });
+
+  it("does NOT swallow genuine user rejections (4001 stays untouched)", async () => {
+    const err = Object.assign(new Error("User rejected the request."), { code: 4001 });
+    const request = vi.fn().mockRejectedValue(err);
+    win.window = { ethereum: { isMetaMask: true, request } };
+    await expect(preflightWalletUnlock("metamask")).rejects.toMatchObject({ code: 4001 });
+    await expect(preflightWalletUnlock("metamask")).rejects.not.toBeInstanceOf(WalletStuckRequestError);
+  });
+
+  it("MetaMask silent hang surfaces on the shorter 25s fuse", async () => {
+    const request = vi.fn().mockReturnValue(new Promise(() => {}));
+    win.window = { ethereum: { isMetaMask: true, request } };
+    vi.useFakeTimers();
+    const attempt = preflightWalletUnlock("metamask");
+    const assertion = expect(attempt).rejects.toBeInstanceOf(WalletPreflightError);
+    await vi.advanceTimersByTimeAsync(26_000);
+    await assertion;
+    vi.useRealTimers();
   });
 });
