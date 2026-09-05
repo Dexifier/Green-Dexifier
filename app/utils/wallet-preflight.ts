@@ -45,6 +45,68 @@ const evmProviderByFlag = (flag: string): any => {
   return eth[flag] ? eth : null;
 };
 
+// Several wallets spoof `isMetaMask` on their own injected provider for dapp
+// compatibility — Phantom's EVM provider is the common one in the wild. When
+// such a wallet also owns window.ethereum, naive flag checks hand MetaMask's
+// connect to the wrong wallet. Identify MetaMask strictly: isMetaMask AND
+// none of the known impostor flags (mirrors Rango's blocklist, + Phantom).
+const METAMASK_IMPOSTOR_FLAGS = [
+  "isPhantom", "isBraveWallet", "isRabby", "isCoinbaseWallet", "isBitKeep",
+  "isOkxWallet", "isOKExWallet", "isTokenPocket", "isSafePal", "isCoin98",
+  "isMathWallet", "isExodus", "isTally", "isTrust", "isTrustWallet",
+  "isApexWallet", "isAvalanche", "isBlockWallet", "isFordefi", "__XDEFI",
+  "isOneInchIOSWallet", "isOneInchAndroidWallet", "isOpera", "isPortal",
+  "isDefiant", "isTokenary", "isZeal", "isZerion",
+];
+
+export const isStrictMetaMask = (provider: any): boolean =>
+  !!provider?.isMetaMask &&
+  !METAMASK_IMPOSTOR_FLAGS.some((flag) => provider?.[flag]);
+
+// The real MetaMask provider, or null when it isn't injected. Checks the
+// .providers array (multi-wallet installs) before window.ethereum itself.
+export const findMetaMaskProvider = (): any => {
+  if (typeof window === "undefined") return null;
+  const eth = (window as any).ethereum;
+  if (!eth) return null;
+  if (Array.isArray(eth.providers)) {
+    const found = eth.providers.find(isStrictMetaMask);
+    if (found) return found;
+  }
+  return isStrictMetaMask(eth) ? eth : null;
+};
+
+// Rango's MetaMask provider reads window.ethereum ONLY (no .providers array,
+// no EIP-6963), so when an impostor owns window.ethereum the MetaMask tile
+// connects to the wrong wallet. While we run MetaMask's connect, point
+// window.ethereum at the strictly-identified MetaMask, then restore. The hub
+// captures the provider reference during connect, so restoring afterwards is
+// safe. No-op when MetaMask isn't installed or already owns window.ethereum.
+export const withMetaMaskProviderOverride = async <T>(
+  fn: () => Promise<T>,
+): Promise<T> => {
+  if (typeof window === "undefined") return fn();
+  const real = findMetaMaskProvider();
+  const current = (window as any).ethereum;
+  if (!real || !current || current === real || isStrictMetaMask(current)) {
+    return fn();
+  }
+  try {
+    (window as any).ethereum = real;
+  } catch {
+    return fn(); // non-writable injection point — connect as-is
+  }
+  try {
+    return await fn();
+  } finally {
+    try {
+      (window as any).ethereum = current;
+    } catch {
+      // nothing sane to do — leave the corrected assignment in place
+    }
+  }
+};
+
 const w = (path: string): any => {
   if (typeof window === "undefined") return null;
   return path.split(".").reduce((obj: any, key) => obj?.[key], window as any) ?? null;
@@ -54,7 +116,8 @@ const w = (path: string): any => {
 // points the wallets document (and wagmi/RainbowKit rely on). Positively
 // identified only — anything uncertain returns null and skips pre-flight.
 const EVM_INJECTIONS: Record<string, () => any> = {
-  "metamask": () => evmProviderByFlag("isMetaMask"),
+  // MetaMask must be strictly identified — impostor wallets spoof isMetaMask.
+  "metamask": () => findMetaMaskProvider(),
   "trust-wallet": () => w("trustwallet") ?? evmProviderByFlag("isTrust") ?? evmProviderByFlag("isTrustWallet"),
   "brave": () => w("braveEthereum") ?? evmProviderByFlag("isBraveWallet"),
   "rabby": () => evmProviderByFlag("isRabby"),
