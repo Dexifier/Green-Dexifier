@@ -1,7 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   findMetaMaskProvider,
+  isMetaMaskLocked,
   preflightWalletUnlock,
+  WalletLockedError,
   WalletPreflightError,
   withMetaMaskProviderOverride,
   withTimeout,
@@ -163,5 +165,51 @@ describe("MetaMask impostor handling", () => {
     });
     expect(seenDuring[0]).toBe(realMM);
     expect((win.window as any).ethereum).toBe(realMM);
+  });
+});
+
+describe("MetaMask locked-state guard", () => {
+  // MetaMask 13 drops a pending eth_requestAccounts when the user unlocks
+  // from the popup that request opened — the promise never settles. The
+  // preflight must therefore refuse BEFORE firing any interactive request
+  // when MetaMask is positively known to be locked.
+  it("throws WalletLockedError without firing any request when locked", async () => {
+    const request = vi.fn().mockResolvedValue(["0xabc"]);
+    const isUnlocked = vi.fn().mockResolvedValue(false);
+    win.window = { ethereum: { isMetaMask: true, request, _metamask: { isUnlocked } } };
+    await expect(preflightWalletUnlock("metamask")).rejects.toBeInstanceOf(WalletLockedError);
+    expect(request).not.toHaveBeenCalled();
+  });
+
+  it("proceeds to eth_requestAccounts when unlocked", async () => {
+    const request = vi.fn().mockResolvedValue(["0xabc"]);
+    const isUnlocked = vi.fn().mockResolvedValue(true);
+    win.window = { ethereum: { isMetaMask: true, request, _metamask: { isUnlocked } } };
+    await preflightWalletUnlock("metamask");
+    expect(request).toHaveBeenCalledWith({ method: "eth_requestAccounts" });
+  });
+
+  it("proceeds when the provider has no _metamask lock API", async () => {
+    const request = vi.fn().mockResolvedValue(["0xabc"]);
+    win.window = { ethereum: { isMetaMask: true, request } };
+    await expect(preflightWalletUnlock("metamask")).resolves.toBeUndefined();
+    expect(request).toHaveBeenCalledOnce();
+  });
+
+  it("proceeds when the lock check itself fails (unknown must not block)", async () => {
+    const request = vi.fn().mockResolvedValue(["0xabc"]);
+    const isUnlocked = vi.fn().mockRejectedValue(new Error("broken"));
+    win.window = { ethereum: { isMetaMask: true, request, _metamask: { isUnlocked } } };
+    await expect(preflightWalletUnlock("metamask")).resolves.toBeUndefined();
+    expect(request).toHaveBeenCalledOnce();
+  });
+
+  it("isMetaMaskLocked reads the real MetaMask out of a .providers array", async () => {
+    const mmIsUnlocked = vi.fn().mockResolvedValue(false);
+    const phantomEvm = { isPhantom: true, isMetaMask: true, _metamask: { isUnlocked: vi.fn().mockResolvedValue(true) } };
+    const realMM = { isMetaMask: true, _metamask: { isUnlocked: mmIsUnlocked } };
+    win.window = { ethereum: { ...phantomEvm, providers: [phantomEvm, realMM] } };
+    await expect(isMetaMaskLocked()).resolves.toBe(true);
+    expect(mmIsUnlocked).toHaveBeenCalledOnce();
   });
 });

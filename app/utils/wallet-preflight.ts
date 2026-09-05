@@ -19,6 +19,11 @@ export const PREFLIGHT_TIMEOUT_MS = 60_000;
 
 export class WalletPreflightError extends Error {}
 
+// Thrown when a wallet is positively known to be LOCKED before we fire any
+// interactive request — the caller can tell the user to unlock first instead
+// of waiting out a timeout.
+export class WalletLockedError extends WalletPreflightError {}
+
 export const withTimeout = <T>(
   promise: Promise<T>,
   ms: number,
@@ -107,6 +112,30 @@ export const withMetaMaskProviderOverride = async <T>(
   }
 };
 
+// MetaMask 13 drops a pending eth_requestAccounts when the user unlocks from
+// the popup that the request itself opened: the promise never settles and no
+// approval screen ever appears, so a connect attempted while locked hangs
+// until timeout (verified against the real MetaMask 13.47 extension).
+// Detect the locked state NON-interactively first — `_metamask.isUnlocked()`
+// has shipped on MetaMask's inpage provider since v8 and answers instantly
+// even while locked — and refuse to fire the droppable interactive request.
+// Returns false whenever the lock state can't be determined (unknown state
+// must never block a connect attempt).
+export const isMetaMaskLocked = async (): Promise<boolean> => {
+  const provider = findMetaMaskProvider();
+  const isUnlocked = provider?._metamask?.isUnlocked;
+  if (typeof isUnlocked !== "function") return false;
+  try {
+    return !(await withTimeout(
+      isUnlocked.call(provider._metamask),
+      5_000,
+      "MetaMask lock check",
+    ));
+  } catch {
+    return false;
+  }
+};
+
 const w = (path: string): any => {
   if (typeof window === "undefined") return null;
   return path.split(".").reduce((obj: any, key) => obj?.[key], window as any) ?? null;
@@ -160,6 +189,12 @@ const getTronLinkProvider = (): any => w("tronLink");
  * by Rango directly, still guarded by the connect modal's watchdog.
  */
 export const preflightWalletUnlock = async (walletType: string): Promise<void> => {
+  // MetaMask: a locked MetaMask swallows interactive requests (see above), so
+  // refuse early with a dedicated error instead of stalling for 60s.
+  if (walletType === "metamask" && (await isMetaMaskLocked())) {
+    throw new WalletLockedError("MetaMask is locked");
+  }
+
   // EVM family: one shared unlock request
   const evmLookup = EVM_INJECTIONS[walletType];
   if (evmLookup) {
