@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { useStatefulConnect, useWalletList, WalletInfoWithExtra } from "@rango-dev/widget-embedded";
 import { WalletState } from "@rango-dev/ui";
 import type { Namespace } from "@hub3js/namespaces";
-import { preflightWalletUnlock, WalletLockedError, withMetaMaskProviderOverride, withTimeout } from "@/app/utils/wallet-preflight";
+import { preflightWalletUnlock, WalletStuckRequestError, withMetaMaskProviderOverride, withTimeout } from "@/app/utils/wallet-preflight";
 import { connectNamespacesFor } from "@/app/utils/wallet-namespaces";
 
 // If a wallet stays in "connecting" this long after we asked it to connect,
@@ -107,14 +107,14 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
       await preflightWalletUnlock(walletInfo.type);
     } catch (error) {
       console.debug(`Preflight unlock failed for ${walletInfo.type}:`, error);
-      if (error instanceof WalletLockedError) {
-        // MetaMask swallows interactive requests fired while locked (they
-        // never settle after unlock), so we refuse early and say exactly
-        // what to do instead of stalling on "connecting".
-        showHint(`${walletInfo.title} is locked. Open the extension, unlock it, then press Connect again.`);
+      if (error instanceof WalletStuckRequestError) {
+        // A previous connect attempt wedged inside the wallet (its unlock/
+        // approval screen was closed or lost). The wallet rejects every new
+        // request until the user clears the pending one — only they can.
+        showHint(`${walletInfo.title} has a stuck connection request. Open the extension, approve or reject the pending request, then press Connect again.`);
         return;
       }
-      showHint(`${walletInfo.title} is locked or didn't respond. Unlock it and try again.`);
+      showHint(`${walletInfo.title} isn't answering. Open the extension — unlock it or clear any pending request — then press Connect again.`);
       return;
     }
     armWatchdog(walletInfo);
