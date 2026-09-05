@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { useStatefulConnect, useWalletList, WalletInfoWithExtra } from "@rango-dev/widget-embedded";
 import { WalletState } from "@rango-dev/ui";
 import type { Namespace } from "@hub3js/namespaces";
-import { preflightWalletUnlock, withTimeout } from "@/app/utils/wallet-preflight";
+import { preflightWalletUnlock, withMetaMaskProviderOverride, withTimeout } from "@/app/utils/wallet-preflight";
 import { connectNamespacesFor } from "@/app/utils/wallet-namespaces";
 
 // If a wallet stays in "connecting" this long after we asked it to connect,
@@ -111,7 +111,15 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
       return;
     }
     armWatchdog(walletInfo);
-    const result = await handleConnect(walletInfo).catch((error) => {
+    // Rango's MetaMask connect reads window.ethereum only — when an impostor
+    // (e.g. Phantom's EVM provider) owns it and spoofs isMetaMask, the tile
+    // would connect to the wrong wallet. Temporarily point window.ethereum
+    // at the strictly-identified MetaMask for the duration of the connect.
+    const connect = () =>
+      walletInfo.type === "metamask"
+        ? withMetaMaskProviderOverride(() => handleConnect(walletInfo))
+        : handleConnect(walletInfo);
+    const result = await connect().catch((error) => {
       console.error(error);
       showHint(`Could not connect ${walletInfo.title}. Please try again.`);
       return undefined;
@@ -133,7 +141,12 @@ const WalletConnectModal: React.FC<PropsWithChildren<WalletConnectModalProps>> =
       // MetaMask's Solana namespace hangs the whole connect. Filter first.
       const namespaces = connectNamespacesFor(walletInfo.type, advertised);
       for (const namespace of namespaces) {
-        const attempt = handleConnect(walletInfo, { forceConnectToNamespaces: [namespace] });
+        const attempt =
+          walletInfo.type === "metamask"
+            ? withMetaMaskProviderOverride(() =>
+                handleConnect(walletInfo, { forceConnectToNamespaces: [namespace] }),
+              )
+            : handleConnect(walletInfo, { forceConnectToNamespaces: [namespace] });
         // Belt-and-braces: Rango's namespace connect can reject on internal
         // paths; keep it from ever surfacing as an unhandled rejection.
         attempt.catch(() => {});

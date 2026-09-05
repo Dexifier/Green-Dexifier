@@ -1,7 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+  findMetaMaskProvider,
   preflightWalletUnlock,
   WalletPreflightError,
+  withMetaMaskProviderOverride,
   withTimeout,
 } from "@/app/utils/wallet-preflight";
 
@@ -112,5 +114,54 @@ describe("preflightWalletUnlock", () => {
     await vi.advanceTimersByTimeAsync(61_000);
     await assertion;
     vi.useRealTimers();
+  });
+});
+
+describe("MetaMask impostor handling", () => {
+  it("findMetaMaskProvider skips an isMetaMask-spoofing Phantom in .providers", () => {
+    const phantomEvm = { isPhantom: true, isMetaMask: true, request: vi.fn() };
+    const realMM = { isMetaMask: true, request: vi.fn() };
+    win.window = { ethereum: { ...phantomEvm, providers: [phantomEvm, realMM] } };
+    expect(findMetaMaskProvider()).toBe(realMM);
+  });
+
+  it("preflight hits the real MetaMask, not the window.ethereum impostor", async () => {
+    const phantomRequest = vi.fn().mockResolvedValue(["0xphantom"]);
+    const mmRequest = vi.fn().mockResolvedValue(["0xmm"]);
+    const phantomEvm = { isPhantom: true, isMetaMask: true, request: phantomRequest };
+    const realMM = { isMetaMask: true, request: mmRequest };
+    win.window = { ethereum: { ...phantomEvm, providers: [phantomEvm, realMM] } };
+    await preflightWalletUnlock("metamask");
+    expect(mmRequest).toHaveBeenCalledOnce();
+    expect(phantomRequest).not.toHaveBeenCalled();
+  });
+
+  it("findMetaMaskProvider returns null when only an impostor is present", () => {
+    win.window = { ethereum: { isPhantom: true, isMetaMask: true } };
+    expect(findMetaMaskProvider()).toBeNull();
+  });
+
+  it("withMetaMaskProviderOverride swaps window.ethereum during connect and restores after", async () => {
+    const phantomEvm = { isPhantom: true, isMetaMask: true };
+    const realMM = { isMetaMask: true };
+    win.window = { ethereum: { ...phantomEvm, providers: [phantomEvm, realMM] } };
+    const seenDuring: any[] = [];
+    await withMetaMaskProviderOverride(async () => {
+      seenDuring.push((win.window as any).ethereum);
+    });
+    expect(seenDuring[0]).toBe(realMM);
+    expect((win.window as any).ethereum).not.toBe(realMM); // restored
+    expect((win.window as any).ethereum.isPhantom).toBe(true);
+  });
+
+  it("withMetaMaskProviderOverride is a no-op when MetaMask already owns window.ethereum", async () => {
+    const realMM = { isMetaMask: true };
+    win.window = { ethereum: realMM };
+    const seenDuring: any[] = [];
+    await withMetaMaskProviderOverride(async () => {
+      seenDuring.push((win.window as any).ethereum);
+    });
+    expect(seenDuring[0]).toBe(realMM);
+    expect((win.window as any).ethereum).toBe(realMM);
   });
 });
